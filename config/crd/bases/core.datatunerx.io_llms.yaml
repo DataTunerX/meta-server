@@ -1,0 +1,172 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.11.1
+  creationTimestamp: null
+  name: llms.core.datatunerx.io
+spec:
+  group: core.datatunerx.io
+  names:
+    kind: LLM
+    listKind: LLMList
+    plural: llms
+    singular: llm
+  scope: Namespaced
+  versions:
+  - name: v1beta1
+    schema:
+      openAPIV3Schema:
+        description: LLM is the Schema for the llms API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: LLMSpec defines the desired state of LLM
+            properties:
+              LLMCard:
+                description: Describe readme information for llm.
+                properties:
+                  LLMCardRef:
+                    description: Readme information of the model, parsed in markdown
+                      format, is presented as information on the model page to help
+                      model users understand the model and use it correctly. Describe
+                      references to readme files mounted by configmap.
+                    type: string
+                type: object
+              LLMFiles:
+                description: Describe file information for llm.
+                properties:
+                  source:
+                    description: Describe llm source file citation address.
+                    type: string
+                type: object
+              LLMMetdata:
+                description: Describe metadata information for llm.
+                properties:
+                  LLMImageConfig:
+                    description: Describe the llm image config.
+                    properties:
+                      image:
+                        type: string
+                      path:
+                        type: string
+                    required:
+                    - image
+                    - path
+                    type: object
+                  baseLLm:
+                    description: Describe the llm on which the model was fine-tuned.
+                    type: string
+                  computeInfrastructure:
+                    description: Describe Hardware and software information the llm's
+                      operation
+                    properties:
+                      hardware:
+                        description: Describe the hardware information required for
+                          the llm to operate
+                        properties:
+                          cpu:
+                            description: Description of the number of cpu cores needed
+                              for llm.
+                            type: string
+                          memory:
+                            description: Description of the memory size required by
+                              llm
+                            type: string
+                          vRam:
+                            description: Describes the size of the video memory required
+                              by the llm.
+                            type: string
+                        required:
+                        - cpu
+                        - memory
+                        - vRam
+                        type: object
+                    type: object
+                  datasets:
+                    description: Describe the datasets used in the llm.
+                    items:
+                      type: string
+                    type: array
+                  domain:
+                    description: 'Describe the domain of the llm, the following fields
+                      are optional: 1. Multimodal 2. ComputerVision 3. NLP 4. Audio
+                      5. Tabular 6. ReinforcementLearning'
+                    enum:
+                    - Multimodal
+                    - ComputerVision
+                    - NLP
+                    - Audio
+                    - Tabular
+                    - ReinforcementLearning
+                    items:
+                      type: string
+                    type: array
+                    uniqueItems: true
+                  frameworks:
+                    description: Describe the AI framework used by the llm.
+                    items:
+                      type: string
+                    type: array
+                    uniqueItems: true
+                  languages:
+                    description: Describe list of natural languages supported by the
+                      llm.
+                    items:
+                      type: string
+                    type: array
+                    uniqueItems: true
+                  license:
+                    description: Describe the open source licences to which the llm
+                      adheres.
+                    items:
+                      type: string
+                    type: array
+                    uniqueItems: true
+                  name:
+                    description: Describe the name of the llm.
+                    type: string
+                  tags:
+                    description: Custom labels for llm.
+                    items:
+                      type: string
+                    type: array
+                  tasks:
+                    description: "Describe the types of tasks in the pipeline corresponding
+                      to the llm. example: \n ... tasks: - feature-extraction - text-to-image
+                      ..."
+                    items:
+                      type: string
+                    type: array
+                    uniqueItems: true
+                required:
+                - LLMImageConfig
+                - frameworks
+                - languages
+                - license
+                - name
+                - tasks
+                type: object
+            required:
+            - LLMMetdata
+            type: object
+          status:
+            description: LLMStatus defines the observed state of LLM
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

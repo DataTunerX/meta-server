@@ -1,0 +1,12 @@
+apiVersion: finetune.datatunerx.io/v1beta1
+kind: FinetuneExperiment
+metadata:
+  labels:
+    app.kubernetes.io/name: finetuneexperiment
+    app.kubernetes.io/instance: finetuneexperiment-sample
+    app.kubernetes.io/part-of: meta-server
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: meta-server
+  name: finetuneexperiment-sample
+spec:
+  # TODO(user): Add fields here
