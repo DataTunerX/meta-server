@@ -93,12 +93,11 @@ FinetuneJob
   - **ModelExportResult:** 模型导出结果 true  
   - **RayDashboard:** Ray 服务的 dashboard  
   - **RayServe:** Ray 服务地址  
-  - **Image:** 镜像  
-  - **ScoreResult:** scoring cr 更新
+  - **Image:** 镜像
 
 ---
 
-### FinetuneJob CRD:
+### FinetuneExperiment CRD:
 
 ---
 

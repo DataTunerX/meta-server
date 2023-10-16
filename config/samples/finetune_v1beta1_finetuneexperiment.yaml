@@ -9,4 +9,3 @@ metadata:
     app.kubernetes.io/created-by: meta-server
   name: finetuneexperiment-sample
 spec:
-  # TODO(user): Add fields here

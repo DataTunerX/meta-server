@@ -1,0 +1,141 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.11.1
+  creationTimestamp: null
+  name: finetunejobs.finetune.datatunerx.io
+spec:
+  group: finetune.datatunerx.io
+  names:
+    kind: FinetuneJob
+    listKind: FinetuneJobList
+    plural: finetunejobs
+    singular: finetunejob
+  scope: Namespaced
+  versions:
+  - name: v1beta1
+    schema:
+      openAPIV3Schema:
+        description: FinetuneJob is the Schema for the finetunejobs API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: FinetuneJobSpec defines the desired state of FinetuneJob
+            properties:
+              fineTune:
+                description: Finetune cr config.
+                properties:
+                  dataset:
+                    description: Dataset specifies the dataset CR used for fine-tuning.
+                    type: string
+                  hyperparameter:
+                    description: Hyperparameter specifies the hyperparameter CR used
+                      for fine-tuning.
+                    type: string
+                  llm:
+                    description: LLM specifies the large model CR used for fine-tuning.
+                    type: string
+                  resource:
+                    description: Resource specifies the resource configuration for
+                      fine-tuning.
+                    properties:
+                      limits:
+                        description: Limits specifies the resource limits.
+                        properties:
+                          cpu:
+                            description: CPU specifies the CPU resource limit.
+                            type: string
+                          gpu:
+                            description: GPU specifies the GPU resource limit.
+                            type: string
+                          memory:
+                            description: Memory specifies the memory resource limit.
+                            type: string
+                        required:
+                        - cpu
+                        - gpu
+                        - memory
+                        type: object
+                    required:
+                    - limits
+                    type: object
+                required:
+                - dataset
+                - hyperparameter
+                - llm
+                - resource
+                type: object
+              scoringConfig:
+                description: Score plugin config.
+                properties:
+                  name:
+                    description: Name specifies the name of the scoring CR.
+                    type: string
+                required:
+                - name
+                type: object
+              serveConfig:
+                description: Ray Serve config.
+                properties:
+                  nodeSelector:
+                    description: NodeSelector specifies the node where Ray service
+                      will be deployed.
+                    type: string
+                  tolerations:
+                    description: Tolerations specifies the tolerations for Ray service.
+                    type: string
+                required:
+                - nodeSelector
+                - tolerations
+                type: object
+            required:
+            - fineTune
+            - serveConfig
+            type: object
+          status:
+            description: FinetuneJobStatus defines the observed state of FinetuneJob
+            properties:
+              result:
+                properties:
+                  image:
+                    type: string
+                  modelExportResult:
+                    type: boolean
+                  rayDashboard:
+                    type: string
+                  rayServe:
+                    type: string
+                required:
+                - image
+                - modelExportResult
+                - rayDashboard
+                - rayServe
+                type: object
+              state:
+                type: string
+              stats:
+                description: todo FinetuneState
+                type: string
+            required:
+            - result
+            - state
+            - stats
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

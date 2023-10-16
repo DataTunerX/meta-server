@@ -35,38 +35,27 @@ spec:
           spec:
             description: LLMSpec defines the desired state of LLM
             properties:
-              LLMCard:
+              llmCard:
                 description: Describe readme information for llm.
                 properties:
-                  LLMCardRef:
+                  llmCardRef:
                     description: Readme information of the model, parsed in markdown
                       format, is presented as information on the model page to help
                       model users understand the model and use it correctly. Describe
                       references to readme files mounted by configmap.
                     type: string
                 type: object
-              LLMFiles:
+              llmFiles:
                 description: Describe file information for llm.
                 properties:
                   source:
                     description: Describe llm source file citation address.
                     type: string
                 type: object
-              LLMMetdata:
+              llmMetdata:
                 description: Describe metadata information for llm.
                 properties:
-                  LLMImageConfig:
-                    description: Describe the llm image config.
-                    properties:
-                      image:
-                        type: string
-                      path:
-                        type: string
-                    required:
-                    - image
-                    - path
-                    type: object
-                  baseLLm:
+                  baseLlm:
                     description: Describe the llm on which the model was fine-tuned.
                     type: string
                   computeInfrastructure:
@@ -135,6 +124,17 @@ spec:
                       type: string
                     type: array
                     uniqueItems: true
+                  llmImageConfig:
+                    description: Describe the llm image config.
+                    properties:
+                      image:
+                        type: string
+                      path:
+                        type: string
+                    required:
+                    - image
+                    - path
+                    type: object
                   name:
                     description: Describe the name of the llm.
                     type: string
@@ -152,15 +152,15 @@ spec:
                     type: array
                     uniqueItems: true
                 required:
-                - LLMImageConfig
                 - frameworks
                 - languages
                 - license
+                - llmImageConfig
                 - name
                 - tasks
                 type: object
             required:
-            - LLMMetdata
+            - llmMetdata
             type: object
           status:
             description: LLMStatus defines the observed state of LLM
