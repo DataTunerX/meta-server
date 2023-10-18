@@ -1,0 +1,12 @@
+apiVersion: extension.datatunerx.io/v1beta1
+kind: Dataset
+metadata:
+  labels:
+    app.kubernetes.io/name: dataset
+    app.kubernetes.io/instance: dataset-sample
+    app.kubernetes.io/part-of: meta-server
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: meta-server
+  name: dataset-sample
+spec:
+  # TODO(user): Add fields here

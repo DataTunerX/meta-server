@@ -5,4 +5,5 @@ resources:
 - core_v1beta1_llm.yaml
 - finetune_v1beta1_finetuneworkflow.yaml
 - finetune_v1beta1_finetuneexperiment.yaml
+- extension_v1beta1_dataset.yaml
 #+kubebuilder:scaffold:manifestskustomizesamples
