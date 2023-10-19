@@ -25,19 +25,24 @@ import (
 // SubTask defines a dataset task's subtask
 type SubTask struct {
 	// +kubebuilder:validation:MaxLength=63
-	Name string `json:"name,omitempty"`
+	// +kubebuilder:validation:Required
+	Name string `json:"name"`
 }
 
 // Task defines a dataset task type
 type Task struct {
+	// +kubebuilder:validation:Required
 	// +kubebuilder:validation:MaxLength=63
-	Name     string    `json:"name,omitempty"`
+	Name string `json:"name"`
+	// SubTask defines a dataset task's subtask e.g. language-modeling of Text Generation, open-domain-qa of Question Answering etc.
+	// It is corresponding to Task.
 	SubTasks []SubTask `json:"subTasks,omitempty"`
 }
 
 // Train defines a dataset's subsets' train-splits file address
 type Train struct {
-	File string `json:"file,omitempty"`
+	// +kubebuilder:validation:Required
+	File string `json:"file"`
 }
 
 // Test defines a dataset's subsets' test-splits file address
@@ -47,7 +52,8 @@ type Test struct {
 
 // Validate defines a dataset's subsets' validate-splits file address
 type Validate struct {
-	File string `json:"file,omitempty"`
+	// +kubebuilder:validation:Required
+	File string `json:"file"`
 }
 
 // Splits defines a dataset's train-splits, test-splits, validate-splits address info
@@ -60,18 +66,23 @@ type Splits struct {
 // Subset defines a dataset‘s subset
 type Subset struct {
 	// +kubebuilder:validation:MaxLength=63
-	Name   string `json:"name,omitempty"`
+	// +kubebuilder:validation:Required
+	// Subset e.g. Random Sample Subset, Balanced Class Subset, Time Window Subset, Feature Subset, Cross-Validation Subset, Outlier Detection Subset etc.
+	Name string `json:"name,omitempty"`
+	// Splits describes subsets of training and testing and validation data splits
 	Splits Splits `json:"splits,omitempty"`
 }
-
-//
 
 // Feature defines a dataset's column name as a feature and its data type and relationship to finetune feature fields
 type Feature struct {
 	// +kubebuilder:validation:Enum=instruction;response
-	Name string `json:"name,omitempty"`
+	// +kubebuilder:validation:Required
+	Name string `json:"name"`
 	// +kubebuilder:validation:MaxLength=63
-	MapTo    string `json:"mapTo,omitempty"`
+	// +kubebuilder:validation:Required
+	// MapTo describes the dataste feature field mapping to instruction or response.
+	MapTo string `json:"mapTo"`
+	// +kubebuilder:default:=string
 	DataType string `json:"dataType,omitempty"`
 }
 
@@ -83,8 +94,10 @@ type DatasetInfo struct {
 
 // Plugin defines a plugin used by a dataset
 type Plugin struct {
-	// +kubebuilder:default:=true
-	LoadPlugin bool `json:"loadPlugin,omitempty"`
+
+	// +kubebuilder:default:=false
+	// LoadPlugin describes a Scoring CR whether uses plugin to do evaluation, if true then Plugin data will be needed,
+	LoadPlugin bool `json:"loadPlugin"`
 	// +kubebuilder:validation:MaxLength=63
 	Name       string `json:"name,omitempty"`
 	Parameters string `json:"parameters,omitempty"`
@@ -92,13 +105,27 @@ type Plugin struct {
 
 // DatasetMetadata defines the metadata fields in DatasetSpec
 type DatasetMetadata struct {
-	Languages   []string     `json:"languages,omitempty"`
-	Tags        []string     `json:"tags,omitempty"`
-	License     string       `json:"license,omitempty"`
-	Size        string       `json:"size,omitempty"`
-	Task        Task         `json:"task,omitempty"`
+	// +kubebuilder:validation:Required
+	// Languages includes Chinese and English and etc.
+	Languages []string `json:"languages"`
+	// Tags describes a dataset, it's customized.
+	Tags []string `json:"tags,omitempty"`
+	// +kubebuilder:validation:Required
+	// License includes CC BY, CC BY-SA, CC BY-ND, CC BY-NC, CC BY-NC-SA, CC BY-NC-ND, CC0, ODC-PDDL, ODC-BY
+	// ODC-ODbl, CDLA-Permissive-2.0, CDLA-Sharing-1.0
+	License string `json:"license"`
+	// +kubebuilder:validation:Required
+	// Size describes dataset's entries number
+	Size string `json:"size"`
+	// +kubebuilder:validation:Required
+	// Task describes the main task that the dataset can do, including Text Generation, Question Answering,
+	// Translation, Conversational etc.
+	// +kubebuilder:validation:Enum=Text Generation;Question Answering
+	Task *Task `json:"task"`
+	// DatasetInfo describes a dataset's subsets and Features.
 	DatasetInfo *DatasetInfo `json:"datasetInfo,omitempty"`
-	Plugin      Plugin       `json:"plugin,omitempty"`
+	// Plugin describes the plugin including parameters and whether uses a plugin.
+	Plugin *Plugin `json:"plugin,omitempty"`
 }
 
 // DatasetCard defines a dataset's readme, in type of markdown
@@ -116,9 +143,12 @@ type DatasetSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 	// +kubebuilder:validation:Required
+	// DatasetMetadata contains a dataset's Language, Tags, Size, License, Task, Plugin, and baseinfo
 	DatasetMetadata *DatasetMetadata `json:"datasetMetadata"`
-	DatasetCard     *DatasetCard     `json:"datasetCard,omitempty"`
-	DatasetFiles    *DatasetFiles    `json:"datasetFiles,omitempty"`
+	// DatasetCard contains a dataset's README reference.
+	DatasetCard *DatasetCard `json:"datasetCard,omitempty"`
+	// DatasetFiles describes a dataset source address.
+	DatasetFiles *DatasetFiles `json:"datasetFiles,omitempty"`
 }
 
 // DatasetState is an enum type for the State field
