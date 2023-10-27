@@ -20,22 +20,90 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
+type FinetuneJobState string
+
+const (
+	FinetuneJobInit       FinetuneJobState = "INIT"
+	FinetuneJobFailed     FinetuneJobState = "FAILED"
+	FinetuneJobSuccessful FinetuneJobState = "SUCCESSFUL"
+	FinetuneJobBuildImage FinetuneJobState = "BUILDIMAGE"
+	FinetuneJobFinetune   FinetuneJobState = "FINETUNE"
+	FinetuneJobServe      FinetuneJobState = "SERVE"
+)
 
 // FinetuneJobSpec defines the desired state of FinetuneJob
 type FinetuneJobSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// Finetune cr config.
+	// +kubebuilder:validation:Required
+	FineTune FineTune `json:"fineTune"`
+	// Score plugin config.
+	// +kubebuilder:validation:Optional
+	ScoringConfig *ScoringConfig `json:"scoringConfig,omitempty"`
+	// Ray Serve config.
+	// +kubebuilder:validation:Required
+	ServeConfig ServeConfig `json:"serveConfig"`
+}
 
-	// Foo is an example field of FinetuneJob. Edit finetunejob_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+// ResourceLimits represents the resource limits for a task.
+type ResourceLimits struct {
+	// CPU specifies the CPU resource limit.
+	CPU string `json:"cpu"`
+
+	// Memory specifies the memory resource limit.
+	Memory string `json:"memory"`
+
+	// GPU specifies the GPU resource limit.
+	GPU string `json:"gpu"`
+}
+
+// Resource represents the resources configuration for a task.
+type Resource struct {
+	// Limits specifies the resource limits.
+	Limits ResourceLimits `json:"limits"`
+}
+
+// ServeConfig represents the configuration for serving with Ray.
+type ServeConfig struct {
+	// NodeSelector specifies the node where Ray service will be deployed.
+	NodeSelector string `json:"nodeSelector"`
+
+	// Tolerations specifies the tolerations for Ray service.
+	Tolerations string `json:"tolerations"`
+}
+
+// ScoringConfig represents the configuration for scoring.
+type ScoringConfig struct {
+	// Name specifies the name of the scoring CR.
+	Name string `json:"name"`
+}
+
+type FineTune struct {
+	// LLM specifies the large model CR used for fine-tuning.
+	LLM string `json:"llm"`
+
+	// Dataset specifies the dataset CR used for fine-tuning.
+	Dataset string `json:"dataset"`
+
+	// Hyperparameter specifies the hyperparameter CR used for fine-tuning.
+	Hyperparameter string `json:"hyperparameter"`
+
+	// Resource specifies the resource configuration for fine-tuning.
+	Resource Resource `json:"resource"`
 }
 
 // FinetuneJobStatus defines the observed state of FinetuneJob
 type FinetuneJobStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	State FinetuneJobState `json:"state"`
+	// todo FinetuneState
+	Stats  string            `json:"stats"`
+	Result FinetuneJobResult `json:"result"`
+}
+
+type FinetuneJobResult struct {
+	ModelExportResult bool   `json:"modelExportResult"`
+	RayDashboard      string `json:"rayDashboard"`
+	RayServe          string `json:"rayServe"`
+	Image             string `json:"image"`
 }
 
 //+kubebuilder:object:root=true

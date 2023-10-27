@@ -40,6 +40,6 @@ go.work
 
 .idea/
 
-hack/
-
 bin/
+
+cmd/

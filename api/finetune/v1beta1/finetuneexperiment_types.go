@@ -20,22 +20,32 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
+type FinetuneExperimentState string
+
+const (
+	FinetuneExperimentProcessing FinetuneExperimentState = "PROCESSING"
+	FinetuneExperimentSuccess    FinetuneExperimentState = "SUCCESS"
+	FinetuneExperimentFailed     FinetuneExperimentState = "FAILED"
+)
 
 // FinetuneExperimentSpec defines the desired state of FinetuneExperiment
 type FinetuneExperimentSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-
-	// Foo is an example field of FinetuneExperiment. Edit finetuneexperiment_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	FinetuneJobs  []FinetuneJobSpec `json:"finetuneJobs"`
+	ScoringConfig ScoringConfig     `json:"scoringConfig"`
 }
 
 // FinetuneExperimentStatus defines the observed state of FinetuneExperiment
 type FinetuneExperimentStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+}
+
+type BestVersion struct {
+	Score          string                  `json:"score"`
+	Image          string                  `json:"image"`
+	LLM            string                  `json:"llm"`
+	Hyperparameter string                  `json:"hyperparameter"`
+	Dataset        string                  `json:"dataset"`
+	JobStates      []FinetuneJobState      `json:"jobStates"`
+	State          FinetuneExperimentState `json:"state"`
 }
 
 //+kubebuilder:object:root=true
