@@ -67,17 +67,29 @@ spec:
                           the llm to operate
                         properties:
                           cpu:
+                            anyOf:
+                            - type: integer
+                            - type: string
                             description: Description of the number of cpu cores needed
                               for llm.
-                            type: string
+                            pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                            x-kubernetes-int-or-string: true
                           memory:
+                            anyOf:
+                            - type: integer
+                            - type: string
                             description: Description of the memory size required by
                               llm
-                            type: string
+                            pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                            x-kubernetes-int-or-string: true
                           vRam:
+                            anyOf:
+                            - type: integer
+                            - type: string
                             description: Describes the size of the video memory required
                               by the llm.
-                            type: string
+                            pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                            x-kubernetes-int-or-string: true
                         required:
                         - cpu
                         - memory
@@ -93,14 +105,14 @@ spec:
                     description: 'Describe the domain of the llm, the following fields
                       are optional: 1. Multimodal 2. ComputerVision 3. NLP 4. Audio
                       5. Tabular 6. ReinforcementLearning'
-                    enum:
-                    - Multimodal
-                    - ComputerVision
-                    - NLP
-                    - Audio
-                    - Tabular
-                    - ReinforcementLearning
                     items:
+                      enum:
+                      - Multimodal
+                      - ComputerVision
+                      - NLP
+                      - Audio
+                      - Tabular
+                      - ReinforcementLearning
                       type: string
                     type: array
                     uniqueItems: true

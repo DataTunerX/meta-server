@@ -20,6 +20,20 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+type HyperparameterObjectiveType string
+type HyperparameterScheduler string
+type HyperparameterOptimizer string
+
+const (
+	SFT      HyperparameterObjectiveType = "SFT"
+	Cosine   HyperparameterScheduler     = "Cosine"
+	Linear   HyperparameterScheduler     = "Linear"
+	Constant HyperparameterScheduler     = "Constant"
+	AdamW    HyperparameterOptimizer     = "AdamW"
+	Adam     HyperparameterOptimizer     = "Adam"
+	SGD      HyperparameterOptimizer     = "SGD"
+)
+
 // HyperparameterSpec defines the desired state of Hyperparameter
 type HyperparameterSpec struct {
 	// +kubebuilder:validation:Required
@@ -35,23 +49,27 @@ type HyperparameterSpec struct {
 type Objective struct {
 	/*
 		The type (Type) of fine-tuning may refer to a specific method or strategy of hyperparameter tuning. Common hyperparameter tuning methods include:
-		1. Grid Search
-		2. Random Search
-		3. Bayesian Optimisation
-		4. Genetic Algorithms
-		5. Hyperband et al.
+		1. SFT
 	*/
-	Type string `json:"type"`
+	// +kubebuilder:validation:Required
+	// +kubebuilder:default:=SFT
+	Type HyperparameterObjectiveType `json:"type"`
 }
 
 type Parameters struct {
 	// Scheduler specifies the learning rate scheduler.
-	Scheduler string `json:"scheduler"`
+	// +kubebuilder:default:=Cosine
+	// +kubebuilder:validation:Enum=Cosine;Linear;Constant
+	Scheduler HyperparameterScheduler `json:"scheduler"`
 	// Optimizer specifies the optimization algorithm.
-	Optimizer string `json:"optimizer"`
+	// +kubebuilder:default:=AdamW
+	// +kubebuilder:validation:Enum=AdamW;Adam;SGD
+	Optimizer HyperparameterOptimizer `json:"optimizer"`
 	// Int4 indicates whether to use 4-bit integer quantization.
+	// +kubebuilder:default:=false
 	Int4 bool `json:"int4"`
 	// Int8 indicates whether to use 8-bit integer quantization.
+	// +kubebuilder:default:=false
 	Int8 bool `json:"int8"`
 	// LoRA_R represents the radius parameter for Localized Receptive Attention.
 	LoRA_R string `json:"loRA_R"`
@@ -60,24 +78,33 @@ type Parameters struct {
 	// LoRA_Dropout specifies the dropout rate for Localized Receptive Attention.
 	LoRA_Dropout string `json:"loRA_Dropout"`
 	// LearningRate specifies the initial learning rate.
+	// +kubebuilder:default:=0.01
 	LearningRate string `json:"learningRate"`
 	// Epochs specifies the number of training epochs.
+	// +kubebuilder:default:=10
 	Epochs int `json:"epochs"`
 	// BlockSize specifies the block size.
+	// +kubebuilder:default:=128
 	BlockSize int `json:"blockSize"`
 	// BatchSize specifies the size of mini-batches.
+	// +kubebuilder:default:=32
 	BatchSize int `json:"batchSize"`
 	// WarmupRatio specifies the ratio of warmup steps.
+	// +kubebuilder:default:=0.1
 	WarmupRatio string `json:"warmupRatio"`
 	// WeightDecay specifies the weight decay factor.
+	// +kubebuilder:default:=0
 	WeightDecay string `json:"weightDecay"`
 	// GradAccSteps specifies the number of gradient accumulation steps.
+	// +kubebuilder:default:=1
 	GradAccSteps int `json:"gradAccSteps"`
 	// TrainerType specifies the type of trainer to use.
 	TrainerType string `json:"trainerType"`
 	// PEFT indicates whether to enable Performance Evaluation and Forecasting Tool.
+	// +kubebuilder:default:=false
 	PEFT bool `json:"PEFT"`
 	// FP16 indicates whether to use 16-bit floating point precision.
+	// +kubebuilder:default:=false
 	FP16 bool `json:"FP16"`
 }
 
