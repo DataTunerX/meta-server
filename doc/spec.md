@@ -91,8 +91,8 @@ FinetuneJob
 - **Stats:** 工作流运行统计信息，开始时间与结束时间  
 - **Result:**  
   - **ModelExportResult:** 模型导出结果 true  
-  - **RayDashboard:** Ray 服务的 dashboard  
-  - **RayServe:** Ray 服务地址  
+  - **Dashboard:** Ray 服务的 dashboard
+  - **Serve:** 模型服务地址
   - **Image:** 镜像
 
 ---
@@ -133,7 +133,7 @@ FinetuneExperiment
 
   - **FinetuneJob-1:** (and so on...)
 
-- **State:** Processing/Success/Failed 该 job 状态
+- **State:** Processing/Success/Failed 该 Experiment 状态
 
 ---
 

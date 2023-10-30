@@ -39,10 +39,10 @@ spec:
                 description: Over-senator adjustments to achieve targets.
                 properties:
                   type:
+                    default: SFT
                     description: 'The type (Type) of fine-tuning may refer to a specific
                       method or strategy of hyperparameter tuning. Common hyperparameter
-                      tuning methods include: 1. Grid Search 2. Random Search 3. Bayesian
-                      Optimisation 4. Genetic Algorithms 5. Hyperband et al.'
+                      tuning methods include: 1. SFT'
                     type: string
                 required:
                 - type
@@ -51,33 +51,42 @@ spec:
                 description: Finetune paramenter config.
                 properties:
                   FP16:
+                    default: false
                     description: FP16 indicates whether to use 16-bit floating point
                       precision.
                     type: boolean
                   PEFT:
+                    default: false
                     description: PEFT indicates whether to enable Performance Evaluation
                       and Forecasting Tool.
                     type: boolean
                   batchSize:
+                    default: 32
                     description: BatchSize specifies the size of mini-batches.
                     type: integer
                   blockSize:
+                    default: 128
                     description: BlockSize specifies the block size.
                     type: integer
                   epochs:
+                    default: 10
                     description: Epochs specifies the number of training epochs.
                     type: integer
                   gradAccSteps:
+                    default: 1
                     description: GradAccSteps specifies the number of gradient accumulation
                       steps.
                     type: integer
                   int4:
+                    default: false
                     description: Int4 indicates whether to use 4-bit integer quantization.
                     type: boolean
                   int8:
+                    default: false
                     description: Int8 indicates whether to use 8-bit integer quantization.
                     type: boolean
                   learningRate:
+                    default: 0.01
                     description: LearningRate specifies the initial learning rate.
                     type: string
                   loRA_Alpha:
@@ -93,18 +102,30 @@ spec:
                       Receptive Attention.
                     type: string
                   optimizer:
+                    default: AdamW
                     description: Optimizer specifies the optimization algorithm.
+                    enum:
+                    - AdamW
+                    - Adam
+                    - SGD
                     type: string
                   scheduler:
+                    default: Cosine
                     description: Scheduler specifies the learning rate scheduler.
+                    enum:
+                    - Cosine
+                    - Linear
+                    - Constant
                     type: string
                   trainerType:
                     description: TrainerType specifies the type of trainer to use.
                     type: string
                   warmupRatio:
+                    default: 0.1
                     description: WarmupRatio specifies the ratio of warmup steps.
                     type: string
                   weightDecay:
+                    default: 0
                     description: WeightDecay specifies the weight decay factor.
                     type: string
                 required:

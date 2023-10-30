@@ -30,22 +30,29 @@ const (
 
 // FinetuneExperimentSpec defines the desired state of FinetuneExperiment
 type FinetuneExperimentSpec struct {
-	FinetuneJobs  []FinetuneJobSpec `json:"finetuneJobs"`
-	ScoringConfig ScoringConfig     `json:"scoringConfig"`
+	// Defining multiple finetunejobs in a single experiment.
+	// +kubebuilder:validation:Required
+	FinetuneJobs []FinetuneJobSpec `json:"finetuneJobs"`
+	// Define the scoring plugin used for this experiment.
+	// +kubebuilder:validation:Required
+	ScoringConfig ScoringConfig `json:"scoringConfig"`
 }
 
 // FinetuneExperimentStatus defines the observed state of FinetuneExperiment
 type FinetuneExperimentStatus struct {
+	BestVersion BestVersion             `json:"bestVersion"`
+	JobStates   []FinetuneJobStatus     `json:"jobStates"`
+	State       FinetuneExperimentState `json:"state"`
+	Conditions  []metav1.Condition      `json:"conditions"`
 }
 
+// Describe the highest scoring version of an experiment
 type BestVersion struct {
-	Score          string                  `json:"score"`
-	Image          string                  `json:"image"`
-	LLM            string                  `json:"llm"`
-	Hyperparameter string                  `json:"hyperparameter"`
-	Dataset        string                  `json:"dataset"`
-	JobStates      []FinetuneJobState      `json:"jobStates"`
-	State          FinetuneExperimentState `json:"state"`
+	Score          string `json:"score"`
+	Image          string `json:"image"`
+	LLM            string `json:"llm"`
+	Hyperparameter string `json:"hyperparameter"`
+	Dataset        string `json:"dataset"`
 }
 
 //+kubebuilder:object:root=true

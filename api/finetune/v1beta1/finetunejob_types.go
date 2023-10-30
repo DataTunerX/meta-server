@@ -17,6 +17,7 @@ limitations under the License.
 package v1beta1
 
 import (
+	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -39,7 +40,7 @@ type FinetuneJobSpec struct {
 	// Score plugin config.
 	// +kubebuilder:validation:Optional
 	ScoringConfig *ScoringConfig `json:"scoringConfig,omitempty"`
-	// Ray Serve config.
+	// Serve config.
 	// +kubebuilder:validation:Required
 	ServeConfig ServeConfig `json:"serveConfig"`
 }
@@ -47,28 +48,33 @@ type FinetuneJobSpec struct {
 // ResourceLimits represents the resource limits for a task.
 type ResourceLimits struct {
 	// CPU specifies the CPU resource limit.
-	CPU string `json:"cpu"`
+	// +kubebuilder:default="2"
+	CPU resource.Quantity `json:"cpu"`
 
 	// Memory specifies the memory resource limit.
-	Memory string `json:"memory"`
+	// +kubebuilder:default="4Gi"
+	Memory resource.Quantity `json:"memory"`
 
 	// GPU specifies the GPU resource limit.
-	GPU string `json:"gpu"`
+	// +kubebuilder:default="1"
+	GPU *string `json:"gpu"`
 }
 
 // Resource represents the resources configuration for a task.
 type Resource struct {
 	// Limits specifies the resource limits.
-	Limits ResourceLimits `json:"limits"`
+	Limits   *ResourceLimits `json:"limits"`
+	Requests *ResourceLimits `json:"requests"`
 }
 
 // ServeConfig represents the configuration for serving with Ray.
 type ServeConfig struct {
-	// NodeSelector specifies the node where Ray service will be deployed.
+	// NodeSelector specifies the node where service will be deployed.
+	// +kubebuilder:validation:Required
 	NodeSelector string `json:"nodeSelector"`
 
-	// Tolerations specifies the tolerations for Ray service.
-	Tolerations string `json:"tolerations"`
+	// Tolerations specifies the tolerations for service.
+	Tolerations string `json:"tolerations,omitempty"`
 }
 
 // ScoringConfig represents the configuration for scoring.
@@ -79,30 +85,35 @@ type ScoringConfig struct {
 
 type FineTune struct {
 	// LLM specifies the large model CR used for fine-tuning.
+	// +kubebuilder:validation:Required
 	LLM string `json:"llm"`
 
 	// Dataset specifies the dataset CR used for fine-tuning.
+	// +kubebuilder:validation:Required
 	Dataset string `json:"dataset"`
 
 	// Hyperparameter specifies the hyperparameter CR used for fine-tuning.
+	// +kubebuilder:validation:Required
 	Hyperparameter string `json:"hyperparameter"`
 
 	// Resource specifies the resource configuration for fine-tuning.
-	Resource Resource `json:"resource"`
+	// +kubebuilder:validation:Optional
+	Resource *Resource `json:"resource,omitempty"`
 }
 
 // FinetuneJobStatus defines the observed state of FinetuneJob
 type FinetuneJobStatus struct {
 	State FinetuneJobState `json:"state"`
 	// todo FinetuneState
-	Stats  string            `json:"stats"`
-	Result FinetuneJobResult `json:"result"`
+	Stats      string             `json:"stats"`
+	Result     FinetuneJobResult  `json:"result"`
+	Conditions []metav1.Condition `json:"conditions"`
 }
 
 type FinetuneJobResult struct {
 	ModelExportResult bool   `json:"modelExportResult"`
-	RayDashboard      string `json:"rayDashboard"`
-	RayServe          string `json:"rayServe"`
+	Dashboard         string `json:"dashboard"`
+	Serve             string `json:"serve"`
 	Image             string `json:"image"`
 }
 

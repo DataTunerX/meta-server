@@ -1,0 +1,174 @@
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  creationTimestamp: null
+  name: mutating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /mutate-core-datatunerx-io-v1beta1-hyperparameter
+  failurePolicy: Fail
+  name: mhyperparameter.kb.io
+  rules:
+  - apiGroups:
+    - core.datatunerx.io
+    apiVersions:
+    - v1beta1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - hyperparameters
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /mutate-core-datatunerx-io-v1beta1-llm
+  failurePolicy: Fail
+  name: mllm.kb.io
+  rules:
+  - apiGroups:
+    - core.datatunerx.io
+    apiVersions:
+    - v1beta1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - llms
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /mutate-finetune-datatunerx-io-v1beta1-finetuneexperiment
+  failurePolicy: Fail
+  name: mfinetuneexperiment.kb.io
+  rules:
+  - apiGroups:
+    - finetune.datatunerx.io
+    apiVersions:
+    - v1beta1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - finetuneexperiments
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /mutate-finetune-datatunerx-io-v1beta1-finetunejob
+  failurePolicy: Fail
+  name: mfinetunejob.kb.io
+  rules:
+  - apiGroups:
+    - finetune.datatunerx.io
+    apiVersions:
+    - v1beta1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - finetunejobs
+  sideEffects: None
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  creationTimestamp: null
+  name: validating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-core-datatunerx-io-v1beta1-hyperparameter
+  failurePolicy: Fail
+  name: vhyperparameter.kb.io
+  rules:
+  - apiGroups:
+    - core.datatunerx.io
+    apiVersions:
+    - v1beta1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - hyperparameters
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-core-datatunerx-io-v1beta1-llm
+  failurePolicy: Fail
+  name: vllm.kb.io
+  rules:
+  - apiGroups:
+    - core.datatunerx.io
+    apiVersions:
+    - v1beta1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - llms
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-finetune-datatunerx-io-v1beta1-finetuneexperiment
+  failurePolicy: Fail
+  name: vfinetuneexperiment.kb.io
+  rules:
+  - apiGroups:
+    - finetune.datatunerx.io
+    apiVersions:
+    - v1beta1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - finetuneexperiments
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-finetune-datatunerx-io-v1beta1-finetunejob
+  failurePolicy: Fail
+  name: vfinetunejob.kb.io
+  rules:
+  - apiGroups:
+    - finetune.datatunerx.io
+    apiVersions:
+    - v1beta1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - finetunejobs
+  sideEffects: None

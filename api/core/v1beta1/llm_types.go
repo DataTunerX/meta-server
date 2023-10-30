@@ -17,10 +17,14 @@ limitations under the License.
 package v1beta1
 
 import (
+	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+// +kubebuilder:validation:Enum=SupervisionMethod;LearningMethod;MachineLearning;Modality
 type LLMType string
+
+// +kubebuilder:validation:Enum=Multimodal;ComputerVision;NLP;Audio;Tabular;ReinforcementLearning
 type LLMDomain string
 
 const (
@@ -55,7 +59,6 @@ type LLMMetdata struct {
 	Name string `json:"name"`
 	// +kubebuilder:validation:Optional
 	// +kubebuilder:validation:UniqueItems=true
-	// +kubebuilder:validation:Enum=Multimodal;ComputerVision;NLP;Audio;Tabular;ReinforcementLearning
 	// Describe the domain of the llm, the following fields are optional:
 	// 1. Multimodal
 	// 2. ComputerVision
@@ -127,11 +130,11 @@ type ComputeInfrastructure struct {
 
 type Hardware struct {
 	// Describes the size of the video memory required by the llm.
-	VRam string `json:"vRam"`
+	VRam resource.Quantity `json:"vRam"`
 	// Description of the number of cpu cores needed for llm.
-	Cpu string `json:"cpu"`
+	Cpu resource.Quantity `json:"cpu"`
 	// Description of the memory size required by llm
-	Memory string `json:"memory"`
+	Memory resource.Quantity `json:"memory"`
 }
 
 type LLMImageConfig struct {
