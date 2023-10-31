@@ -132,7 +132,3 @@ type HyperparameterList struct {
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []Hyperparameter `json:"items"`
 }
-
-func init() {
-	SchemeBuilder.Register(&Hyperparameter{}, &HyperparameterList{})
-}

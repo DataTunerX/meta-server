@@ -75,7 +75,3 @@ type FinetuneExperimentList struct {
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []FinetuneExperiment `json:"items"`
 }
-
-func init() {
-	SchemeBuilder.Register(&FinetuneExperiment{}, &FinetuneExperimentList{})
-}
