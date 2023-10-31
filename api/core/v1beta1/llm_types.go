@@ -170,7 +170,3 @@ type LLMList struct {
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []LLM `json:"items"`
 }
-
-func init() {
-	SchemeBuilder.Register(&LLM{}, &LLMList{})
-}

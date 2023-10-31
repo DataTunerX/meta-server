@@ -137,7 +137,3 @@ type FinetuneJobList struct {
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []FinetuneJob `json:"items"`
 }
-
-func init() {
-	SchemeBuilder.Register(&FinetuneJob{}, &FinetuneJobList{})
-}
