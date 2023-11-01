@@ -35,7 +35,7 @@ spec:
           spec:
             description: FinetuneJobSpec defines the desired state of FinetuneJob
             properties:
-              fineTune:
+              finetune:
                 description: Finetune cr config.
                 properties:
                   dataset:
@@ -47,6 +47,8 @@ spec:
                     type: string
                   llm:
                     description: LLM specifies the large model CR used for fine-tuning.
+                    type: string
+                  name:
                     type: string
                   resource:
                     description: Resource specifies the resource configuration for
@@ -141,7 +143,7 @@ spec:
                 - nodeSelector
                 type: object
             required:
-            - fineTune
+            - finetune
             - serveConfig
             type: object
           status:

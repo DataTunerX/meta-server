@@ -125,7 +125,7 @@ func (in *FinetuneExperimentSpec) DeepCopyInto(out *FinetuneExperimentSpec) {
 	*out = *in
 	if in.FinetuneJobs != nil {
 		in, out := &in.FinetuneJobs, &out.FinetuneJobs
-		*out = make([]FinetuneJobSpec, len(*in))
+		*out = make([]FinetuneJob, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}

@@ -32,7 +32,7 @@ const (
 type FinetuneExperimentSpec struct {
 	// Defining multiple finetunejobs in a single experiment.
 	// +kubebuilder:validation:Required
-	FinetuneJobs []FinetuneJobSpec `json:"finetuneJobs"`
+	FinetuneJobs []FinetuneJob `json:"finetuneJobs"`
 	// Define the scoring plugin used for this experiment.
 	// +kubebuilder:validation:Required
 	ScoringConfig ScoringConfig `json:"scoringConfig"`

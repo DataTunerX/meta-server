@@ -86,7 +86,7 @@ spec:
                     description: Int8 indicates whether to use 8-bit integer quantization.
                     type: boolean
                   learningRate:
-                    default: 0.01
+                    default: "0.01"
                     description: LearningRate specifies the initial learning rate.
                     type: string
                   loRA_Alpha:
@@ -121,11 +121,11 @@ spec:
                     description: TrainerType specifies the type of trainer to use.
                     type: string
                   warmupRatio:
-                    default: 0.1
+                    default: "0.1"
                     description: WarmupRatio specifies the ratio of warmup steps.
                     type: string
                   weightDecay:
-                    default: 0
+                    default: "0"
                     description: WeightDecay specifies the weight decay factor.
                     type: string
                 required:

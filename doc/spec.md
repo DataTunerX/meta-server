@@ -129,8 +129,7 @@ FinetuneExperiment
     - **Stats:** 2006-10-22  
     - **DashBoard:** xxxxx  
     - **CheckPoint:** v1.0  
-    - **Score:** 0.1  
-
+    - **Score:** 0.1
   - **FinetuneJob-1:** (and so on...)
 
 - **State:** Processing/Success/Failed 该 Experiment 状态
@@ -152,8 +151,8 @@ LLM
 
 #### **Spec:** 
 - **LLMMetadata:**  
-  - **Name:** 模型名称  
-  - **Domain:** 模型所涉及的领域  
+  - **Name:** 模型名称
+  - **Domain:** 模型所涉及的领域
   - **Tasks:** 模型对应的的任务类型  
   - **Frameworks:** 模型架构  
   - **Languages:** 模型支持的自然语言列表  

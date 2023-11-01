@@ -36,7 +36,7 @@ const (
 type FinetuneJobSpec struct {
 	// Finetune cr config.
 	// +kubebuilder:validation:Required
-	FineTune FineTune `json:"fineTune"`
+	FineTune FineTune `json:"finetune"`
 	// Score plugin config.
 	// +kubebuilder:validation:Optional
 	ScoringConfig *ScoringConfig `json:"scoringConfig,omitempty"`
@@ -84,6 +84,8 @@ type ScoringConfig struct {
 }
 
 type FineTune struct {
+	// +kubebuilder:validation:Optional
+	Name string `json:"name"`
 	// LLM specifies the large model CR used for fine-tuning.
 	// +kubebuilder:validation:Required
 	LLM string `json:"llm"`
