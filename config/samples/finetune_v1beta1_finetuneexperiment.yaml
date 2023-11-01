@@ -1,11 +1,36 @@
 apiVersion: finetune.datatunerx.io/v1beta1
 kind: FinetuneExperiment
 metadata:
-  labels:
-    app.kubernetes.io/name: finetuneexperiment
-    app.kubernetes.io/instance: finetuneexperiment-sample
-    app.kubernetes.io/part-of: meta-server
-    app.kubernetes.io/managed-by: kustomize
-    app.kubernetes.io/created-by: meta-server
   name: finetuneexperiment-sample
 spec:
+  finetuneJobs:
+  - finetune:
+      name: finetune1
+      llm: llm-0
+      dataset: dataset-0
+      hyperparameter: hyperparameter-0
+      resource:
+        limits:
+          cpu: 2
+          memory: 4Gi
+          gpu: 1
+    scoringConfig:
+      name: scorePlugin-0
+    serveConfig:
+      nodeSelector:
+        nvidia.com/gpu: present
+  - finetune:
+      name: finetune1
+      llm: llm-0
+      dataset: dataset-0
+      hyperparameter: hyperparameter-1
+      resource:
+        limits:
+          cpu: 2
+          memory: 4Gi
+          gpu: 1
+    scoringConfig:
+      name: scorePlugin-0
+    serveConfig:
+      nodeSelector:
+        nvidia.com/gpu: present

@@ -78,7 +78,7 @@ type Parameters struct {
 	// LoRA_Dropout specifies the dropout rate for Localized Receptive Attention.
 	LoRA_Dropout string `json:"loRA_Dropout"`
 	// LearningRate specifies the initial learning rate.
-	// +kubebuilder:default:=0.01
+	// +kubebuilder:default:="0.01"
 	LearningRate string `json:"learningRate"`
 	// Epochs specifies the number of training epochs.
 	// +kubebuilder:default:=10
@@ -90,10 +90,10 @@ type Parameters struct {
 	// +kubebuilder:default:=32
 	BatchSize int `json:"batchSize"`
 	// WarmupRatio specifies the ratio of warmup steps.
-	// +kubebuilder:default:=0.1
+	// +kubebuilder:default:="0.1"
 	WarmupRatio string `json:"warmupRatio"`
 	// WeightDecay specifies the weight decay factor.
-	// +kubebuilder:default:=0
+	// +kubebuilder:default:="0"
 	WeightDecay string `json:"weightDecay"`
 	// GradAccSteps specifies the number of gradient accumulation steps.
 	// +kubebuilder:default:=1

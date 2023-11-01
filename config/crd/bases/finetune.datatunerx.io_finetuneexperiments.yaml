@@ -39,118 +39,253 @@ spec:
               finetuneJobs:
                 description: Defining multiple finetunejobs in a single experiment.
                 items:
-                  description: FinetuneJobSpec defines the desired state of FinetuneJob
+                  description: FinetuneJob is the Schema for the finetunejobs API
                   properties:
-                    fineTune:
-                      description: Finetune cr config.
+                    apiVersion:
+                      description: 'APIVersion defines the versioned schema of this
+                        representation of an object. Servers should convert recognized
+                        schemas to the latest internal value, and may reject unrecognized
+                        values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+                      type: string
+                    kind:
+                      description: 'Kind is a string value representing the REST resource
+                        this object represents. Servers may infer this from the endpoint
+                        the client submits requests to. Cannot be updated. In CamelCase.
+                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+                      type: string
+                    metadata:
+                      type: object
+                    spec:
+                      description: FinetuneJobSpec defines the desired state of FinetuneJob
                       properties:
-                        dataset:
-                          description: Dataset specifies the dataset CR used for fine-tuning.
-                          type: string
-                        hyperparameter:
-                          description: Hyperparameter specifies the hyperparameter
-                            CR used for fine-tuning.
-                          type: string
-                        llm:
-                          description: LLM specifies the large model CR used for fine-tuning.
-                          type: string
-                        resource:
-                          description: Resource specifies the resource configuration
-                            for fine-tuning.
+                        finetune:
+                          description: Finetune cr config.
                           properties:
-                            limits:
-                              description: Limits specifies the resource limits.
+                            dataset:
+                              description: Dataset specifies the dataset CR used for
+                                fine-tuning.
+                              type: string
+                            hyperparameter:
+                              description: Hyperparameter specifies the hyperparameter
+                                CR used for fine-tuning.
+                              type: string
+                            llm:
+                              description: LLM specifies the large model CR used for
+                                fine-tuning.
+                              type: string
+                            name:
+                              type: string
+                            resource:
+                              description: Resource specifies the resource configuration
+                                for fine-tuning.
                               properties:
-                                cpu:
-                                  anyOf:
-                                  - type: integer
-                                  - type: string
-                                  default: "2"
-                                  description: CPU specifies the CPU resource limit.
-                                  pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                                  x-kubernetes-int-or-string: true
-                                gpu:
-                                  default: "1"
-                                  description: GPU specifies the GPU resource limit.
-                                  type: string
-                                memory:
-                                  anyOf:
-                                  - type: integer
-                                  - type: string
-                                  default: 4Gi
-                                  description: Memory specifies the memory resource
-                                    limit.
-                                  pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                                  x-kubernetes-int-or-string: true
+                                limits:
+                                  description: Limits specifies the resource limits.
+                                  properties:
+                                    cpu:
+                                      anyOf:
+                                      - type: integer
+                                      - type: string
+                                      default: "2"
+                                      description: CPU specifies the CPU resource
+                                        limit.
+                                      pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                      x-kubernetes-int-or-string: true
+                                    gpu:
+                                      default: "1"
+                                      description: GPU specifies the GPU resource
+                                        limit.
+                                      type: string
+                                    memory:
+                                      anyOf:
+                                      - type: integer
+                                      - type: string
+                                      default: 4Gi
+                                      description: Memory specifies the memory resource
+                                        limit.
+                                      pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                      x-kubernetes-int-or-string: true
+                                  required:
+                                  - cpu
+                                  - gpu
+                                  - memory
+                                  type: object
+                                requests:
+                                  description: ResourceLimits represents the resource
+                                    limits for a task.
+                                  properties:
+                                    cpu:
+                                      anyOf:
+                                      - type: integer
+                                      - type: string
+                                      default: "2"
+                                      description: CPU specifies the CPU resource
+                                        limit.
+                                      pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                      x-kubernetes-int-or-string: true
+                                    gpu:
+                                      default: "1"
+                                      description: GPU specifies the GPU resource
+                                        limit.
+                                      type: string
+                                    memory:
+                                      anyOf:
+                                      - type: integer
+                                      - type: string
+                                      default: 4Gi
+                                      description: Memory specifies the memory resource
+                                        limit.
+                                      pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                      x-kubernetes-int-or-string: true
+                                  required:
+                                  - cpu
+                                  - gpu
+                                  - memory
+                                  type: object
                               required:
-                              - cpu
-                              - gpu
-                              - memory
-                              type: object
-                            requests:
-                              description: ResourceLimits represents the resource
-                                limits for a task.
-                              properties:
-                                cpu:
-                                  anyOf:
-                                  - type: integer
-                                  - type: string
-                                  default: "2"
-                                  description: CPU specifies the CPU resource limit.
-                                  pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                                  x-kubernetes-int-or-string: true
-                                gpu:
-                                  default: "1"
-                                  description: GPU specifies the GPU resource limit.
-                                  type: string
-                                memory:
-                                  anyOf:
-                                  - type: integer
-                                  - type: string
-                                  default: 4Gi
-                                  description: Memory specifies the memory resource
-                                    limit.
-                                  pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                                  x-kubernetes-int-or-string: true
-                              required:
-                              - cpu
-                              - gpu
-                              - memory
+                              - limits
+                              - requests
                               type: object
                           required:
-                          - limits
-                          - requests
+                          - dataset
+                          - hyperparameter
+                          - llm
+                          type: object
+                        scoringConfig:
+                          description: Score plugin config.
+                          properties:
+                            name:
+                              description: Name specifies the name of the scoring
+                                CR.
+                              type: string
+                          required:
+                          - name
+                          type: object
+                        serveConfig:
+                          description: Serve config.
+                          properties:
+                            nodeSelector:
+                              description: NodeSelector specifies the node where service
+                                will be deployed.
+                              type: string
+                            tolerations:
+                              description: Tolerations specifies the tolerations for
+                                service.
+                              type: string
+                          required:
+                          - nodeSelector
                           type: object
                       required:
-                      - dataset
-                      - hyperparameter
-                      - llm
+                      - finetune
+                      - serveConfig
                       type: object
-                    scoringConfig:
-                      description: Score plugin config.
+                    status:
+                      description: FinetuneJobStatus defines the observed state of
+                        FinetuneJob
                       properties:
-                        name:
-                          description: Name specifies the name of the scoring CR.
+                        conditions:
+                          items:
+                            description: "Condition contains details for one aspect
+                              of the current state of this API Resource. --- This
+                              struct is intended for direct use as an array at the
+                              field path .status.conditions.  For example, \n type
+                              FooStatus struct{ // Represents the observations of
+                              a foo's current state. // Known .status.conditions.type
+                              are: \"Available\", \"Progressing\", and \"Degraded\"
+                              // +patchMergeKey=type // +patchStrategy=merge // +listType=map
+                              // +listMapKey=type Conditions []metav1.Condition `json:\"conditions,omitempty\"
+                              patchStrategy:\"merge\" patchMergeKey:\"type\" protobuf:\"bytes,1,rep,name=conditions\"`
+                              \n // other fields }"
+                            properties:
+                              lastTransitionTime:
+                                description: lastTransitionTime is the last time the
+                                  condition transitioned from one status to another.
+                                  This should be when the underlying condition changed.  If
+                                  that is not known, then using the time when the
+                                  API field changed is acceptable.
+                                format: date-time
+                                type: string
+                              message:
+                                description: message is a human readable message indicating
+                                  details about the transition. This may be an empty
+                                  string.
+                                maxLength: 32768
+                                type: string
+                              observedGeneration:
+                                description: observedGeneration represents the .metadata.generation
+                                  that the condition was set based upon. For instance,
+                                  if .metadata.generation is currently 12, but the
+                                  .status.conditions[x].observedGeneration is 9, the
+                                  condition is out of date with respect to the current
+                                  state of the instance.
+                                format: int64
+                                minimum: 0
+                                type: integer
+                              reason:
+                                description: reason contains a programmatic identifier
+                                  indicating the reason for the condition's last transition.
+                                  Producers of specific condition types may define
+                                  expected values and meanings for this field, and
+                                  whether the values are considered a guaranteed API.
+                                  The value should be a CamelCase string. This field
+                                  may not be empty.
+                                maxLength: 1024
+                                minLength: 1
+                                pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                                type: string
+                              status:
+                                description: status of the condition, one of True,
+                                  False, Unknown.
+                                enum:
+                                - "True"
+                                - "False"
+                                - Unknown
+                                type: string
+                              type:
+                                description: type of condition in CamelCase or in
+                                  foo.example.com/CamelCase. --- Many .condition.type
+                                  values are consistent across resources like Available,
+                                  but because arbitrary conditions can be useful (see
+                                  .node.status.conditions), the ability to deconflict
+                                  is important. The regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)
+                                maxLength: 316
+                                pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                                type: string
+                            required:
+                            - lastTransitionTime
+                            - message
+                            - reason
+                            - status
+                            - type
+                            type: object
+                          type: array
+                        result:
+                          properties:
+                            dashboard:
+                              type: string
+                            image:
+                              type: string
+                            modelExportResult:
+                              type: boolean
+                            serve:
+                              type: string
+                          required:
+                          - dashboard
+                          - image
+                          - modelExportResult
+                          - serve
+                          type: object
+                        state:
+                          type: string
+                        stats:
+                          description: todo FinetuneState
                           type: string
                       required:
-                      - name
+                      - conditions
+                      - result
+                      - state
+                      - stats
                       type: object
-                    serveConfig:
-                      description: Serve config.
-                      properties:
-                        nodeSelector:
-                          description: NodeSelector specifies the node where service
-                            will be deployed.
-                          type: string
-                        tolerations:
-                          description: Tolerations specifies the tolerations for service.
-                          type: string
-                      required:
-                      - nodeSelector
-                      type: object
-                  required:
-                  - fineTune
-                  - serveConfig
                   type: object
                 type: array
               scoringConfig:

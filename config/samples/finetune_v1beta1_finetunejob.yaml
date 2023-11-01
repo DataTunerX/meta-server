@@ -1,12 +1,22 @@
 apiVersion: finetune.datatunerx.io/v1beta1
 kind: FinetuneJob
 metadata:
-  labels:
-    app.kubernetes.io/name: finetunejob
-    app.kubernetes.io/instance: finetunejob-sample
-    app.kubernetes.io/part-of: meta-server
-    app.kubernetes.io/managed-by: kustomize
-    app.kubernetes.io/created-by: meta-server
   name: finetunejob-sample
 spec:
-  # TODO(user): Add fields here
+  finetune:
+    llm: llm-0
+    dataset: dataset-0
+    hyperparameter: hyperparameter-0
+    resource:
+      limits:
+        cpu: 2
+        memory: 4Gi
+        gpu: "1"
+      requests:
+        cpu: 2
+        memory: 4Gi
+        gpu: "1"
+  scoringConfig:
+    name: scorePlugin-0
+  serveConfig:
+    nodeSelector: test
