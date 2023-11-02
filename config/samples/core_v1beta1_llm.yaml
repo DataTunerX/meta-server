@@ -1,12 +1,25 @@
 apiVersion: core.datatunerx.io/v1beta1
 kind: LLM
 metadata:
-  labels:
-    app.kubernetes.io/name: llm
-    app.kubernetes.io/instance: llm-sample
-    app.kubernetes.io/part-of: meta-server
-    app.kubernetes.io/managed-by: kustomize
-    app.kubernetes.io/created-by: meta-server
-  name: llm-sample
+  name: llama2-7b
 spec:
-  # TODO(user): Add fields here
+  llmMetdata:
+    name: Llama-2-7b
+    domain:
+    - NLP
+    tasks:
+    - "Text Generation"
+    frameworks:
+    - PyTorch
+    languages:
+    - English
+    license:
+    - "https://ai.meta.com/resources/models-and-libraries/llama-downloads/"
+    llmImageConfig:
+      image: "harobor.custome.com/llama2-7b:v1"
+      path: "/data/llama2-7b"
+    computeInfrastructure:
+      hardware:
+        vRam: 6Gi
+        cpu: 4
+        memory: 28Gi

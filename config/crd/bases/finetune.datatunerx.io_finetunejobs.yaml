@@ -234,6 +234,13 @@ spec:
                 - serve
                 type: object
               state:
+                enum:
+                - INIT
+                - FAILED
+                - SUCCESSFUL
+                - BUILDIMAGE
+                - FINETUNE
+                - SERVE
                 type: string
               stats:
                 description: todo FinetuneState

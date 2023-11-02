@@ -58,7 +58,6 @@ type LLMMetdata struct {
 	// Describe the name of the llm.
 	Name string `json:"name"`
 	// +kubebuilder:validation:Optional
-	// +kubebuilder:validation:UniqueItems=true
 	// Describe the domain of the llm, the following fields are optional:
 	// 1. Multimodal
 	// 2. ComputerVision
@@ -68,7 +67,6 @@ type LLMMetdata struct {
 	// 6. ReinforcementLearning
 	Domain []LLMDomain `json:"domain,omitempty"`
 	// +kubebuilder:validation:Required
-	// +kubebuilder:validation:UniqueItems=true
 	// Describe the types of tasks in the pipeline corresponding to the llm.
 	// example:
 	/*
@@ -80,15 +78,12 @@ type LLMMetdata struct {
 	*/
 	Tasks []string `json:"tasks"`
 	// +kubebuilder:validation:Required
-	// +kubebuilder:validation:UniqueItems=true
 	// Describe the AI framework used by the llm.
 	Frameworks []string `json:"frameworks"`
 	// +kubebuilder:validation:Required
-	// +kubebuilder:validation:UniqueItems=true
 	// Describe list of natural languages supported by the llm.
 	Languages []string `json:"languages"`
 	// +kubebuilder:validation:Required
-	// +kubebuilder:validation:UniqueItems=true
 	// Describe the open source licences to which the llm adheres.
 	License []string `json:"license"`
 	// +kubebuilder:validation:Optional
@@ -140,7 +135,7 @@ type Hardware struct {
 type LLMImageConfig struct {
 	// +kubebuilder:validation:Required
 	Image string `json:"image"`
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Path string `json:"path"`
 }
 

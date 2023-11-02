@@ -147,8 +147,8 @@ func (in *FinetuneExperimentSpec) DeepCopy() *FinetuneExperimentSpec {
 func (in *FinetuneExperimentStatus) DeepCopyInto(out *FinetuneExperimentStatus) {
 	*out = *in
 	out.BestVersion = in.BestVersion
-	if in.JobStates != nil {
-		in, out := &in.JobStates, &out.JobStates
+	if in.JobsStatus != nil {
+		in, out := &in.JobsStatus, &out.JobsStatus
 		*out = make([]FinetuneJobStatus, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])

@@ -47,10 +47,11 @@ type FinetuneJobSetting struct {
 
 // FinetuneExperimentStatus defines the observed state of FinetuneExperiment
 type FinetuneExperimentStatus struct {
-	BestVersion BestVersion             `json:"bestVersion"`
-	JobStates   []FinetuneJobStatus     `json:"jobStates"`
-	State       FinetuneExperimentState `json:"state"`
-	Conditions  []metav1.Condition      `json:"conditions"`
+	BestVersion BestVersion         `json:"bestVersion"`
+	JobsStatus  []FinetuneJobStatus `json:"jobsStatus"`
+	// +kubebuilder:validation:Enum=PROCESSING;SUCCESS;FAILED
+	State      FinetuneExperimentState `json:"state"`
+	Conditions []metav1.Condition      `json:"conditions"`
 }
 
 // Describe the highest scoring version of an experiment

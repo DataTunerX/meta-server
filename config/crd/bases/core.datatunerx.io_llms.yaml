@@ -115,27 +115,23 @@ spec:
                       - ReinforcementLearning
                       type: string
                     type: array
-                    uniqueItems: true
                   frameworks:
                     description: Describe the AI framework used by the llm.
                     items:
                       type: string
                     type: array
-                    uniqueItems: true
                   languages:
                     description: Describe list of natural languages supported by the
                       llm.
                     items:
                       type: string
                     type: array
-                    uniqueItems: true
                   license:
                     description: Describe the open source licences to which the llm
                       adheres.
                     items:
                       type: string
                     type: array
-                    uniqueItems: true
                   llmImageConfig:
                     description: Describe the llm image config.
                     properties:
@@ -145,7 +141,6 @@ spec:
                         type: string
                     required:
                     - image
-                    - path
                     type: object
                   name:
                     description: Describe the name of the llm.
@@ -162,7 +157,6 @@ spec:
                     items:
                       type: string
                     type: array
-                    uniqueItems: true
                 required:
                 - frameworks
                 - languages
