@@ -1,0 +1,12 @@
+apiVersion: extension.datatunerx.io/v1beta1
+kind: DataPlugin
+metadata:
+  labels:
+    app.kubernetes.io/name: dataplugin
+    app.kubernetes.io/instance: dataplugin-sample
+    app.kubernetes.io/part-of: meta-server
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: meta-server
+  name: dataplugin-sample
+spec:
+  # TODO(user): Add fields here

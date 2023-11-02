@@ -68,4 +68,12 @@ resources:
   kind: Dataset
   path: github.com/DataTunerX/meta-server/api/extension/v1beta1
   version: v1beta1
+- api:
+    crdVersion: v1
+    namespaced: true
+  domain: datatunerx.io
+  group: extension
+  kind: DataPlugin
+  path: github.com/DataTunerX/meta-server/api/extension/v1beta1
+  version: v1beta1
 version: "3"
