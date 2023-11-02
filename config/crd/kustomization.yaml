@@ -7,16 +7,24 @@ resources:
 - bases/core.datatunerx.io_llms.yaml
 - bases/finetune.datatunerx.io_finetuneworkflows.yaml
 - bases/finetune.datatunerx.io_finetuneexperiments.yaml
+- bases/extension.datatunerx.io_datasets.yaml
+- bases/extension.datatunerx.io_dataplugins.yaml
+- bases/extension.datatunerx.io_scoringplugins.yaml
+- bases/extension.datatunerx.io_scorings.yaml
 #+kubebuilder:scaffold:crdkustomizeresource
 
 patchesStrategicMerge:
 # [WEBHOOK] To enable webhook, uncomment all the sections with [WEBHOOK] prefix.
 # patches here are for enabling the conversion webhook for each CRD
-#- patches/webhook_in_finetunejobs.yaml
-#- patches/webhook_in_hyperparameters.yaml
-#- patches/webhook_in_llms.yaml
-#- patches/webhook_in_finetuneworkflows.yaml
-#- patches/webhook_in_finetuneexperiments.yaml
+# - patches/webhook_in_finetunejobs.yaml
+# - patches/webhook_in_hyperparameters.yaml
+# - patches/webhook_in_llms.yaml
+# - patches/webhook_in_finetuneworkflows.yaml
+# - patches/webhook_in_finetuneexperiments.yaml
+# - patches/webhook_in_datasets.yaml
+#- patches/webhook_in_dataplugins.yaml
+#- patches/webhook_in_scoringplugins.yaml
+#- patches/webhook_in_scorings.yaml
 #+kubebuilder:scaffold:crdkustomizewebhookpatch
 
 # [CERTMANAGER] To enable cert-manager, uncomment all the sections with [CERTMANAGER] prefix.
@@ -26,6 +34,10 @@ patchesStrategicMerge:
 #- patches/cainjection_in_llms.yaml
 #- patches/cainjection_in_finetuneworkflows.yaml
 #- patches/cainjection_in_finetuneexperiments.yaml
+#- patches/cainjection_in_datasets.yaml
+#- patches/cainjection_in_dataplugins.yaml
+#- patches/cainjection_in_scoringplugins.yaml
+#- patches/cainjection_in_scorings.yaml
 #+kubebuilder:scaffold:crdkustomizecainjectionpatch
 
 # the following config is for teaching kustomize how to do kustomization for CRDs.

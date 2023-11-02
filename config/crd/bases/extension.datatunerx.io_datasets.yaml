@@ -1,0 +1,172 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.11.1
+  creationTimestamp: null
+  name: datasets.extension.datatunerx.io
+spec:
+  group: extension.datatunerx.io
+  names:
+    kind: Dataset
+    listKind: DatasetList
+    plural: datasets
+    singular: dataset
+  scope: Namespaced
+  versions:
+  - name: v1beta1
+    schema:
+      openAPIV3Schema:
+        description: Dataset is the Schema for the datasets API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: DatasetSpec defines the desired state of Dataset
+            properties:
+              datasetCard:
+                description: DatasetCard defines a dataset's readme, in type of markdown
+                properties:
+                  datasetCardRef:
+                    type: string
+                type: object
+              datasetFiles:
+                description: DatasetFiles defines a dataset's source file address
+                properties:
+                  source:
+                    type: string
+                type: object
+              datasetMetadata:
+                description: 'INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
+                  Important: Run "make" to regenerate code after modifying this file'
+                properties:
+                  datasetInfo:
+                    description: DatasetInfo defines the dataset description include
+                      subsets and features
+                    properties:
+                      features:
+                        items:
+                          description: Feature defines a dataset's column name as
+                            a feature and its data type and relationship to finetune
+                            feature fields
+                          properties:
+                            dataType:
+                              type: string
+                            mapTo:
+                              maxLength: 63
+                              type: string
+                            name:
+                              enum:
+                              - instruction
+                              - response
+                              type: string
+                          type: object
+                        type: array
+                      subsets:
+                        items:
+                          description: Subset defines a dataset‘s subset
+                          properties:
+                            name:
+                              maxLength: 63
+                              type: string
+                            splits:
+                              description: Splits defines a dataset's train-splits,
+                                test-splits, validate-splits address info
+                              properties:
+                                test:
+                                  description: Test defines a dataset's subsets' test-splits
+                                    file address
+                                  properties:
+                                    file:
+                                      type: string
+                                  type: object
+                                train:
+                                  description: Train defines a dataset's subsets'
+                                    train-splits file address
+                                  properties:
+                                    file:
+                                      type: string
+                                  type: object
+                                validate:
+                                  description: Validate defines a dataset's subsets'
+                                    validate-splits file address
+                                  properties:
+                                    file:
+                                      type: string
+                                  type: object
+                              type: object
+                          type: object
+                        type: array
+                    type: object
+                  languages:
+                    items:
+                      type: string
+                    type: array
+                  license:
+                    type: string
+                  plugin:
+                    description: Plugin defines a plugin used by a dataset
+                    properties:
+                      loadPlugin:
+                        default: true
+                        type: boolean
+                      name:
+                        maxLength: 63
+                        type: string
+                      parameters:
+                        type: string
+                    type: object
+                  size:
+                    type: string
+                  tags:
+                    items:
+                      type: string
+                    type: array
+                  task:
+                    description: Task defines a dataset task type
+                    properties:
+                      name:
+                        maxLength: 63
+                        type: string
+                      subTasks:
+                        items:
+                          description: 'EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU
+                            TO OWN! NOTE: json tags are required.  Any new fields
+                            you add must have json tags for the fields to be serialized.
+                            SubTask defines a dataset task''s subtask'
+                          properties:
+                            name:
+                              maxLength: 63
+                              type: string
+                          type: object
+                        type: array
+                    type: object
+                type: object
+            required:
+            - datasetMetadata
+            type: object
+          status:
+            description: DatasetStatus defines the observed state of Dataset
+            properties:
+              state:
+                description: 'INSERT ADDITIONAL STATUS FIELD - define observed state
+                  of cluster Important: Run "make" to regenerate code after modifying
+                  this file'
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
