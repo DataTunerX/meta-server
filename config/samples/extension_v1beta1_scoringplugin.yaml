@@ -1,0 +1,12 @@
+apiVersion: extension.datatunerx.io/v1beta1
+kind: ScoringPlugin
+metadata:
+  labels:
+    app.kubernetes.io/name: scoringplugin
+    app.kubernetes.io/instance: scoringplugin-sample
+    app.kubernetes.io/part-of: meta-server
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: meta-server
+  name: scoringplugin-sample
+spec:
+  # TODO(user): Add fields here
