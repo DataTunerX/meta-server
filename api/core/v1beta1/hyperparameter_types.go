@@ -62,7 +62,7 @@ type Parameters struct {
 	// +kubebuilder:validation:Enum=Cosine;Linear;Constant
 	Scheduler HyperparameterScheduler `json:"scheduler"`
 	// Optimizer specifies the optimization algorithm.
-	// +kubebuilder:default:=AdamW
+	// +kubebuilder:default:=Adam
 	// +kubebuilder:validation:Enum=AdamW;Adam;SGD
 	Optimizer HyperparameterOptimizer `json:"optimizer"`
 	// Int4 indicates whether to use 4-bit integer quantization.
@@ -72,19 +72,22 @@ type Parameters struct {
 	// +kubebuilder:default:=false
 	Int8 bool `json:"int8"`
 	// LoRA_R represents the radius parameter for Localized Receptive Attention.
+	// +kubebuilder:default:="4"
 	LoRA_R string `json:"loRA_R"`
 	// LoRA_Alpha represents the alpha parameter for Localized Receptive Attention.
+	// +kubebuilder:default:="32.0"
 	LoRA_Alpha string `json:"loRA_Alpha"`
 	// LoRA_Dropout specifies the dropout rate for Localized Receptive Attention.
+	// +kubebuilder:default:="0.1"
 	LoRA_Dropout string `json:"loRA_Dropout"`
 	// LearningRate specifies the initial learning rate.
-	// +kubebuilder:default:="0.01"
+	// +kubebuilder:default:="0.001"
 	LearningRate string `json:"learningRate"`
 	// Epochs specifies the number of training epochs.
 	// +kubebuilder:default:=10
 	Epochs int `json:"epochs"`
 	// BlockSize specifies the block size.
-	// +kubebuilder:default:=128
+	// +kubebuilder:default:=512
 	BlockSize int `json:"blockSize"`
 	// BatchSize specifies the size of mini-batches.
 	// +kubebuilder:default:=32
@@ -93,12 +96,14 @@ type Parameters struct {
 	// +kubebuilder:default:="0.1"
 	WarmupRatio string `json:"warmupRatio"`
 	// WeightDecay specifies the weight decay factor.
-	// +kubebuilder:default:="0"
+	// +kubebuilder:default:="0.0001"
 	WeightDecay string `json:"weightDecay"`
 	// GradAccSteps specifies the number of gradient accumulation steps.
 	// +kubebuilder:default:=1
 	GradAccSteps int `json:"gradAccSteps"`
 	// TrainerType specifies the type of trainer to use.
+	// +kubebuilder:default:=Standard
+	// +kubebuilder:validation:Enum=Standard
 	TrainerType string `json:"trainerType"`
 	// PEFT indicates whether to enable Performance Evaluation and Forecasting Tool.
 	// +kubebuilder:default:=false
