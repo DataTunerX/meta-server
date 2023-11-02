@@ -1,0 +1,31 @@
+# permissions for end users to edit dataplugins.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: dataplugin-editor-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: meta-server
+    app.kubernetes.io/part-of: meta-server
+    app.kubernetes.io/managed-by: kustomize
+  name: dataplugin-editor-role
+rules:
+- apiGroups:
+  - extension.datatunerx.io
+  resources:
+  - dataplugins
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - extension.datatunerx.io
+  resources:
+  - dataplugins/status
+  verbs:
+  - get
