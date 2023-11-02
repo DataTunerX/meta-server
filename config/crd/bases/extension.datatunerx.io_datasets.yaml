@@ -36,24 +36,25 @@ spec:
             description: DatasetSpec defines the desired state of Dataset
             properties:
               datasetCard:
-                description: DatasetCard defines a dataset's readme, in type of markdown
+                description: DatasetCard contains a dataset's README reference.
                 properties:
                   datasetCardRef:
                     type: string
                 type: object
               datasetFiles:
-                description: DatasetFiles defines a dataset's source file address
+                description: DatasetFiles describes a dataset source address.
                 properties:
                   source:
                     type: string
                 type: object
               datasetMetadata:
                 description: 'INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-                  Important: Run "make" to regenerate code after modifying this file'
+                  Important: Run "make" to regenerate code after modifying this file
+                  DatasetMetadata contains a dataset''s Language, Tags, Size, License,
+                  Task, Plugin, and baseinfo'
                 properties:
                   datasetInfo:
-                    description: DatasetInfo defines the dataset description include
-                      subsets and features
+                    description: DatasetInfo describes a dataset's subsets and Features.
                     properties:
                       features:
                         items:
@@ -62,8 +63,11 @@ spec:
                             feature fields
                           properties:
                             dataType:
+                              default: string
                               type: string
                             mapTo:
+                              description: MapTo describes the dataste feature field
+                                mapping to instruction or response.
                               maxLength: 63
                               type: string
                             name:
@@ -71,6 +75,9 @@ spec:
                               - instruction
                               - response
                               type: string
+                          required:
+                          - mapTo
+                          - name
                           type: object
                         type: array
                       subsets:
@@ -78,11 +85,15 @@ spec:
                           description: Subset defines a dataset‘s subset
                           properties:
                             name:
+                              description: Subset e.g. Random Sample Subset, Balanced
+                                Class Subset, Time Window Subset, Feature Subset,
+                                Cross-Validation Subset, Outlier Detection Subset
+                                etc.
                               maxLength: 63
                               type: string
                             splits:
-                              description: Splits defines a dataset's train-splits,
-                                test-splits, validate-splits address info
+                              description: Splits describes subsets of training and
+                                testing and validation data splits
                               properties:
                                 test:
                                   description: Test defines a dataset's subsets' test-splits
@@ -97,6 +108,8 @@ spec:
                                   properties:
                                     file:
                                       type: string
+                                  required:
+                                  - file
                                   type: object
                                 validate:
                                   description: Validate defines a dataset's subsets'
@@ -104,42 +117,64 @@ spec:
                                   properties:
                                     file:
                                       type: string
+                                  required:
+                                  - file
                                   type: object
                               type: object
                           type: object
                         type: array
                     type: object
                   languages:
+                    description: Languages includes Chinese and English and etc.
                     items:
                       type: string
                     type: array
                   license:
+                    description: License includes CC BY, CC BY-SA, CC BY-ND, CC BY-NC,
+                      CC BY-NC-SA, CC BY-NC-ND, CC0, ODC-PDDL, ODC-BY ODC-ODbl, CDLA-Permissive-2.0,
+                      CDLA-Sharing-1.0
                     type: string
                   plugin:
-                    description: Plugin defines a plugin used by a dataset
+                    description: Plugin describes the plugin including parameters
+                      and whether uses a plugin.
                     properties:
                       loadPlugin:
-                        default: true
+                        default: false
+                        description: LoadPlugin describes a Scoring CR whether uses
+                          plugin to do evaluation, if true then Plugin data will be
+                          needed,
                         type: boolean
                       name:
                         maxLength: 63
                         type: string
                       parameters:
                         type: string
+                    required:
+                    - loadPlugin
                     type: object
                   size:
+                    description: Size describes dataset's entries number
                     type: string
                   tags:
+                    description: Tags describes a dataset, it's customized.
                     items:
                       type: string
                     type: array
                   task:
-                    description: Task defines a dataset task type
+                    description: Task describes the main task that the dataset can
+                      do, including Text Generation, Question Answering, Translation,
+                      Conversational etc.
+                    enum:
+                    - Text Generation
+                    - Question Answering
                     properties:
                       name:
                         maxLength: 63
                         type: string
                       subTasks:
+                        description: SubTask defines a dataset task's subtask e.g.
+                          language-modeling of Text Generation, open-domain-qa of
+                          Question Answering etc. It is corresponding to Task.
                         items:
                           description: 'EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU
                             TO OWN! NOTE: json tags are required.  Any new fields
@@ -149,9 +184,18 @@ spec:
                             name:
                               maxLength: 63
                               type: string
+                          required:
+                          - name
                           type: object
                         type: array
+                    required:
+                    - name
                     type: object
+                required:
+                - languages
+                - license
+                - size
+                - task
                 type: object
             required:
             - datasetMetadata
