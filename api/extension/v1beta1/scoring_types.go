@@ -37,12 +37,8 @@ type Question struct {
 type ScoringSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-	// +kubebuilder:default:=false
-	// LoadPlugin describes a Scoring CR whether uses plugin to do evaluation, if true then Plugin data will be needed,
-	// otherwise Questions data will be needed.
-	LoadPlugin bool `json:"loadPlugin,omitempty"`
-	// Plugin describes the plugin including parameters
-	Plugin Plugin `json:"plugin,omitempty"`
+	// Plugin describes the plugin including parameters and whether uses a plugin.
+	Plugin *Plugin `json:"plugin,omitempty"`
 	// Questions describes the questions uses for the evaluation in case of none plugin used.
 	Questions []Question `json:"questions,omitempty"`
 }
