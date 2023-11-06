@@ -4,9 +4,9 @@ metadata:
   name: finetunejob-sample
 spec:
   finetune:
-    llm: llm-0
-    dataset: dataset-0
-    hyperparameter: hyperparameter-0
+    llm: llama2-7b
+    dataset: example-dataset1
+    hyperparameter: hyperparameter
     resource:
       limits:
         cpu: 2

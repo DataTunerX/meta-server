@@ -9,4 +9,5 @@ resources:
 - extension_v1beta1_dataplugin.yaml
 - extension_v1beta1_scoringplugin.yaml
 - extension_v1beta1_scoring.yaml
+- finetune_v1beta1_finetune.yaml
 #+kubebuilder:scaffold:manifestskustomizesamples

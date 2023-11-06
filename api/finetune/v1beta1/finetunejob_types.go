@@ -83,6 +83,7 @@ type ScoringConfig struct {
 	Name string `json:"name"`
 }
 
+// todo(tigerK) Modify finetune definition to standard finetune cr spec
 type FineTune struct {
 	// +kubebuilder:validation:Optional
 	Name string `json:"name"`
