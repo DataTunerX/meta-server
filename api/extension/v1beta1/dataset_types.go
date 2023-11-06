@@ -20,8 +20,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 // SubTask defines a dataset task's subtask
 type SubTask struct {
 	// +kubebuilder:validation:MaxLength=63
@@ -140,8 +138,6 @@ type DatasetFiles struct {
 
 // DatasetSpec defines the desired state of Dataset
 type DatasetSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
 	// +kubebuilder:validation:Required
 	// DatasetMetadata contains a dataset's Language, Tags, Size, License, Task, Plugin, and baseinfo
 	DatasetMetadata *DatasetMetadata `json:"datasetMetadata"`
@@ -155,14 +151,13 @@ type DatasetSpec struct {
 type DatasetState string
 
 const (
-	DatasetReady   DatasetState = "Ready"
-	DatasetUnready DatasetState = "Unready"
+	DatasetReady   DatasetState = "READY"
+	DatasetUnready DatasetState = "UNREADY"
 )
 
 // DatasetStatus defines the observed state of Dataset
 type DatasetStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// +kubebuilder:validation:Enum=READY;UNREADY
 	State DatasetState `json:"state,omitempty"`
 }
 

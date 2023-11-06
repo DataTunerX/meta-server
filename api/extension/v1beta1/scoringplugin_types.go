@@ -20,13 +20,8 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
 // ScoringPluginSpec defines the desired state of ScoringPlugin
 type ScoringPluginSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
 	Version string `json:"version,omitempty"`
 	// +kubebuilder:validation:Required
 	// ScoringClass describes the class type of scoring for example, the name of the plugin creator
@@ -43,14 +38,13 @@ type ScoringPluginSpec struct {
 type ScoringPluginState string
 
 const (
-	ScoringPluginReady   ScoringPluginState = "Ready"
-	ScoringPluginUnready ScoringPluginState = "Unready"
+	ScoringPluginReady   ScoringPluginState = "READY"
+	ScoringPluginUnready ScoringPluginState = "UNREADY"
 )
 
 // ScoringPluginStatus defines the observed state of ScoringPlugin
 type ScoringPluginStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// +kubebuilder:validation:Enum=READY;UNREADY
 	State ScoringPluginState `json:"state,omitempty"`
 }
 
