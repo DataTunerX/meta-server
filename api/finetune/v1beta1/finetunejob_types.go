@@ -107,11 +107,12 @@ type FineTune struct {
 // FinetuneJobStatus defines the observed state of FinetuneJob
 type FinetuneJobStatus struct {
 	// +kubebuilder:validation:Enum=INIT;FAILED;SUCCESSFUL;BUILDIMAGE;FINETUNE;SERVE
-	State FinetuneJobState `json:"state"`
-	// todo FinetuneState
-	Stats      string             `json:"stats"`
-	Result     FinetuneJobResult  `json:"result"`
-	Conditions []metav1.Condition `json:"conditions"`
+	State  FinetuneJobState   `json:"state"`
+	Stats  string             `json:"stats,omitempty"`
+	Result *FinetuneJobResult `json:"result,omitempty"`
+	// +kubebuilder:validation:Enum=INIT;PENDING;RUNNING;FAILED;SUCCESSFUL
+	FinetuneState FinetuneState      `json:"finetuneState,omitempty"`
+	Conditions    []metav1.Condition `json:"conditions,omitempty"`
 }
 
 type FinetuneJobResult struct {

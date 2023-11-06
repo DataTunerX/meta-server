@@ -351,6 +351,14 @@ spec:
                         - type
                         type: object
                       type: array
+                    finetuneState:
+                      enum:
+                      - INIT
+                      - PENDING
+                      - RUNNING
+                      - FAILED
+                      - SUCCESSFUL
+                      type: string
                     result:
                       properties:
                         dashboard:
@@ -377,13 +385,9 @@ spec:
                       - SERVE
                       type: string
                     stats:
-                      description: todo FinetuneState
                       type: string
                   required:
-                  - conditions
-                  - result
                   - state
-                  - stats
                   type: object
                 type: array
               state:
@@ -393,9 +397,6 @@ spec:
                 - FAILED
                 type: string
             required:
-            - bestVersion
-            - conditions
-            - jobsStatus
             - state
             type: object
         type: object
