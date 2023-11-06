@@ -135,7 +135,7 @@ type Hardware struct {
 type LLMImageConfig struct {
 	// +kubebuilder:validation:Required
 	Image string `json:"image"`
-	// +kubebuilder:validation:Optional
+	// +kubebuilder:validation:Required
 	Path string `json:"path"`
 }
 

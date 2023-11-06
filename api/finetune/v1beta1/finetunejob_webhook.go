@@ -47,31 +47,31 @@ var _ webhook.Defaulter = &FinetuneJob{}
 // Default implements webhook.Defaulter so a webhook will be registered for the type
 func (r *FinetuneJob) Default() {
 	finetunejoblog.Info("default", "name", r.Name)
-	if r.Spec.FineTune.Resource == nil {
-		r.Spec.FineTune.Resource = &Resource{
+	if r.Spec.FineTune.FinetuneSpec.Resource == nil {
+		r.Spec.FineTune.FinetuneSpec.Resource = &Resource{
 			Limits:   &ResourceLimits{},
 			Requests: &ResourceLimits{},
 		}
 	}
-	if r.Spec.FineTune.Resource.Limits.CPU.IsZero() {
-		r.Spec.FineTune.Resource.Limits.CPU = resource.MustParse("2")
+	if r.Spec.FineTune.FinetuneSpec.Resource.Limits.CPU.IsZero() {
+		r.Spec.FineTune.FinetuneSpec.Resource.Limits.CPU = resource.MustParse("2")
 	}
-	if r.Spec.FineTune.Resource.Limits.Memory.IsZero() {
-		r.Spec.FineTune.Resource.Limits.Memory = resource.MustParse("4Gi")
+	if r.Spec.FineTune.FinetuneSpec.Resource.Limits.Memory.IsZero() {
+		r.Spec.FineTune.FinetuneSpec.Resource.Limits.Memory = resource.MustParse("4Gi")
 	}
-	if r.Spec.FineTune.Resource.Limits.GPU == nil {
+	if r.Spec.FineTune.FinetuneSpec.Resource.Limits.GPU == nil {
 		defaultGPU := defaultLimitGPU
-		r.Spec.FineTune.Resource.Limits.GPU = &defaultGPU
+		r.Spec.FineTune.FinetuneSpec.Resource.Limits.GPU = &defaultGPU
 	}
-	if r.Spec.FineTune.Resource.Requests.CPU.IsZero() {
-		r.Spec.FineTune.Resource.Requests.CPU = resource.MustParse("2")
+	if r.Spec.FineTune.FinetuneSpec.Resource.Requests.CPU.IsZero() {
+		r.Spec.FineTune.FinetuneSpec.Resource.Requests.CPU = resource.MustParse("2")
 	}
-	if r.Spec.FineTune.Resource.Requests.Memory.IsZero() {
-		r.Spec.FineTune.Resource.Requests.Memory = resource.MustParse("4Gi")
+	if r.Spec.FineTune.FinetuneSpec.Resource.Requests.Memory.IsZero() {
+		r.Spec.FineTune.FinetuneSpec.Resource.Requests.Memory = resource.MustParse("4Gi")
 	}
-	if r.Spec.FineTune.Resource.Requests.GPU == nil {
+	if r.Spec.FineTune.FinetuneSpec.Resource.Requests.GPU == nil {
 		defaultGPU := defaultRequestGPU
-		r.Spec.FineTune.Resource.Requests.GPU = &defaultGPU
+		r.Spec.FineTune.FinetuneSpec.Resource.Requests.GPU = &defaultGPU
 	}
 }
 

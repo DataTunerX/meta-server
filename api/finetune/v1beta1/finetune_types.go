@@ -50,15 +50,21 @@ type FinetuneSpec struct {
 	Resource *Resource `json:"resource,omitempty"`
 	// +kubebuilder:validation:Optional
 	Node int `json:"node,omitempty"`
+	// +kubebuilder:validation:Required
+	Image ImageSetting `json:"image"`
 }
 
 type ImageSetting struct {
 	// Name describe the image name.
 	Name string `json:"name"`
 	// ImagePullPolicy describes a policy for if/when to pull a container image.
-	ImagePullPolicy corev1.PullPolicy `json:"imagePullPolicy"`
+	// +kubebuilder:default:=IfNotPresent
+	// +kubebuilder:validation:Enum=Always;IfNotPresent;Never
+	// +kubebuilder:validation:Optional
+	ImagePullPolicy *corev1.PullPolicy `json:"imagePullPolicy,omitempty"`
 	// Path description of the model file path.
-	Path string `json:"path"`
+	// +kubebuilder:validation:Optional
+	Path string `json:"path,omitempty"`
 }
 
 // FinetuneStatus defines the observed state of Finetune
