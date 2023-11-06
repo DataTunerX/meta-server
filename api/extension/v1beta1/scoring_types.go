@@ -20,9 +20,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
 // Question defines a Scoring CRD's questions and desired anwsers
 type Question struct {
 	// +kubebuilder:validation:Required
@@ -35,8 +32,6 @@ type Question struct {
 
 // ScoringSpec defines the desired state of Scoring
 type ScoringSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
 	// Plugin describes the plugin including parameters and whether uses a plugin.
 	Plugin *Plugin `json:"plugin,omitempty"`
 	// Questions describes the questions uses for the evaluation in case of none plugin used.

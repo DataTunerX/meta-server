@@ -48,10 +48,8 @@ spec:
                     type: string
                 type: object
               datasetMetadata:
-                description: 'INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-                  Important: Run "make" to regenerate code after modifying this file
-                  DatasetMetadata contains a dataset''s Language, Tags, Size, License,
-                  Task, Plugin, and baseinfo'
+                description: DatasetMetadata contains a dataset's Language, Tags,
+                  Size, License, Task, Plugin, and baseinfo
                 properties:
                   datasetInfo:
                     description: DatasetInfo describes a dataset's subsets and Features.
@@ -176,10 +174,7 @@ spec:
                           language-modeling of Text Generation, open-domain-qa of
                           Question Answering etc. It is corresponding to Task.
                         items:
-                          description: 'EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU
-                            TO OWN! NOTE: json tags are required.  Any new fields
-                            you add must have json tags for the fields to be serialized.
-                            SubTask defines a dataset task''s subtask'
+                          description: SubTask defines a dataset task's subtask
                           properties:
                             name:
                               maxLength: 63
@@ -204,9 +199,10 @@ spec:
             description: DatasetStatus defines the observed state of Dataset
             properties:
               state:
-                description: 'INSERT ADDITIONAL STATUS FIELD - define observed state
-                  of cluster Important: Run "make" to regenerate code after modifying
-                  this file'
+                description: DatasetState is an enum type for the State field
+                enum:
+                - READY
+                - UNREADY
                 type: string
             type: object
         type: object
