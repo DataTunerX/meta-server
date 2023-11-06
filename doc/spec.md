@@ -317,6 +317,10 @@ Finetune
   - **Cpus:** CPU 数量
   - **Memory:** 内存大小
   - **Gpus:** GPU 数量
+- **Image** 服务镜像
+  - **Name** 镜像名称
+  - **ImagePullPolicy** 镜像拉取策略
+  - **Path** 镜像中模型文件的地址
 
 #### **Status:** 
 - **State:** 运行状态 (例如：init、pending、running、failed、successful)

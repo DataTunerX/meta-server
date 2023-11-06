@@ -51,8 +51,13 @@ spec:
                       image:
                         properties:
                           imagePullPolicy:
+                            default: IfNotPresent
                             description: ImagePullPolicy describes a policy for if/when
                               to pull a container image.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            - Never
                             type: string
                           name:
                             description: Name describe the image name.
@@ -61,7 +66,6 @@ spec:
                             description: Path description of the model file path.
                             type: string
                         required:
-                        - imagePullPolicy
                         - name
                         type: object
                       llm:
