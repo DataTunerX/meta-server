@@ -274,7 +274,7 @@ spec:
                   - type
                   type: object
                 type: array
-              jobStates:
+              jobsStatus:
                 items:
                   description: FinetuneJobStatus defines the observed state of FinetuneJob
                   properties:
@@ -368,6 +368,13 @@ spec:
                       - serve
                       type: object
                     state:
+                      enum:
+                      - INIT
+                      - FAILED
+                      - SUCCESSFUL
+                      - BUILDIMAGE
+                      - FINETUNE
+                      - SERVE
                       type: string
                     stats:
                       description: todo FinetuneState
@@ -380,11 +387,15 @@ spec:
                   type: object
                 type: array
               state:
+                enum:
+                - PROCESSING
+                - SUCCESS
+                - FAILED
                 type: string
             required:
             - bestVersion
             - conditions
-            - jobStates
+            - jobsStatus
             - state
             type: object
         type: object

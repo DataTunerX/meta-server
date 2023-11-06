@@ -105,6 +105,7 @@ type FineTune struct {
 
 // FinetuneJobStatus defines the observed state of FinetuneJob
 type FinetuneJobStatus struct {
+	// +kubebuilder:validation:Enum=INIT;FAILED;SUCCESSFUL;BUILDIMAGE;FINETUNE;SERVE
 	State FinetuneJobState `json:"state"`
 	// todo FinetuneState
 	Stats      string             `json:"stats"`
