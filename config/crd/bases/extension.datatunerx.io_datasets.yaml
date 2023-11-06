@@ -162,11 +162,13 @@ spec:
                     description: Task describes the main task that the dataset can
                       do, including Text Generation, Question Answering, Translation,
                       Conversational etc.
-                    enum:
-                    - Text Generation
-                    - Question Answering
                     properties:
                       name:
+                        enum:
+                        - Text Generation
+                        - Question Answering
+                        - Text Classification
+                        - Summarization
                         maxLength: 63
                         type: string
                       subTasks:
@@ -177,6 +179,19 @@ spec:
                           description: SubTask defines a dataset task's subtask
                           properties:
                             name:
+                              enum:
+                              - language-modeling
+                              - masked-language-modeling
+                              - natural-language-inference
+                              - extractive-qa
+                              - open-domain-qa
+                              - multi-choice-qa
+                              - closed-domain-qa
+                              - multi-class-classification
+                              - sentiment-classification
+                              - topic-classification
+                              - multi-label-classification
+                              - news-articles-summarization
                               maxLength: 63
                               type: string
                           required:

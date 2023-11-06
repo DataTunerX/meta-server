@@ -24,6 +24,7 @@ import (
 type SubTask struct {
 	// +kubebuilder:validation:MaxLength=63
 	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Enum=language-modeling;masked-language-modeling;natural-language-inference;extractive-qa;open-domain-qa;multi-choice-qa;closed-domain-qa;multi-class-classification;sentiment-classification;topic-classification;multi-label-classification;news-articles-summarization;
 	Name string `json:"name"`
 }
 
@@ -31,6 +32,7 @@ type SubTask struct {
 type Task struct {
 	// +kubebuilder:validation:Required
 	// +kubebuilder:validation:MaxLength=63
+	// +kubebuilder:validation:Enum=Text Generation;Question Answering;Text Classification;Summarization
 	Name string `json:"name"`
 	// SubTask defines a dataset task's subtask e.g. language-modeling of Text Generation, open-domain-qa of Question Answering etc.
 	// It is corresponding to Task.
@@ -118,7 +120,6 @@ type DatasetMetadata struct {
 	// +kubebuilder:validation:Required
 	// Task describes the main task that the dataset can do, including Text Generation, Question Answering,
 	// Translation, Conversational etc.
-	// +kubebuilder:validation:Enum=Text Generation;Question Answering
 	Task *Task `json:"task"`
 	// DatasetInfo describes a dataset's subsets and Features.
 	DatasetInfo *DatasetInfo `json:"datasetInfo,omitempty"`
