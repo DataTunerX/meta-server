@@ -5,7 +5,7 @@ metadata:
 spec:
   finetune:
     llm: llama2-7b
-    dataset: example-dataset1
+    dataset: example-dataset
     hyperparameter: hyperparameter
     resource:
       limits:
