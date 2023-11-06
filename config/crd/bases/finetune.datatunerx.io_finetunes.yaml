@@ -42,6 +42,22 @@ spec:
                 description: Hyperparameter specifies the hyperparameter CR used for
                   fine-tuning.
                 type: string
+              image:
+                properties:
+                  imagePullPolicy:
+                    description: ImagePullPolicy describes a policy for if/when to
+                      pull a container image.
+                    type: string
+                  name:
+                    description: Name describe the image name.
+                    type: string
+                  path:
+                    description: Path description of the model file path.
+                    type: string
+                required:
+                - imagePullPolicy
+                - name
+                type: object
               llm:
                 description: LLM specifies the large model CR used for fine-tuning.
                 type: string
@@ -114,6 +130,7 @@ spec:
             required:
             - dataset
             - hyperparameter
+            - image
             - llm
             type: object
           status:

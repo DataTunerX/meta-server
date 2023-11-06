@@ -38,87 +38,114 @@ spec:
               finetune:
                 description: Finetune cr config.
                 properties:
-                  dataset:
-                    description: Dataset specifies the dataset CR used for fine-tuning.
-                    type: string
-                  hyperparameter:
-                    description: Hyperparameter specifies the hyperparameter CR used
-                      for fine-tuning.
-                    type: string
-                  llm:
-                    description: LLM specifies the large model CR used for fine-tuning.
-                    type: string
-                  name:
-                    type: string
-                  resource:
-                    description: Resource specifies the resource configuration for
-                      fine-tuning.
+                  finetuneSpec:
+                    description: FinetuneSpec defines the desired state of Finetune
                     properties:
-                      limits:
-                        description: Limits specifies the resource limits.
+                      dataset:
+                        description: Dataset specifies the dataset CR used for fine-tuning.
+                        type: string
+                      hyperparameter:
+                        description: Hyperparameter specifies the hyperparameter CR
+                          used for fine-tuning.
+                        type: string
+                      image:
                         properties:
-                          cpu:
-                            anyOf:
-                            - type: integer
-                            - type: string
-                            default: "2"
-                            description: CPU specifies the CPU resource limit.
-                            pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                            x-kubernetes-int-or-string: true
-                          gpu:
-                            default: "1"
-                            description: GPU specifies the GPU resource limit.
+                          imagePullPolicy:
+                            description: ImagePullPolicy describes a policy for if/when
+                              to pull a container image.
                             type: string
-                          memory:
-                            anyOf:
-                            - type: integer
-                            - type: string
-                            default: 4Gi
-                            description: Memory specifies the memory resource limit.
-                            pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                            x-kubernetes-int-or-string: true
+                          name:
+                            description: Name describe the image name.
+                            type: string
+                          path:
+                            description: Path description of the model file path.
+                            type: string
                         required:
-                        - cpu
-                        - gpu
-                        - memory
+                        - imagePullPolicy
+                        - name
                         type: object
-                      requests:
-                        description: ResourceLimits represents the resource limits
-                          for a task.
+                      llm:
+                        description: LLM specifies the large model CR used for fine-tuning.
+                        type: string
+                      node:
+                        type: integer
+                      resource:
+                        description: Resource specifies the resource configuration
+                          for fine-tuning.
                         properties:
-                          cpu:
-                            anyOf:
-                            - type: integer
-                            - type: string
-                            default: "2"
-                            description: CPU specifies the CPU resource limit.
-                            pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                            x-kubernetes-int-or-string: true
-                          gpu:
-                            default: "1"
-                            description: GPU specifies the GPU resource limit.
-                            type: string
-                          memory:
-                            anyOf:
-                            - type: integer
-                            - type: string
-                            default: 4Gi
-                            description: Memory specifies the memory resource limit.
-                            pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                            x-kubernetes-int-or-string: true
+                          limits:
+                            description: Limits specifies the resource limits.
+                            properties:
+                              cpu:
+                                anyOf:
+                                - type: integer
+                                - type: string
+                                default: "2"
+                                description: CPU specifies the CPU resource limit.
+                                pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                x-kubernetes-int-or-string: true
+                              gpu:
+                                default: "1"
+                                description: GPU specifies the GPU resource limit.
+                                type: string
+                              memory:
+                                anyOf:
+                                - type: integer
+                                - type: string
+                                default: 4Gi
+                                description: Memory specifies the memory resource
+                                  limit.
+                                pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                x-kubernetes-int-or-string: true
+                            required:
+                            - cpu
+                            - gpu
+                            - memory
+                            type: object
+                          requests:
+                            description: ResourceLimits represents the resource limits
+                              for a task.
+                            properties:
+                              cpu:
+                                anyOf:
+                                - type: integer
+                                - type: string
+                                default: "2"
+                                description: CPU specifies the CPU resource limit.
+                                pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                x-kubernetes-int-or-string: true
+                              gpu:
+                                default: "1"
+                                description: GPU specifies the GPU resource limit.
+                                type: string
+                              memory:
+                                anyOf:
+                                - type: integer
+                                - type: string
+                                default: 4Gi
+                                description: Memory specifies the memory resource
+                                  limit.
+                                pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                x-kubernetes-int-or-string: true
+                            required:
+                            - cpu
+                            - gpu
+                            - memory
+                            type: object
                         required:
-                        - cpu
-                        - gpu
-                        - memory
+                        - limits
+                        - requests
                         type: object
                     required:
-                    - limits
-                    - requests
+                    - dataset
+                    - hyperparameter
+                    - image
+                    - llm
                     type: object
+                  name:
+                    type: string
                 required:
-                - dataset
-                - hyperparameter
-                - llm
+                - finetuneSpec
                 type: object
               scoringConfig:
                 description: Score plugin config.

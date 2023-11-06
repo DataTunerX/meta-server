@@ -50,6 +50,8 @@ type FinetuneSpec struct {
 	Resource *Resource `json:"resource,omitempty"`
 	// +kubebuilder:validation:Optional
 	Node int `json:"node,omitempty"`
+	// +kubebuilder:validation:Required
+	Image ImageSetting `json:"image"`
 }
 
 type ImageSetting struct {
@@ -58,6 +60,7 @@ type ImageSetting struct {
 	// ImagePullPolicy describes a policy for if/when to pull a container image.
 	ImagePullPolicy corev1.PullPolicy `json:"imagePullPolicy"`
 	// Path description of the model file path.
+	// +kubebuilder:validation:Optional
 	Path string `json:"path"`
 }
 

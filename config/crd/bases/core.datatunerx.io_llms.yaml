@@ -141,6 +141,7 @@ spec:
                         type: string
                     required:
                     - image
+                    - path
                     type: object
                   name:
                     description: Describe the name of the llm.

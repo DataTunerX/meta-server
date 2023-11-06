@@ -87,21 +87,8 @@ type ScoringConfig struct {
 type FineTune struct {
 	// +kubebuilder:validation:Optional
 	Name string `json:"name"`
-	// LLM specifies the large model CR used for fine-tuning.
 	// +kubebuilder:validation:Required
-	LLM string `json:"llm"`
-
-	// Dataset specifies the dataset CR used for fine-tuning.
-	// +kubebuilder:validation:Required
-	Dataset string `json:"dataset"`
-
-	// Hyperparameter specifies the hyperparameter CR used for fine-tuning.
-	// +kubebuilder:validation:Required
-	Hyperparameter string `json:"hyperparameter"`
-
-	// Resource specifies the resource configuration for fine-tuning.
-	// +kubebuilder:validation:Optional
-	Resource *Resource `json:"resource,omitempty"`
+	FinetuneSpec FinetuneSpec `json:"finetuneSpec"`
 }
 
 // FinetuneJobStatus defines the observed state of FinetuneJob
