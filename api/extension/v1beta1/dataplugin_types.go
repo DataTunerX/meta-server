@@ -20,14 +20,8 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
 // DataPluginSpec defines the desired state of DataPlugin
 type DataPluginSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-
 	// +kubebuilder:validation:Required
 	// DatasetClass describes the class type of dataset for example, the name of the plugin creator
 	DatasetClass string `json:"datasetClass"`
@@ -44,15 +38,14 @@ type DataPluginSpec struct {
 type DataPluginState string
 
 const (
-	DataPluginReady   DataPluginState = "Ready"
-	DataPluginUnready DataPluginState = "Unready"
+	DataPluginReady   DataPluginState = "READY"
+	DataPluginUnready DataPluginState = "UNREADY"
 )
 
 // DataPluginStatus defines the observed state of DataPlugin
 type DataPluginStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-	State DatasetState `json:"state,omitempty"`
+	// +kubebuilder:validation:Enum=READY;UNREADY
+	State DataPluginState `json:"state,omitempty"`
 }
 
 //+kubebuilder:object:root=true

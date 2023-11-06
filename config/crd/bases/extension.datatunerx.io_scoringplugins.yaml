@@ -53,8 +53,6 @@ spec:
                   example, the name of the plugin creator
                 type: string
               version:
-                description: 'INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-                  Important: Run "make" to regenerate code after modifying this file'
                 type: string
             required:
             - metrics
@@ -63,9 +61,10 @@ spec:
             description: ScoringPluginStatus defines the observed state of ScoringPlugin
             properties:
               state:
-                description: 'INSERT ADDITIONAL STATUS FIELD - define observed state
-                  of cluster Important: Run "make" to regenerate code after modifying
-                  this file'
+                description: DataPluginState is an enum type for the State field
+                enum:
+                - READY
+                - UNREADY
                 type: string
             type: object
         type: object

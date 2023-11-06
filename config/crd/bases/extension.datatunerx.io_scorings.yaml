@@ -35,16 +35,9 @@ spec:
           spec:
             description: ScoringSpec defines the desired state of Scoring
             properties:
-              loadPlugin:
-                default: false
-                description: 'INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-                  Important: Run "make" to regenerate code after modifying this file
-                  LoadPlugin describes a Scoring CR whether uses plugin to do evaluation,
-                  if true then Plugin data will be needed, otherwise Questions data
-                  will be needed.'
-                type: boolean
               plugin:
-                description: Plugin describes the plugin including parameters
+                description: Plugin describes the plugin including parameters and
+                  whether uses a plugin.
                 properties:
                   loadPlugin:
                     default: false
