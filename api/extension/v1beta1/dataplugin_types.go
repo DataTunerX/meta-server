@@ -38,8 +38,8 @@ type DataPluginSpec struct {
 type DataPluginState string
 
 const (
-	DataPluginReady   DataPluginState = "Ready"
-	DataPluginUnready DataPluginState = "Unready"
+	DataPluginReady   DataPluginState = "READY"
+	DataPluginUnready DataPluginState = "UNREADY"
 )
 
 // DataPluginStatus defines the observed state of DataPlugin
