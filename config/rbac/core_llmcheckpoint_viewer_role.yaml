@@ -1,0 +1,27 @@
+# permissions for end users to view llmcheckpoints.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: llmcheckpoint-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: meta-server
+    app.kubernetes.io/part-of: meta-server
+    app.kubernetes.io/managed-by: kustomize
+  name: llmcheckpoint-viewer-role
+rules:
+- apiGroups:
+  - core.datatunerx.io
+  resources:
+  - llmcheckpoints
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - core.datatunerx.io
+  resources:
+  - llmcheckpoints/status
+  verbs:
+  - get

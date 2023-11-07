@@ -336,8 +336,12 @@ LLMCheckpoint
   - **Name:** 镜像名称
   - **ImagePullPolicy:** 拉取策略
   - **Path:** 大模型路径
-  - **CheckPointPath：** checkpoint 地址
 - **Checkpoint:** checkpoint 地址
+- **CheckpointImage:** checkpoint镜像配置部分
+  - **Name:** 镜像名称
+  - **ImagePullPolicy:** 拉取策略
+  - **LLMPath:** 大模型路径
+  - **CheckPointPath：** checkpoint 地址
 
 ---
 

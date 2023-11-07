@@ -71,6 +71,8 @@ type ImageSetting struct {
 type FinetuneStatus struct {
 	// +kubebuilder:validation:Enum=INIT;PENDING;RUNNING;FAILED;SUCCESSFUL
 	State FinetuneState `json:"state"`
+	// LLMCheckpoint describes the llmcheckpoint.
+	LLMCheckpoint string `json:"llmCheckpoint"`
 }
 
 //+kubebuilder:object:root=true
