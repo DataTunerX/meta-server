@@ -25,8 +25,10 @@ import (
 )
 
 const (
-	defaultLimitGPU   = "1"
-	defaultRequestGPU = "1"
+	defaultLimitGPU    = "1"
+	defaultRequestGPU  = "1"
+	defaultServerImage = "rayproject/ray:2.7.1-py39-cu121-finetunecode-llm"
+	defaultPath        = "/root/model-data"
 )
 
 // log is for logging in this package.
@@ -72,6 +74,13 @@ func (r *FinetuneJob) Default() {
 	if r.Spec.FineTune.FinetuneSpec.Resource.Requests.GPU == nil {
 		defaultGPU := defaultRequestGPU
 		r.Spec.FineTune.FinetuneSpec.Resource.Requests.GPU = &defaultGPU
+	}
+	if r.Spec.FineTune.FinetuneSpec.Image == nil {
+		defaultImage := defaultServerImage
+		r.Spec.FineTune.FinetuneSpec.Image = &ImageSetting{
+			Name: &defaultImage,
+			Path: defaultPath,
+		}
 	}
 }
 
