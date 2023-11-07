@@ -51,12 +51,12 @@ type FinetuneSpec struct {
 	// +kubebuilder:validation:Optional
 	Node int `json:"node,omitempty"`
 	// +kubebuilder:validation:Required
-	Image ImageSetting `json:"image"`
+	Image *ImageSetting `json:"image"`
 }
 
 type ImageSetting struct {
 	// Name describe the image name.
-	Name string `json:"name"`
+	Name *string `json:"name"`
 	// ImagePullPolicy describes a policy for if/when to pull a container image.
 	// +kubebuilder:default:=IfNotPresent
 	// +kubebuilder:validation:Enum=Always;IfNotPresent;Never
