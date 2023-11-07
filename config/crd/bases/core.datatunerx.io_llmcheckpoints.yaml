@@ -1,0 +1,579 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.11.1
+  creationTimestamp: null
+  name: llmcheckpoints.core.datatunerx.io
+spec:
+  group: core.datatunerx.io
+  names:
+    kind: LLMCheckpoint
+    listKind: LLMCheckpointList
+    plural: llmcheckpoints
+    singular: llmcheckpoint
+  scope: Namespaced
+  versions:
+  - name: v1beta1
+    schema:
+      openAPIV3Schema:
+        description: LLMCheckpoint is the Schema for the llmcheckpoints API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: LLMCheckpointSpec defines the desired state of LLMCheckpoint
+            properties:
+              checkpoint:
+                description: Checkpoint specifies the checkpoint file.
+                type: string
+              checkpointImage:
+                description: CheckpointImage specifies the checkpointImage info.
+                properties:
+                  checkPointPath:
+                    description: CheckPointPath description of the checkpoint file
+                      path.
+                    type: string
+                  imagePullPolicy:
+                    default: IfNotPresent
+                    description: ImagePullPolicy describes a policy for if/when to
+                      pull a container image.
+                    enum:
+                    - Always
+                    - IfNotPresent
+                    - Never
+                    type: string
+                  llmPath:
+                    description: LLMPath description of the model file path.
+                    type: string
+                  name:
+                    description: Name describe the image name.
+                    type: string
+                required:
+                - name
+                type: object
+              dataset:
+                description: Dataset specifies the dataset CR used for fine-tuning.
+                properties:
+                  datasetRef:
+                    description: DatasetRef describe the dataset ref.
+                    type: string
+                  spec:
+                    description: Spec describe the dataset spec.
+                    properties:
+                      datasetCard:
+                        description: DatasetCard contains a dataset's README reference.
+                        properties:
+                          datasetCardRef:
+                            type: string
+                        type: object
+                      datasetFiles:
+                        description: DatasetFiles describes a dataset source address.
+                        properties:
+                          source:
+                            type: string
+                        type: object
+                      datasetMetadata:
+                        description: DatasetMetadata contains a dataset's Language,
+                          Tags, Size, License, Task, Plugin, and baseinfo
+                        properties:
+                          datasetInfo:
+                            description: DatasetInfo describes a dataset's subsets
+                              and Features.
+                            properties:
+                              features:
+                                items:
+                                  description: Feature defines a dataset's column
+                                    name as a feature and its data type and relationship
+                                    to finetune feature fields
+                                  properties:
+                                    dataType:
+                                      default: string
+                                      type: string
+                                    mapTo:
+                                      description: MapTo describes the dataste feature
+                                        field mapping to instruction or response.
+                                      maxLength: 63
+                                      type: string
+                                    name:
+                                      enum:
+                                      - instruction
+                                      - response
+                                      type: string
+                                  required:
+                                  - mapTo
+                                  - name
+                                  type: object
+                                type: array
+                              subsets:
+                                items:
+                                  description: Subset defines a dataset‘s subset
+                                  properties:
+                                    name:
+                                      description: Subset e.g. Random Sample Subset,
+                                        Balanced Class Subset, Time Window Subset,
+                                        Feature Subset, Cross-Validation Subset, Outlier
+                                        Detection Subset etc.
+                                      maxLength: 63
+                                      type: string
+                                    splits:
+                                      description: Splits describes subsets of training
+                                        and testing and validation data splits
+                                      properties:
+                                        test:
+                                          description: Test defines a dataset's subsets'
+                                            test-splits file address
+                                          properties:
+                                            file:
+                                              type: string
+                                          type: object
+                                        train:
+                                          description: Train defines a dataset's subsets'
+                                            train-splits file address
+                                          properties:
+                                            file:
+                                              type: string
+                                          required:
+                                          - file
+                                          type: object
+                                        validate:
+                                          description: Validate defines a dataset's
+                                            subsets' validate-splits file address
+                                          properties:
+                                            file:
+                                              type: string
+                                          required:
+                                          - file
+                                          type: object
+                                      type: object
+                                  type: object
+                                type: array
+                            type: object
+                          languages:
+                            description: Languages includes Chinese and English and
+                              etc.
+                            items:
+                              type: string
+                            type: array
+                          license:
+                            description: License includes CC BY, CC BY-SA, CC BY-ND,
+                              CC BY-NC, CC BY-NC-SA, CC BY-NC-ND, CC0, ODC-PDDL, ODC-BY
+                              ODC-ODbl, CDLA-Permissive-2.0, CDLA-Sharing-1.0
+                            type: string
+                          plugin:
+                            description: Plugin describes the plugin including parameters
+                              and whether uses a plugin.
+                            properties:
+                              loadPlugin:
+                                default: false
+                                description: LoadPlugin describes a Scoring CR whether
+                                  uses plugin to do evaluation, if true then Plugin
+                                  data will be needed,
+                                type: boolean
+                              name:
+                                maxLength: 63
+                                type: string
+                              parameters:
+                                type: string
+                            required:
+                            - loadPlugin
+                            type: object
+                          size:
+                            description: Size describes dataset's entries number
+                            type: string
+                          tags:
+                            description: Tags describes a dataset, it's customized.
+                            items:
+                              type: string
+                            type: array
+                          task:
+                            description: Task describes the main task that the dataset
+                              can do, including Text Generation, Question Answering,
+                              Translation, Conversational etc.
+                            properties:
+                              name:
+                                enum:
+                                - Text Generation
+                                - Question Answering
+                                - Text Classification
+                                - Summarization
+                                maxLength: 63
+                                type: string
+                              subTasks:
+                                description: SubTask defines a dataset task's subtask
+                                  e.g. language-modeling of Text Generation, open-domain-qa
+                                  of Question Answering etc. It is corresponding to
+                                  Task.
+                                items:
+                                  description: SubTask defines a dataset task's subtask
+                                  properties:
+                                    name:
+                                      enum:
+                                      - language-modeling
+                                      - masked-language-modeling
+                                      - natural-language-inference
+                                      - extractive-qa
+                                      - open-domain-qa
+                                      - multi-choice-qa
+                                      - closed-domain-qa
+                                      - multi-class-classification
+                                      - sentiment-classification
+                                      - topic-classification
+                                      - multi-label-classification
+                                      - news-articles-summarization
+                                      maxLength: 63
+                                      type: string
+                                  required:
+                                  - name
+                                  type: object
+                                type: array
+                            required:
+                            - name
+                            type: object
+                        required:
+                        - languages
+                        - license
+                        - size
+                        - task
+                        type: object
+                    required:
+                    - datasetMetadata
+                    type: object
+                required:
+                - datasetRef
+                - spec
+                type: object
+              hyperparameter:
+                description: Hyperparameter specifies the hyperparameter CR used for
+                  fine-tuning.
+                properties:
+                  objective:
+                    description: Over-senator adjustments to achieve targets.
+                    properties:
+                      type:
+                        default: SFT
+                        description: 'The type (Type) of fine-tuning may refer to
+                          a specific method or strategy of hyperparameter tuning.
+                          Common hyperparameter tuning methods include: 1. SFT'
+                        type: string
+                    required:
+                    - type
+                    type: object
+                  parameters:
+                    description: Finetune paramenter config.
+                    properties:
+                      FP16:
+                        default: false
+                        description: FP16 indicates whether to use 16-bit floating
+                          point precision.
+                        type: boolean
+                      PEFT:
+                        default: false
+                        description: PEFT indicates whether to enable Performance
+                          Evaluation and Forecasting Tool.
+                        type: boolean
+                      batchSize:
+                        default: 32
+                        description: BatchSize specifies the size of mini-batches.
+                        type: integer
+                      blockSize:
+                        default: 512
+                        description: BlockSize specifies the block size.
+                        type: integer
+                      epochs:
+                        default: 10
+                        description: Epochs specifies the number of training epochs.
+                        type: integer
+                      gradAccSteps:
+                        default: 1
+                        description: GradAccSteps specifies the number of gradient
+                          accumulation steps.
+                        type: integer
+                      int4:
+                        default: false
+                        description: Int4 indicates whether to use 4-bit integer quantization.
+                        type: boolean
+                      int8:
+                        default: false
+                        description: Int8 indicates whether to use 8-bit integer quantization.
+                        type: boolean
+                      learningRate:
+                        default: "0.001"
+                        description: LearningRate specifies the initial learning rate.
+                        type: string
+                      loRA_Alpha:
+                        default: "32.0"
+                        description: LoRA_Alpha represents the alpha parameter for
+                          Localized Receptive Attention.
+                        type: string
+                      loRA_Dropout:
+                        default: "0.1"
+                        description: LoRA_Dropout specifies the dropout rate for Localized
+                          Receptive Attention.
+                        type: string
+                      loRA_R:
+                        default: "4"
+                        description: LoRA_R represents the radius parameter for Localized
+                          Receptive Attention.
+                        type: string
+                      optimizer:
+                        default: Adam
+                        description: Optimizer specifies the optimization algorithm.
+                        enum:
+                        - AdamW
+                        - Adam
+                        - SGD
+                        type: string
+                      scheduler:
+                        default: Cosine
+                        description: Scheduler specifies the learning rate scheduler.
+                        enum:
+                        - Cosine
+                        - Linear
+                        - Constant
+                        type: string
+                      trainerType:
+                        default: Standard
+                        description: TrainerType specifies the type of trainer to
+                          use.
+                        enum:
+                        - Standard
+                        type: string
+                      warmupRatio:
+                        default: "0.1"
+                        description: WarmupRatio specifies the ratio of warmup steps.
+                        type: string
+                      weightDecay:
+                        default: "0.0001"
+                        description: WeightDecay specifies the weight decay factor.
+                        type: string
+                    required:
+                    - FP16
+                    - PEFT
+                    - batchSize
+                    - blockSize
+                    - epochs
+                    - gradAccSteps
+                    - int4
+                    - int8
+                    - learningRate
+                    - loRA_Alpha
+                    - loRA_Dropout
+                    - loRA_R
+                    - optimizer
+                    - scheduler
+                    - trainerType
+                    - warmupRatio
+                    - weightDecay
+                    type: object
+                required:
+                - objective
+                - parameters
+                type: object
+              image:
+                description: Image specifies the image info used for fine-tuning.
+                properties:
+                  imagePullPolicy:
+                    default: IfNotPresent
+                    description: ImagePullPolicy describes a policy for if/when to
+                      pull a container image.
+                    enum:
+                    - Always
+                    - IfNotPresent
+                    - Never
+                    type: string
+                  name:
+                    description: Name describe the image name.
+                    type: string
+                  path:
+                    description: Path description of the model file path.
+                    type: string
+                required:
+                - name
+                type: object
+              llm:
+                description: LLM specifies the large model CR used for fine-tuning.
+                properties:
+                  llmRef:
+                    description: LLMRef describe the llm ref.
+                    type: string
+                  spec:
+                    description: Spec describe the llm spec.
+                    properties:
+                      llmCard:
+                        description: Describe readme information for llm.
+                        properties:
+                          llmCardRef:
+                            description: Readme information of the model, parsed in
+                              markdown format, is presented as information on the
+                              model page to help model users understand the model
+                              and use it correctly. Describe references to readme
+                              files mounted by configmap.
+                            type: string
+                        type: object
+                      llmFiles:
+                        description: Describe file information for llm.
+                        properties:
+                          source:
+                            description: Describe llm source file citation address.
+                            type: string
+                        type: object
+                      llmMetdata:
+                        description: Describe metadata information for llm.
+                        properties:
+                          baseLlm:
+                            description: Describe the llm on which the model was fine-tuned.
+                            type: string
+                          computeInfrastructure:
+                            description: Describe Hardware and software information
+                              the llm's operation
+                            properties:
+                              hardware:
+                                description: Describe the hardware information required
+                                  for the llm to operate
+                                properties:
+                                  cpu:
+                                    anyOf:
+                                    - type: integer
+                                    - type: string
+                                    description: Description of the number of cpu
+                                      cores needed for llm.
+                                    pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                    x-kubernetes-int-or-string: true
+                                  memory:
+                                    anyOf:
+                                    - type: integer
+                                    - type: string
+                                    description: Description of the memory size required
+                                      by llm
+                                    pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                    x-kubernetes-int-or-string: true
+                                  vRam:
+                                    anyOf:
+                                    - type: integer
+                                    - type: string
+                                    description: Describes the size of the video memory
+                                      required by the llm.
+                                    pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                    x-kubernetes-int-or-string: true
+                                required:
+                                - cpu
+                                - memory
+                                - vRam
+                                type: object
+                            type: object
+                          datasets:
+                            description: Describe the datasets used in the llm.
+                            items:
+                              type: string
+                            type: array
+                          domain:
+                            description: 'Describe the domain of the llm, the following
+                              fields are optional: 1. Multimodal 2. ComputerVision
+                              3. NLP 4. Audio 5. Tabular 6. ReinforcementLearning'
+                            items:
+                              enum:
+                              - Multimodal
+                              - ComputerVision
+                              - NLP
+                              - Audio
+                              - Tabular
+                              - ReinforcementLearning
+                              type: string
+                            type: array
+                          frameworks:
+                            description: Describe the AI framework used by the llm.
+                            items:
+                              type: string
+                            type: array
+                          languages:
+                            description: Describe list of natural languages supported
+                              by the llm.
+                            items:
+                              type: string
+                            type: array
+                          license:
+                            description: Describe the open source licences to which
+                              the llm adheres.
+                            items:
+                              type: string
+                            type: array
+                          llmImageConfig:
+                            description: Describe the llm image config.
+                            properties:
+                              image:
+                                type: string
+                              path:
+                                type: string
+                            required:
+                            - image
+                            - path
+                            type: object
+                          name:
+                            description: Describe the name of the llm.
+                            type: string
+                          tags:
+                            description: Custom labels for llm.
+                            items:
+                              type: string
+                            type: array
+                          tasks:
+                            description: "Describe the types of tasks in the pipeline
+                              corresponding to the llm. example: \n ... tasks: - feature-extraction
+                              - text-to-image ..."
+                            items:
+                              type: string
+                            type: array
+                        required:
+                        - frameworks
+                        - languages
+                        - license
+                        - llmImageConfig
+                        - name
+                        - tasks
+                        type: object
+                    required:
+                    - llmMetdata
+                    type: object
+                required:
+                - llmRef
+                - spec
+                type: object
+            required:
+            - checkpoint
+            - checkpointImage
+            - dataset
+            - hyperparameter
+            - image
+            - llm
+            type: object
+          status:
+            description: LLMCheckpointStatus defines the observed state of LLMCheckpoint
+            properties:
+              state:
+                enum:
+                - INIT
+                - PENDING
+                - RUNNING
+                - FAILED
+                - SUCCESSFUL
+                type: string
+            required:
+            - state
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

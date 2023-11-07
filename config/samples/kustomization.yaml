@@ -10,4 +10,5 @@ resources:
 - extension_v1beta1_scoringplugin.yaml
 - extension_v1beta1_scoring.yaml
 - finetune_v1beta1_finetune.yaml
+- core_v1beta1_llmcheckpoint.yaml
 #+kubebuilder:scaffold:manifestskustomizesamples

@@ -140,6 +140,9 @@ spec:
           status:
             description: FinetuneStatus defines the observed state of Finetune
             properties:
+              llmCheckpoint:
+                description: LLMCheckpoint describes the llmcheckpoint.
+                type: string
               state:
                 enum:
                 - INIT
@@ -149,6 +152,7 @@ spec:
                 - SUCCESSFUL
                 type: string
             required:
+            - llmCheckpoint
             - state
             type: object
         type: object

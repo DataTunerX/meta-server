@@ -1,0 +1,12 @@
+apiVersion: core.datatunerx.io/v1beta1
+kind: LLMCheckpoint
+metadata:
+  labels:
+    app.kubernetes.io/name: llmcheckpoint
+    app.kubernetes.io/instance: llmcheckpoint-sample
+    app.kubernetes.io/part-of: meta-server
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: meta-server
+  name: llmcheckpoint-sample
+spec:
+  # TODO(user): Add fields here
