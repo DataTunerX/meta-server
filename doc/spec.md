@@ -17,7 +17,7 @@ Dataset
   - **Tags:** 该数据集自定义标签  
   - **License:** 该数据集许可信息  
   - **Size:** 数据集的样本规模  
-  - **Tasks:** 
+  - **Task:** 
     - **Name:** 该任务的名称
     - **SubTasks:**  
       - **Name:** 子任务名称
@@ -33,23 +33,20 @@ Dataset
         - **Val:**  
           - **File:** 验证数据集数据包地址  
     - **Features:**  
-      - **Name:** 列名称 1  
-        - **Obj:** dtype/id 等值  
-      - **Name:** 列名称 2  
-        - **Obj:** dtype/id 等值  
-  - **LoadPlugin:** true 是否使用的是插件  
+      - **Name:** 微调数据字段
+      - **MapTo:** 数据集特征值 
+      - **DataType:** 数据类型
   - **Plugin:** 
+    - **LoadPlugin:** true 是否使用的是插件  
     - **Name:** My plugin 1  
-    - **Parameters:**  
-      - **Param1:** value1 # 数据集参数 1  
-      - **Param2:** 42 # 数据集参数 2  
+    - **Parameters:** 数据集插件参数，如 "{'params1': 'value1', 'params2': 'value2}"
 - **DatasetCard:** 数据集的 Readme 信息  
   - **DatasetCardRef:** 一个 configmap 挂载的 Readme 文件  
 - **DatasetFiles:**  
   - **Source:** 数据集文件源  
 
 #### **Status:**  
-- **State:** Ready 数据可用
+- **State:** READY 数据集可用，UNREADY 数据集不可用
 
 ---
 
@@ -228,13 +225,10 @@ DataPlugin
 - **Name:** my-DataPlugin
 
 #### **Spec:** 
-- **Name:** 插件名称
-- **DatasetClass：** 插件的类型
+- **DatasetClass：** 插件类型
 - **Version:** 插件版本
-- **Provider:** sql
-- **Parameters:** 插件参数部分
-  - **Param1:** 参数 1的值  
-  - **Param2:** 参数 2的值
+- **Provider:** 提供商
+- **Parameters:** 插件参数部分，如 "{'params1': 'value1', 'params2': 'value2}"
 
 ---
 
@@ -252,16 +246,13 @@ ScoringPlugin
 - **Name:** my-ScoringPlugin
 
 #### **Spec:** 
-- **Name:** 插件名称
 - **Version:** 插件版本
 - **ScoringClass：** 打分插件类型
 - **Metrics：** 插件支持的评价指标
   - Accu
   - Pre
   - F1
-- **Parameters:** 插件参数部分
-  - **Param1:** 参数 1的值  
-  - **Param2:** 参数 2的值
+- **Parameters:** 插件参数部分，如 "{'params1': 'value1', 'params2': 'value2}"
 
 ---
 
@@ -279,18 +270,15 @@ Scoring
 - **Name:** Scoring1
 
 #### **Spec:** 
-- **Name:** 评分名称
-- **LoadPlugin:** 是否使用插件
 - **Plugins:** 插件配置部分
+  - **LoadPlugin:** 是否使用插件
   - **Name:** 插件名称
-  - **Parameters:** 插件参数部分
-    - **Param1:** 参数 1的值
-    - **Param2:** 参数 2的值
+  - **Parameters:** 插件参数部分, 如 "{'params1': 'value1', 'params2': 'value2}"
 - **Questions:** 问题列表
   - **Question:** 问题描述
-    **References：** 标准答案
+    **Reference：** 标准答案
   - **Question:** 另一个问题描述
-    **References：** 对应的标准答案
+    **Reference：** 对应的标准答案
 
 ---
 
