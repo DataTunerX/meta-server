@@ -41,7 +41,14 @@ spec:
               hyperparameter:
                 description: Hyperparameter specifies the hyperparameter CR used for
                   fine-tuning.
-                type: string
+                properties:
+                  hyperparameterRef:
+                    type: string
+                  overrides:
+                    additionalProperties:
+                      type: string
+                    type: object
+                type: object
               image:
                 properties:
                   imagePullPolicy:
@@ -133,8 +140,6 @@ spec:
                 type: object
             required:
             - dataset
-            - hyperparameter
-            - image
             - llm
             type: object
           status:
