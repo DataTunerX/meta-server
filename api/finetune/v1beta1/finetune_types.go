@@ -42,16 +42,21 @@ type FinetuneSpec struct {
 	Dataset string `json:"dataset"`
 
 	// Hyperparameter specifies the hyperparameter CR used for fine-tuning.
-	// +kubebuilder:validation:Required
-	Hyperparameter string `json:"hyperparameter"`
+	// +kubebuilder:validation:Optional
+	Hyperparameter Hyperparameter `json:"hyperparameter"`
 
 	// Resource specifies the resource configuration for fine-tuning.
 	// +kubebuilder:validation:Optional
 	Resource *Resource `json:"resource,omitempty"`
 	// +kubebuilder:validation:Optional
 	Node int `json:"node,omitempty"`
-	// +kubebuilder:validation:Required
-	Image *ImageSetting `json:"image"`
+	// +kubebuilder:validation:Optional
+	Image *ImageSetting `json:"image,omitempty"`
+}
+
+type Hyperparameter struct {
+	HyperparameterRef string            `json:"hyperparameterRef,omitempty"`
+	Overrides         map[string]string `json:"overrides,omitempty"`
 }
 
 type ImageSetting struct {

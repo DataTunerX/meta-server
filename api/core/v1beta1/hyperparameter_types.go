@@ -106,8 +106,9 @@ type Parameters struct {
 	// +kubebuilder:validation:Enum=Standard
 	TrainerType string `json:"trainerType"`
 	// PEFT indicates whether to enable Performance Evaluation and Forecasting Tool.
-	// +kubebuilder:default:=false
-	PEFT bool `json:"PEFT"`
+	// +kubebuilder:validation:Optional
+	// +kubebuilder:default:=true
+	PEFT bool `json:"PEFT,omitempty"`
 	// FP16 indicates whether to use 16-bit floating point precision.
 	// +kubebuilder:default:=false
 	FP16 bool `json:"FP16"`

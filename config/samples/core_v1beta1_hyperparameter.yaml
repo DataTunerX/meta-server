@@ -7,6 +7,20 @@ metadata:
     app.kubernetes.io/part-of: meta-server
     app.kubernetes.io/managed-by: kustomize
     app.kubernetes.io/created-by: meta-server
-  name: hyperparameter-sample
+  name: hyperparameter-sample-123
 spec:
-  # TODO(user): Add fields here
+  objective:
+    type: SFT
+  parameters:
+    FP16: false
+    batchSize: 32
+    blockSize: 512
+    epochs: 10
+    gradAccSteps: 1
+    int4: false
+    int8: false
+    learningRate: "0.001"
+    loRA_Alpha: "32.0"
+    loRA_Dropout: "0.1"
+    loRA_R: "4"
+    optimizer: AdamW

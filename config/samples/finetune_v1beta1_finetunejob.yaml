@@ -4,18 +4,19 @@ metadata:
   name: finetunejob-sample
 spec:
   finetune:
-    llm: llama2-7b
-    dataset: example-dataset
-    hyperparameter: hyperparameter
-    resource:
-      limits:
-        cpu: 2
-        memory: 4Gi
-        gpu: "1"
-      requests:
-        cpu: 2
-        memory: 4Gi
-        gpu: "1"
+    finetuneSpec: 
+      llm: llama2-7b
+      dataset: example-dataset
+      hyperparameter: hyperparameter
+      resource:
+        limits:
+          cpu: 2
+          memory: 4Gi
+          gpu: "1"
+        requests:
+          cpu: 2
+          memory: 4Gi
+          gpu: "1"
   scoringConfig:
     name: scorePlugin-0
   serveConfig:
