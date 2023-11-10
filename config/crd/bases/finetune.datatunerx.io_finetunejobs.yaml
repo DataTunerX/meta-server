@@ -45,15 +45,20 @@ spec:
                         description: Dataset specifies the dataset CR used for fine-tuning.
                         type: string
                       hyperparameter:
-                        description: Hyperparameter specifies the hyperparameter CR
-                          used for fine-tuning.
+                        description: Hyperparameter specifies the hyperparameter used
+                          for fine-tuning.
                         properties:
                           hyperparameterRef:
+                            description: HyperparameterRef specifies the hyperparameter
+                              CR used for fine-tuning.
                             type: string
                           overrides:
                             additionalProperties:
                               type: string
+                            description: Overrides is used to override some hyperparameter
                             type: object
+                        required:
+                        - hyperparameterRef
                         type: object
                       image:
                         properties:
@@ -74,6 +79,7 @@ spec:
                             type: string
                         required:
                         - name
+                        - path
                         type: object
                       llm:
                         description: LLM specifies the large model CR used for fine-tuning.
@@ -149,7 +155,10 @@ spec:
                         type: object
                     required:
                     - dataset
+                    - hyperparameter
+                    - image
                     - llm
+                    - node
                     type: object
                   name:
                     type: string
