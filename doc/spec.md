@@ -76,8 +76,8 @@ FinetuneJob
 - **ServeConfig:**  
   - **NodeSelector:** 设置 Ray 服务部署的节点  
   - **Tolerations:** 设置 Ray 服务容忍  
-- **ScoringConfig:**  
-  - **Name:** My-scoring scoring cr 名称  
+- **ScoringPlugin:**
+  - **Name:** 使用的scoringplugin cr 名称
 
 #### **Status:**  
 - **State:** INIT/FAILED/SUCCESSFUL/BUILDIMAGE/FINETUNE/SERVE  
@@ -273,12 +273,13 @@ Scoring
 - **Plugins:** 插件配置部分
   - **LoadPlugin:** 是否使用插件
   - **Name:** 插件名称
-  - **Parameters:** 插件参数部分, 如 "{'params1': 'value1', 'params2': 'value2}"
+  - **Parameters:** 插件参数部分, 如  "{'params1': 'value1', 'params2': 'value2}"
 - **Questions:** 问题列表
   - **Question:** 问题描述
     **Reference：** 标准答案
   - **Question:** 另一个问题描述
     **Reference：** 对应的标准答案
+- **Address**：进行打分的调用地址
 
 ---
 
