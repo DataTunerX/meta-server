@@ -7,7 +7,8 @@ spec:
     finetuneSpec: 
       llm: llama2-7b
       dataset: example-dataset
-      hyperparameter: hyperparameter
+      hyperparameter:
+        hyperparameterRef: hyperparameter
       resource:
         limits:
           cpu: 2

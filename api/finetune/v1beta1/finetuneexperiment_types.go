@@ -26,6 +26,7 @@ const (
 	FinetuneExperimentProcessing FinetuneExperimentState = "PROCESSING"
 	FinetuneExperimentSuccess    FinetuneExperimentState = "SUCCESS"
 	FinetuneExperimentFailed     FinetuneExperimentState = "FAILED"
+	FinetuneExperimentPending    FinetuneExperimentState = "PENDING"
 )
 
 // FinetuneExperimentSpec defines the desired state of FinetuneExperiment
@@ -36,6 +37,7 @@ type FinetuneExperimentSpec struct {
 	// Define the scoring plugin used for this experiment.
 	// +kubebuilder:validation:Required
 	ScoringConfig ScoringConfig `json:"scoringConfig"`
+	Pending       bool          `json:"pending,omitempty"`
 }
 
 type FinetuneJobSetting struct {
@@ -49,7 +51,7 @@ type FinetuneJobSetting struct {
 type FinetuneExperimentStatus struct {
 	BestVersion *BestVersion        `json:"bestVersion,omitempty"`
 	JobsStatus  []FinetuneJobStatus `json:"jobsStatus,omitempty"`
-	// +kubebuilder:validation:Enum=PROCESSING;SUCCESS;FAILED
+	// +kubebuilder:validation:Enum=PROCESSING;SUCCESS;FAILED;PENDING
 	State      FinetuneExperimentState `json:"state"`
 	Conditions []metav1.Condition      `json:"conditions,omitempty"`
 }

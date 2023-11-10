@@ -206,6 +206,8 @@ spec:
                   - spec
                   type: object
                 type: array
+              pending:
+                type: boolean
               scoringConfig:
                 description: Define the scoring plugin used for this experiment.
                 properties:
@@ -431,6 +433,7 @@ spec:
                 - PROCESSING
                 - SUCCESS
                 - FAILED
+                - PENDING
                 type: string
             required:
             - state
