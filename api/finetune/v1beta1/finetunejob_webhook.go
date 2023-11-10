@@ -17,11 +17,12 @@ limitations under the License.
 package v1beta1
 
 import (
-	"github.com/DataTunerX/meta-server/logging"
 	"k8s.io/apimachinery/pkg/api/resource"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
+
+	"github.com/DataTunerX/meta-server/logging"
 )
 
 const (
@@ -74,13 +75,6 @@ func (r *FinetuneJob) Default() {
 	if r.Spec.FineTune.FinetuneSpec.Resource.Requests.GPU == nil {
 		defaultGPU := defaultRequestGPU
 		r.Spec.FineTune.FinetuneSpec.Resource.Requests.GPU = &defaultGPU
-	}
-	if r.Spec.FineTune.FinetuneSpec.Image == nil {
-		defaultImage := defaultServerImage
-		r.Spec.FineTune.FinetuneSpec.Image = &ImageSetting{
-			Name: &defaultImage,
-			Path: defaultPath,
-		}
 	}
 }
 

@@ -279,7 +279,7 @@ spec:
                           point precision.
                         type: boolean
                       PEFT:
-                        default: false
+                        default: true
                         description: PEFT indicates whether to enable Performance
                           Evaluation and Forecasting Tool.
                         type: boolean
@@ -360,7 +360,6 @@ spec:
                         type: string
                     required:
                     - FP16
-                    - PEFT
                     - batchSize
                     - blockSize
                     - epochs
@@ -401,6 +400,7 @@ spec:
                     type: string
                 required:
                 - name
+                - path
                 type: object
               llm:
                 description: LLM specifies the large model CR used for fine-tuning.

@@ -41,22 +41,25 @@ type FinetuneSpec struct {
 	// +kubebuilder:validation:Required
 	Dataset string `json:"dataset"`
 
-	// Hyperparameter specifies the hyperparameter CR used for fine-tuning.
-	// +kubebuilder:validation:Optional
+	// Hyperparameter specifies the hyperparameter used for fine-tuning.
+	// +kubebuilder:validation:Required
 	Hyperparameter Hyperparameter `json:"hyperparameter"`
 
 	// Resource specifies the resource configuration for fine-tuning.
-	// +kubebuilder:validation:Optional
 	Resource *Resource `json:"resource,omitempty"`
-	// +kubebuilder:validation:Optional
-	Node int `json:"node,omitempty"`
-	// +kubebuilder:validation:Optional
-	Image *ImageSetting `json:"image,omitempty"`
+	// +kubebuilder:default:1
+	Node int `json:"node"`
+	// +kubebuilder:validation:Required
+	Image ImageSetting `json:"image"`
 }
 
 type Hyperparameter struct {
-	HyperparameterRef string            `json:"hyperparameterRef,omitempty"`
-	Overrides         map[string]string `json:"overrides,omitempty"`
+	// HyperparameterRef specifies the hyperparameter CR used for fine-tuning.
+	// +kubebuilder:validation:Required
+	HyperparameterRef string `json:"hyperparameterRef"`
+	// Overrides is used to override some hyperparameter
+	// +kubebuilder:validation:Optional
+	Overrides map[string]string `json:"overrides,omitempty"`
 }
 
 type ImageSetting struct {
@@ -68,8 +71,7 @@ type ImageSetting struct {
 	// +kubebuilder:validation:Optional
 	ImagePullPolicy *corev1.PullPolicy `json:"imagePullPolicy,omitempty"`
 	// Path description of the model file path.
-	// +kubebuilder:validation:Optional
-	Path string `json:"path,omitempty"`
+	Path string `json:"path"`
 }
 
 // FinetuneStatus defines the observed state of Finetune
