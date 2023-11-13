@@ -81,9 +81,9 @@ type Parameters struct {
 	// +kubebuilder:validation:Enum=AdamW;Adam;SGD
 	Optimizer HyperparameterOptimizer `json:"optimizer,omitempty"`
 	// Int4 indicates whether to use 4-bit integer quantization.
-	Int4 bool `json:"int4,omitempty"`
+	Int4 *bool `json:"int4,omitempty"`
 	// Int8 indicates whether to use 8-bit integer quantization.
-	Int8 bool `json:"int8,omitempty"`
+	Int8 *bool `json:"int8,omitempty"`
 	// LoRA_R represents the radius parameter for Localized Receptive Attention.
 	LoRA_R *string `json:"loRA_R,omitempty"`
 	// LoRA_Alpha represents the alpha parameter for Localized Receptive Attention.
@@ -108,9 +108,9 @@ type Parameters struct {
 	// +kubebuilder:validation:Enum=Standard
 	TrainerType *string `json:"trainerType,omitempty"`
 	// PEFT indicates whether to enable Performance Evaluation and Forecasting Tool.
-	PEFT bool `json:"PEFT,omitempty"`
+	PEFT *bool `json:"PEFT,omitempty"`
 	// FP16 indicates whether to use 16-bit floating point precision.
-	FP16 bool `json:"FP16,omitempty"`
+	FP16 *bool `json:"FP16,omitempty"`
 }
 
 type ImageSetting struct {
