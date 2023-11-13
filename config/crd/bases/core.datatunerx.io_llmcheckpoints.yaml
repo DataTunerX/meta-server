@@ -400,7 +400,6 @@ spec:
                     type: string
                 required:
                 - name
-                - path
                 type: object
               llm:
                 description: LLM specifies the large model CR used for fine-tuning.

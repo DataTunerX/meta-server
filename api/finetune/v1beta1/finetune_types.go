@@ -22,13 +22,23 @@ import (
 )
 
 type FinetuneState string
+type HyperparameterScheduler string
+type HyperparameterOptimizer string
+
+const ()
 
 const (
-	FinetuneInit       FinetuneState = "INIT"
-	FinetunePending    FinetuneState = "PENDING"
-	FinetuneRunning    FinetuneState = "RUNNING"
-	FinetuneFailed     FinetuneState = "FAILED"
-	FinetuneSuccessful FinetuneState = "SUCCESSFUL"
+	FinetuneInit       FinetuneState           = "INIT"
+	FinetunePending    FinetuneState           = "PENDING"
+	FinetuneRunning    FinetuneState           = "RUNNING"
+	FinetuneFailed     FinetuneState           = "FAILED"
+	FinetuneSuccessful FinetuneState           = "SUCCESSFUL"
+	Cosine             HyperparameterScheduler = "Cosine"
+	Linear             HyperparameterScheduler = "Linear"
+	Constant           HyperparameterScheduler = "Constant"
+	AdamW              HyperparameterOptimizer = "AdamW"
+	Adam               HyperparameterOptimizer = "Adam"
+	SGD                HyperparameterOptimizer = "SGD"
 )
 
 // FinetuneSpec defines the desired state of Finetune
@@ -48,6 +58,7 @@ type FinetuneSpec struct {
 	// Resource specifies the resource configuration for fine-tuning.
 	Resource *Resource `json:"resource,omitempty"`
 	// +kubebuilder:default:1
+	// +kubebuilder:validation:Optional
 	Node int `json:"node"`
 	// +kubebuilder:validation:Required
 	Image ImageSetting `json:"image"`
@@ -59,7 +70,47 @@ type Hyperparameter struct {
 	HyperparameterRef string `json:"hyperparameterRef"`
 	// Overrides is used to override some hyperparameter
 	// +kubebuilder:validation:Optional
-	Overrides map[string]string `json:"overrides,omitempty"`
+	Overrides *Parameters `json:"overrides,omitempty"`
+}
+
+type Parameters struct {
+	// Scheduler specifies the learning rate scheduler.
+	// +kubebuilder:validation:Enum=Cosine;Linear;Constant
+	Scheduler HyperparameterScheduler `json:"scheduler,omitempty"`
+	// Optimizer specifies the optimization algorithm.
+	// +kubebuilder:validation:Enum=AdamW;Adam;SGD
+	Optimizer HyperparameterOptimizer `json:"optimizer,omitempty"`
+	// Int4 indicates whether to use 4-bit integer quantization.
+	Int4 *bool `json:"int4,omitempty"`
+	// Int8 indicates whether to use 8-bit integer quantization.
+	Int8 *bool `json:"int8,omitempty"`
+	// LoRA_R represents the radius parameter for Localized Receptive Attention.
+	LoRA_R *string `json:"loRA_R,omitempty"`
+	// LoRA_Alpha represents the alpha parameter for Localized Receptive Attention.
+	LoRA_Alpha *string `json:"loRA_Alpha,omitempty"`
+	// LoRA_Dropout specifies the dropout rate for Localized Receptive Attention.
+	LoRA_Dropout *string `json:"loRA_Dropout,omitempty"`
+	// LearningRate specifies the initial learning rate.
+	LearningRate *string `json:"learningRate,omitempty"`
+	// Epochs specifies the number of training epochs.
+	Epochs int `json:"epochs,omitempty"`
+	// BlockSize specifies the block size.
+	BlockSize int `json:"blockSize,omitempty"`
+	// BatchSize specifies the size of mini-batches.
+	BatchSize int `json:"batchSize,omitempty"`
+	// WarmupRatio specifies the ratio of warmup steps.
+	WarmupRatio *string `json:"warmupRatio,omitempty"`
+	// WeightDecay specifies the weight decay factor.
+	WeightDecay *string `json:"weightDecay,omitempty"`
+	// GradAccSteps specifies the number of gradient accumulation steps.
+	GradAccSteps int `json:"gradAccSteps,omitempty"`
+	// TrainerType specifies the type of trainer to use.
+	// +kubebuilder:validation:Enum=Standard
+	TrainerType *string `json:"trainerType,omitempty"`
+	// PEFT indicates whether to enable Performance Evaluation and Forecasting Tool.
+	PEFT *bool `json:"PEFT,omitempty"`
+	// FP16 indicates whether to use 16-bit floating point precision.
+	FP16 *bool `json:"FP16,omitempty"`
 }
 
 type ImageSetting struct {
@@ -71,7 +122,8 @@ type ImageSetting struct {
 	// +kubebuilder:validation:Optional
 	ImagePullPolicy *corev1.PullPolicy `json:"imagePullPolicy,omitempty"`
 	// Path description of the model file path.
-	Path string `json:"path"`
+	// +kubebuilder:validation:Optional
+	Path *string `json:"path,omitempty"`
 }
 
 // FinetuneStatus defines the observed state of Finetune
