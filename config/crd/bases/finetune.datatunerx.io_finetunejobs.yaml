@@ -53,9 +53,84 @@ spec:
                               CR used for fine-tuning.
                             type: string
                           overrides:
-                            additionalProperties:
-                              type: string
                             description: Overrides is used to override some hyperparameter
+                            properties:
+                              FP16:
+                                description: FP16 indicates whether to use 16-bit
+                                  floating point precision.
+                                type: boolean
+                              PEFT:
+                                description: PEFT indicates whether to enable Performance
+                                  Evaluation and Forecasting Tool.
+                                type: boolean
+                              batchSize:
+                                description: BatchSize specifies the size of mini-batches.
+                                type: integer
+                              blockSize:
+                                description: BlockSize specifies the block size.
+                                type: integer
+                              epochs:
+                                description: Epochs specifies the number of training
+                                  epochs.
+                                type: integer
+                              gradAccSteps:
+                                description: GradAccSteps specifies the number of
+                                  gradient accumulation steps.
+                                type: integer
+                              int4:
+                                description: Int4 indicates whether to use 4-bit integer
+                                  quantization.
+                                type: boolean
+                              int8:
+                                description: Int8 indicates whether to use 8-bit integer
+                                  quantization.
+                                type: boolean
+                              learningRate:
+                                description: LearningRate specifies the initial learning
+                                  rate.
+                                type: string
+                              loRA_Alpha:
+                                description: LoRA_Alpha represents the alpha parameter
+                                  for Localized Receptive Attention.
+                                type: string
+                              loRA_Dropout:
+                                description: LoRA_Dropout specifies the dropout rate
+                                  for Localized Receptive Attention.
+                                type: string
+                              loRA_R:
+                                description: LoRA_R represents the radius parameter
+                                  for Localized Receptive Attention.
+                                type: string
+                              optimizer:
+                                description: Optimizer specifies the optimization
+                                  algorithm.
+                                enum:
+                                - AdamW
+                                - Adam
+                                - SGD
+                                type: string
+                              scheduler:
+                                description: Scheduler specifies the learning rate
+                                  scheduler.
+                                enum:
+                                - Cosine
+                                - Linear
+                                - Constant
+                                type: string
+                              trainerType:
+                                description: TrainerType specifies the type of trainer
+                                  to use.
+                                enum:
+                                - Standard
+                                type: string
+                              warmupRatio:
+                                description: WarmupRatio specifies the ratio of warmup
+                                  steps.
+                                type: string
+                              weightDecay:
+                                description: WeightDecay specifies the weight decay
+                                  factor.
+                                type: string
                             type: object
                         required:
                         - hyperparameterRef
@@ -79,7 +154,6 @@ spec:
                             type: string
                         required:
                         - name
-                        - path
                         type: object
                       llm:
                         description: LLM specifies the large model CR used for fine-tuning.
@@ -158,7 +232,6 @@ spec:
                     - hyperparameter
                     - image
                     - llm
-                    - node
                     type: object
                   name:
                     type: string
