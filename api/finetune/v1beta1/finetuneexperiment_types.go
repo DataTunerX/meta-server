@@ -23,6 +23,7 @@ import (
 type FinetuneExperimentState string
 
 const (
+	FinetuneGroupFinalizer                               = "finetune.datatunerx.io/finalizer"
 	FinetuneExperimentProcessing FinetuneExperimentState = "PROCESSING"
 	FinetuneExperimentSuccess    FinetuneExperimentState = "SUCCESS"
 	FinetuneExperimentFailed     FinetuneExperimentState = "FAILED"
