@@ -25,8 +25,6 @@ type FinetuneState string
 type HyperparameterScheduler string
 type HyperparameterOptimizer string
 
-const ()
-
 const (
 	FinetuneInit       FinetuneState           = "INIT"
 	FinetunePending    FinetuneState           = "PENDING"
