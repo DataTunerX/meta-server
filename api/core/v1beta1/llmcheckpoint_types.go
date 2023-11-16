@@ -56,8 +56,8 @@ type LLMCheckpointSpec struct {
 	Image *finetunev1beta1.ImageSetting `json:"image"`
 
 	// CheckpointImage specifies the checkpointImage info.
-	// +kubebuilder:validation:Required
-	CheckpointImage *CheckpointImage `json:"checkpointImage"`
+	// +kubebuilder:validation:Optional
+	CheckpointImage *CheckpointImage `json:"checkpointImage,omitempty"`
 
 	// Checkpoint specifies the checkpoint file.
 	// +kubebuilder:validation:Required

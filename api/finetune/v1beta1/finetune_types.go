@@ -59,8 +59,9 @@ type FinetuneSpec struct {
 	Resource *Resource `json:"resource,omitempty"`
 	// +kubebuilder:default:1
 	// +kubebuilder:validation:Optional
-	Node int `json:"node"`
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Minimum=1
+	Node int `json:"node,omitempty"`
+	// +kubebuilder:validation:Optional
 	Image ImageSetting `json:"image"`
 }
 

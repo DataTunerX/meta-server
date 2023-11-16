@@ -551,7 +551,6 @@ spec:
                 type: object
             required:
             - checkpoint
-            - checkpointImage
             - dataset
             - hyperparameter
             - image

@@ -145,6 +145,7 @@ spec:
                 description: LLM specifies the large model CR used for fine-tuning.
                 type: string
               node:
+                minimum: 1
                 type: integer
               resource:
                 description: Resource specifies the resource configuration for fine-tuning.
@@ -213,7 +214,6 @@ spec:
             required:
             - dataset
             - hyperparameter
-            - image
             - llm
             type: object
           status:
