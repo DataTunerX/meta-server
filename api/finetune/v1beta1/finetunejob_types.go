@@ -17,6 +17,7 @@ limitations under the License.
 package v1beta1
 
 import (
+	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -71,16 +72,17 @@ type Resource struct {
 type ServeConfig struct {
 	// NodeSelector specifies the node where service will be deployed.
 	// +kubebuilder:validation:Required
-	NodeSelector string `json:"nodeSelector"`
+	NodeSelector map[string]string `json:"nodeSelector"`
 
 	// Tolerations specifies the tolerations for service.
-	Tolerations string `json:"tolerations,omitempty"`
+	Tolerations []corev1.Toleration `json:"tolerations,omitempty"`
 }
 
 // ScoringConfig represents the configuration for scoring.
 type ScoringConfig struct {
 	// Name specifies the name of the scoring CR.
-	Name string `json:"name"`
+	Name       string `json:"name,omitempty"`
+	Parameters string `json:"parameters,omitempty"`
 }
 
 type FineTune struct {

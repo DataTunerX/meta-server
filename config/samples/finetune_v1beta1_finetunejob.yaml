@@ -9,6 +9,8 @@ spec:
       dataset: example-dataset
       hyperparameter:
         hyperparameterRef: hyperparameter
+        overrides:
+          batchSize: 6
       resource:
         limits:
           cpu: 2
@@ -17,7 +19,7 @@ spec:
         requests:
           cpu: 2
           memory: 4Gi
-          gpu: "1"
+          gpu: "1" 
   scoringConfig:
     name: scorePlugin-0
   serveConfig:
