@@ -338,8 +338,8 @@ func (in *LLMCheckpointSpec) DeepCopyInto(out *LLMCheckpointSpec) {
 	}
 	if in.Hyperparameter != nil {
 		in, out := &in.Hyperparameter, &out.Hyperparameter
-		*out = new(HyperparameterSpec)
-		**out = **in
+		*out = new(HyperparameterRefSpec)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Image != nil {
 		in, out := &in.Image, &out.Image

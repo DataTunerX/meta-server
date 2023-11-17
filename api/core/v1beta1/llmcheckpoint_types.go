@@ -49,7 +49,7 @@ type LLMCheckpointSpec struct {
 
 	// Hyperparameter specifies the hyperparameter CR used for fine-tuning.
 	// +kubebuilder:validation:Required
-	Hyperparameter *HyperparameterSpec `json:"hyperparameter"`
+	Hyperparameter *HyperparameterRefSpec `json:"hyperparameter"`
 
 	// Image specifies the image info used for fine-tuning.
 	// +kubebuilder:validation:Required
