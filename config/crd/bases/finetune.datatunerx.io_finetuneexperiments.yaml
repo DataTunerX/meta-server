@@ -324,16 +324,14 @@ spec:
                                     type: string
                                 type: object
                               type: array
-                          required:
-                          - nodeSelector
                           type: object
                       required:
                       - finetune
-                      - serveConfig
                       type: object
                   required:
                   - spec
                   type: object
+                minItems: 1
                 type: array
               pending:
                 type: boolean
@@ -551,6 +549,7 @@ spec:
                           - serve
                           type: object
                         state:
+                          default: INIT
                           enum:
                           - INIT
                           - FAILED
@@ -564,11 +563,10 @@ spec:
                       required:
                       - state
                       type: object
-                  required:
-                  - name
                   type: object
                 type: array
               state:
+                default: PROCESSING
                 enum:
                 - PROCESSING
                 - SUCCESS
@@ -579,7 +577,6 @@ spec:
                 type: string
             required:
             - state
-            - stats
             type: object
         type: object
     served: true

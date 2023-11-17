@@ -42,7 +42,7 @@ type FinetuneJobSpec struct {
 	// +kubebuilder:validation:Optional
 	ScoringConfig *ScoringConfig `json:"scoringConfig,omitempty"`
 	// Serve config.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	ServeConfig ServeConfig `json:"serveConfig"`
 }
 
@@ -71,7 +71,7 @@ type Resource struct {
 // ServeConfig represents the configuration for serving with Ray.
 type ServeConfig struct {
 	// NodeSelector specifies the node where service will be deployed.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	NodeSelector map[string]string `json:"nodeSelector"`
 
 	// Tolerations specifies the tolerations for service.
@@ -95,6 +95,7 @@ type FineTune struct {
 // FinetuneJobStatus defines the observed state of FinetuneJob
 type FinetuneJobStatus struct {
 	// +kubebuilder:validation:Enum=INIT;FAILED;SUCCESSFUL;BUILDIMAGE;FINETUNE;SERVE
+	// +kubebuilder:default=INIT
 	State  FinetuneJobState   `json:"state"`
 	Stats  string             `json:"stats,omitempty"`
 	Result *FinetuneJobResult `json:"result,omitempty"`
