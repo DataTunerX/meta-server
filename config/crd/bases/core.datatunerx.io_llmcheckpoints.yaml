@@ -258,127 +258,141 @@ spec:
                 description: Hyperparameter specifies the hyperparameter CR used for
                   fine-tuning.
                 properties:
-                  objective:
-                    description: Over-senator adjustments to achieve targets.
+                  hyperparameterRef:
+                    description: HyperparameterRef describe the hyperparameter ref.
+                    type: string
+                  spec:
+                    description: Spec describe the hyperparameter spec.
                     properties:
-                      type:
-                        default: SFT
-                        description: 'The type (Type) of fine-tuning may refer to
-                          a specific method or strategy of hyperparameter tuning.
-                          Common hyperparameter tuning methods include: 1. SFT'
-                        type: string
+                      objective:
+                        description: Over-senator adjustments to achieve targets.
+                        properties:
+                          type:
+                            default: SFT
+                            description: 'The type (Type) of fine-tuning may refer
+                              to a specific method or strategy of hyperparameter tuning.
+                              Common hyperparameter tuning methods include: 1. SFT'
+                            type: string
+                        required:
+                        - type
+                        type: object
+                      parameters:
+                        description: Finetune paramenter config.
+                        properties:
+                          FP16:
+                            default: false
+                            description: FP16 indicates whether to use 16-bit floating
+                              point precision.
+                            type: boolean
+                          PEFT:
+                            default: true
+                            description: PEFT indicates whether to enable Performance
+                              Evaluation and Forecasting Tool.
+                            type: boolean
+                          batchSize:
+                            default: 32
+                            description: BatchSize specifies the size of mini-batches.
+                            type: integer
+                          blockSize:
+                            default: 512
+                            description: BlockSize specifies the block size.
+                            type: integer
+                          epochs:
+                            default: 10
+                            description: Epochs specifies the number of training epochs.
+                            type: integer
+                          gradAccSteps:
+                            default: 1
+                            description: GradAccSteps specifies the number of gradient
+                              accumulation steps.
+                            type: integer
+                          int4:
+                            default: false
+                            description: Int4 indicates whether to use 4-bit integer
+                              quantization.
+                            type: boolean
+                          int8:
+                            default: false
+                            description: Int8 indicates whether to use 8-bit integer
+                              quantization.
+                            type: boolean
+                          learningRate:
+                            default: "0.001"
+                            description: LearningRate specifies the initial learning
+                              rate.
+                            type: string
+                          loRA_Alpha:
+                            default: "32.0"
+                            description: LoRA_Alpha represents the alpha parameter
+                              for Localized Receptive Attention.
+                            type: string
+                          loRA_Dropout:
+                            default: "0.1"
+                            description: LoRA_Dropout specifies the dropout rate for
+                              Localized Receptive Attention.
+                            type: string
+                          loRA_R:
+                            default: "4"
+                            description: LoRA_R represents the radius parameter for
+                              Localized Receptive Attention.
+                            type: string
+                          optimizer:
+                            default: Adam
+                            description: Optimizer specifies the optimization algorithm.
+                            enum:
+                            - AdamW
+                            - Adam
+                            - SGD
+                            type: string
+                          scheduler:
+                            default: Cosine
+                            description: Scheduler specifies the learning rate scheduler.
+                            enum:
+                            - Cosine
+                            - Linear
+                            - Constant
+                            type: string
+                          trainerType:
+                            default: Standard
+                            description: TrainerType specifies the type of trainer
+                              to use.
+                            enum:
+                            - Standard
+                            type: string
+                          warmupRatio:
+                            default: "0.1"
+                            description: WarmupRatio specifies the ratio of warmup
+                              steps.
+                            type: string
+                          weightDecay:
+                            default: "0.0001"
+                            description: WeightDecay specifies the weight decay factor.
+                            type: string
+                        required:
+                        - FP16
+                        - batchSize
+                        - blockSize
+                        - epochs
+                        - gradAccSteps
+                        - int4
+                        - int8
+                        - learningRate
+                        - loRA_Alpha
+                        - loRA_Dropout
+                        - loRA_R
+                        - optimizer
+                        - scheduler
+                        - trainerType
+                        - warmupRatio
+                        - weightDecay
+                        type: object
                     required:
-                    - type
-                    type: object
-                  parameters:
-                    description: Finetune paramenter config.
-                    properties:
-                      FP16:
-                        default: false
-                        description: FP16 indicates whether to use 16-bit floating
-                          point precision.
-                        type: boolean
-                      PEFT:
-                        default: true
-                        description: PEFT indicates whether to enable Performance
-                          Evaluation and Forecasting Tool.
-                        type: boolean
-                      batchSize:
-                        default: 32
-                        description: BatchSize specifies the size of mini-batches.
-                        type: integer
-                      blockSize:
-                        default: 512
-                        description: BlockSize specifies the block size.
-                        type: integer
-                      epochs:
-                        default: 10
-                        description: Epochs specifies the number of training epochs.
-                        type: integer
-                      gradAccSteps:
-                        default: 1
-                        description: GradAccSteps specifies the number of gradient
-                          accumulation steps.
-                        type: integer
-                      int4:
-                        default: false
-                        description: Int4 indicates whether to use 4-bit integer quantization.
-                        type: boolean
-                      int8:
-                        default: false
-                        description: Int8 indicates whether to use 8-bit integer quantization.
-                        type: boolean
-                      learningRate:
-                        default: "0.001"
-                        description: LearningRate specifies the initial learning rate.
-                        type: string
-                      loRA_Alpha:
-                        default: "32.0"
-                        description: LoRA_Alpha represents the alpha parameter for
-                          Localized Receptive Attention.
-                        type: string
-                      loRA_Dropout:
-                        default: "0.1"
-                        description: LoRA_Dropout specifies the dropout rate for Localized
-                          Receptive Attention.
-                        type: string
-                      loRA_R:
-                        default: "4"
-                        description: LoRA_R represents the radius parameter for Localized
-                          Receptive Attention.
-                        type: string
-                      optimizer:
-                        default: Adam
-                        description: Optimizer specifies the optimization algorithm.
-                        enum:
-                        - AdamW
-                        - Adam
-                        - SGD
-                        type: string
-                      scheduler:
-                        default: Cosine
-                        description: Scheduler specifies the learning rate scheduler.
-                        enum:
-                        - Cosine
-                        - Linear
-                        - Constant
-                        type: string
-                      trainerType:
-                        default: Standard
-                        description: TrainerType specifies the type of trainer to
-                          use.
-                        enum:
-                        - Standard
-                        type: string
-                      warmupRatio:
-                        default: "0.1"
-                        description: WarmupRatio specifies the ratio of warmup steps.
-                        type: string
-                      weightDecay:
-                        default: "0.0001"
-                        description: WeightDecay specifies the weight decay factor.
-                        type: string
-                    required:
-                    - FP16
-                    - batchSize
-                    - blockSize
-                    - epochs
-                    - gradAccSteps
-                    - int4
-                    - int8
-                    - learningRate
-                    - loRA_Alpha
-                    - loRA_Dropout
-                    - loRA_R
-                    - optimizer
-                    - scheduler
-                    - trainerType
-                    - warmupRatio
-                    - weightDecay
+                    - objective
+                    - parameters
                     type: object
                 required:
-                - objective
-                - parameters
+                - hyperparameterRef
+                - spec
                 type: object
               image:
                 description: Image specifies the image info used for fine-tuning.
