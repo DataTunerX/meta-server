@@ -34,6 +34,7 @@ const (
 type FinetuneExperimentSpec struct {
 	// Defining multiple finetunejobs in a single experiment.
 	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:MinItems=1
 	FinetuneJobs []FinetuneJobSetting `json:"finetuneJobs"`
 	// Define the scoring plugin used for this experiment.
 	// +kubebuilder:validation:Required
@@ -53,13 +54,14 @@ type FinetuneExperimentStatus struct {
 	BestVersion *BestVersion               `json:"bestVersion,omitempty"`
 	JobsStatus  []FinetuneJobStatusSetting `json:"jobsStatus,omitempty"`
 	// +kubebuilder:validation:Enum=PROCESSING;SUCCESS;FAILED;PENDING
+	// +kubebuilder:default=PROCESSING
 	State      FinetuneExperimentState `json:"state"`
-	Stats      string                  `json:"stats"`
+	Stats      string                  `json:"stats,omitempty"`
 	Conditions []metav1.Condition      `json:"conditions,omitempty"`
 }
 
 type FinetuneJobStatusSetting struct {
-	Name              string            `json:"name"`
+	Name              string            `json:"name,omitempty"`
 	FinetuneJobStatus FinetuneJobStatus `json:"status,omitempty"`
 }
 

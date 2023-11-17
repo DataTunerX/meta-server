@@ -297,12 +297,9 @@ spec:
                           type: string
                       type: object
                     type: array
-                required:
-                - nodeSelector
                 type: object
             required:
             - finetune
-            - serveConfig
             type: object
           status:
             description: FinetuneJobStatus defines the observed state of FinetuneJob
@@ -400,6 +397,7 @@ spec:
                 - serve
                 type: object
               state:
+                default: INIT
                 enum:
                 - INIT
                 - FAILED
