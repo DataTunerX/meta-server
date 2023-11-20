@@ -48,6 +48,11 @@ spec:
                   style with string type, e.g. "{''param1'': ''value1'', ''param2'':
                   ''value2''}"'
                 type: string
+              provider:
+                description: Provider describes the specific method of a DatasetClass
+                  e.g. MysqlServer, rabbitmq, s3, http etc. Provider's value needs
+                  to correspond to the value of DatasetClass
+                type: string
               scoringClass:
                 description: ScoringClass describes the class type of scoring for
                   example, the name of the plugin creator
@@ -56,6 +61,7 @@ spec:
                 type: string
             required:
             - metrics
+            - provider
             type: object
           status:
             description: ScoringPluginStatus defines the observed state of ScoringPlugin
