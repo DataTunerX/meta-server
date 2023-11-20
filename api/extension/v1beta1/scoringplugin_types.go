@@ -26,6 +26,10 @@ type ScoringPluginSpec struct {
 	// +kubebuilder:validation:Required
 	// ScoringClass describes the class type of scoring for example, the name of the plugin creator
 	ScoringClass string `json:"scoringClass,omitempty"`
+	// Provider describes the specific method of a DatasetClass e.g. MysqlServer, rabbitmq, s3, http etc.
+	// Provider's value needs to correspond to the value of DatasetClass
+	// +kubebuilder:validation:Required
+	Provider string `json:"provider"`
 	// +kubebuilder:validation:Required
 	// Metrics describes the metrics for evaluate a LLMs performance, including Accuracy, Precision, Recall, F1-Score,
 	// Log Loss, ROC & AUC, BLEU, ROUGE, Confusion Matrix, mAP, RMSE, MAE, R-squared, Jaccard Similarity, Contractive Ratio etc.
