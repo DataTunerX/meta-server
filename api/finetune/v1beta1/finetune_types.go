@@ -60,7 +60,7 @@ type FinetuneSpec struct {
 	// +kubebuilder:validation:Minimum=1
 	Node int `json:"node,omitempty"`
 	// +kubebuilder:validation:Optional
-	Image ImageSetting `json:"image"`
+	Image ImageSetting `json:"image,omitempty"`
 }
 
 type Hyperparameter struct {
@@ -114,12 +114,12 @@ type Parameters struct {
 
 type ImageSetting struct {
 	// Name describe the image name.
-	Name *string `json:"name"`
+	Name *string `json:"name,omitempty"`
 	// ImagePullPolicy describes a policy for if/when to pull a container image.
 	// +kubebuilder:default:=IfNotPresent
 	// +kubebuilder:validation:Enum=Always;IfNotPresent;Never
 	// +kubebuilder:validation:Optional
-	ImagePullPolicy *corev1.PullPolicy `json:"imagePullPolicy,omitempty"`
+	ImagePullPolicy corev1.PullPolicy `json:"imagePullPolicy,omitempty"`
 	// Path description of the model file path.
 	// +kubebuilder:validation:Optional
 	Path *string `json:"path,omitempty"`
