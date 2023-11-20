@@ -169,8 +169,6 @@ spec:
                                       description: Path description of the model file
                                         path.
                                       type: string
-                                  required:
-                                  - name
                                   type: object
                                 llm:
                                   description: LLM specifies the large model CR used

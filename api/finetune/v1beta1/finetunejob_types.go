@@ -87,7 +87,7 @@ type ScoringConfig struct {
 
 type FineTune struct {
 	// +kubebuilder:validation:Optional
-	Name *string `json:"name"`
+	Name *string `json:"name,omitempty"`
 	// +kubebuilder:validation:Required
 	FinetuneSpec FinetuneSpec `json:"finetuneSpec"`
 }
