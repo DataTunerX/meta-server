@@ -231,8 +231,8 @@ spec:
                     - hyperparameter
                     - llm
                     type: object
-                  name:
-                    type: string
+                  metadata:
+                    type: object
                 required:
                 - finetuneSpec
                 type: object

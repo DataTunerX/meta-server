@@ -130,7 +130,12 @@ type FinetuneStatus struct {
 	// +kubebuilder:validation:Enum=INIT;PENDING;RUNNING;FAILED;SUCCESSFUL
 	State FinetuneState `json:"state"`
 	// LLMCheckpoint describes the llmcheckpoint.
-	LLMCheckpoint string `json:"llmCheckpoint"`
+	LLMCheckpoint *Checkpoint `json:"llmCheckpoint,omitempty"`
+}
+
+type Checkpoint struct {
+	LLMCheckpointRef string `json:"llmCheckpointRef"`
+	CheckpointPath   string `json:"checkpointPath"`
 }
 
 //+kubebuilder:object:root=true
