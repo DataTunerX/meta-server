@@ -219,7 +219,15 @@ spec:
             properties:
               llmCheckpoint:
                 description: LLMCheckpoint describes the llmcheckpoint.
-                type: string
+                properties:
+                  checkpointPath:
+                    type: string
+                  llmCheckpointRef:
+                    type: string
+                required:
+                - checkpointPath
+                - llmCheckpointRef
+                type: object
               state:
                 enum:
                 - INIT
@@ -229,7 +237,6 @@ spec:
                 - SUCCESSFUL
                 type: string
             required:
-            - llmCheckpoint
             - state
             type: object
         type: object

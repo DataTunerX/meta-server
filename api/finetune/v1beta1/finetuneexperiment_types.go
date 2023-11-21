@@ -44,7 +44,7 @@ type FinetuneExperimentSpec struct {
 
 type FinetuneJobSetting struct {
 	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:Required
 	Spec FinetuneJobSpec `json:"spec"`
 }
