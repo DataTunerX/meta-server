@@ -40,8 +40,8 @@ spec:
                 description: Defining multiple finetunejobs in a single experiment.
                 items:
                   properties:
-                    metadata:
-                      type: object
+                    name:
+                      type: string
                     spec:
                       description: FinetuneJobSpec defines the desired state of FinetuneJob
                       properties:
@@ -253,8 +253,8 @@ spec:
                               - hyperparameter
                               - llm
                               type: object
-                            metadata:
-                              type: object
+                            name:
+                              type: string
                           required:
                           - finetuneSpec
                           type: object
