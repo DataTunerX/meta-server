@@ -36,6 +36,8 @@ type ScoringSpec struct {
 	Plugin *Plugin `json:"plugin,omitempty"`
 	// Questions describes the questions uses for the evaluation in case of none plugin used.
 	Questions []Question `json:"questions,omitempty"`
+	// InferenceService describes the address of the inference service on which the evaluation work depends
+	InferenceService string `json:"inferenceService,omitempty"`
 }
 
 //+kubebuilder:object:root=true

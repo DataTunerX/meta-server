@@ -35,6 +35,10 @@ spec:
           spec:
             description: ScoringSpec defines the desired state of Scoring
             properties:
+              inferenceService:
+                description: InferenceService describes the address of the inference
+                  service on which the evaluation work depends
+                type: string
               plugin:
                 description: Plugin describes the plugin including parameters and
                   whether uses a plugin.
