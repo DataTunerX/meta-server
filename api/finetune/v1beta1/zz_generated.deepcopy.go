@@ -197,9 +197,13 @@ func (in *FinetuneExperimentStatus) DeepCopyInto(out *FinetuneExperimentStatus) 
 	}
 	if in.JobsStatus != nil {
 		in, out := &in.JobsStatus, &out.JobsStatus
-		*out = make([]FinetuneJobStatusSetting, len(*in))
+		*out = make([]*FinetuneJobStatusSetting, len(*in))
 		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(FinetuneJobStatusSetting)
+				(*in).DeepCopyInto(*out)
+			}
 		}
 	}
 	if in.Conditions != nil {
