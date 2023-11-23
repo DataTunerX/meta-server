@@ -344,7 +344,7 @@ func (in *LLMCheckpointSpec) DeepCopyInto(out *LLMCheckpointSpec) {
 	if in.Image != nil {
 		in, out := &in.Image, &out.Image
 		*out = new(finetunev1beta1.ImageSetting)
-		(*in).DeepCopyInto(*out)
+		**out = **in
 	}
 	if in.CheckpointImage != nil {
 		in, out := &in.CheckpointImage, &out.CheckpointImage

@@ -114,7 +114,7 @@ type Parameters struct {
 
 type ImageSetting struct {
 	// Name describe the image name.
-	Name *string `json:"name,omitempty"`
+	Name string `json:"name,omitempty"`
 	// ImagePullPolicy describes a policy for if/when to pull a container image.
 	// +kubebuilder:default:=IfNotPresent
 	// +kubebuilder:validation:Enum=Always;IfNotPresent;Never
@@ -122,7 +122,7 @@ type ImageSetting struct {
 	ImagePullPolicy corev1.PullPolicy `json:"imagePullPolicy,omitempty"`
 	// Path description of the model file path.
 	// +kubebuilder:validation:Optional
-	Path *string `json:"path,omitempty"`
+	Path string `json:"path,omitempty"`
 }
 
 // FinetuneStatus defines the observed state of Finetune
