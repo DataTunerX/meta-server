@@ -386,13 +386,12 @@ spec:
                     type: string
                   modelExportResult:
                     type: boolean
+                  score:
+                    type: string
                   serve:
                     type: string
                 required:
-                - dashboard
-                - image
                 - modelExportResult
-                - serve
                 type: object
               state:
                 default: INIT
