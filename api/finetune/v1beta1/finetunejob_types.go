@@ -106,9 +106,10 @@ type FinetuneJobStatus struct {
 
 type FinetuneJobResult struct {
 	ModelExportResult bool   `json:"modelExportResult"`
-	Dashboard         string `json:"dashboard"`
-	Serve             string `json:"serve"`
-	Image             string `json:"image"`
+	Dashboard         string `json:"dashboard,omitempty"`
+	Serve             string `json:"serve,omitempty"`
+	Image             string `json:"image,omitempty"`
+	Score             string `json:"score,omitempty"`
 }
 
 //+kubebuilder:object:root=true
