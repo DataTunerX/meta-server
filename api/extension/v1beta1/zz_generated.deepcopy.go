@@ -549,10 +549,8 @@ func (in *ScoringStatus) DeepCopyInto(out *ScoringStatus) {
 	*out = *in
 	if in.Metrics != nil {
 		in, out := &in.Metrics, &out.Metrics
-		*out = make(map[string]string, len(*in))
-		for key, val := range *in {
-			(*out)[key] = val
-		}
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 	if in.Score != nil {
 		in, out := &in.Score, &out.Score

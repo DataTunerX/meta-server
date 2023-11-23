@@ -80,9 +80,9 @@ spec:
           status:
             properties:
               metrics:
-                additionalProperties:
+                items:
                   type: string
-                type: object
+                type: array
               score:
                 type: string
             type: object
