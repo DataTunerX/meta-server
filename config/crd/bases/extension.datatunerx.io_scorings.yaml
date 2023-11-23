@@ -77,6 +77,17 @@ spec:
                   type: object
                 type: array
             type: object
+          status:
+            properties:
+              metrics:
+                items:
+                  type: string
+                type: array
+              score:
+                type: string
+            type: object
         type: object
     served: true
     storage: true
+    subresources:
+      status: {}

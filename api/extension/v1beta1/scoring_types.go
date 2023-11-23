@@ -40,14 +40,21 @@ type ScoringSpec struct {
 	InferenceService string `json:"inferenceService,omitempty"`
 }
 
+type ScoringStatus struct {
+	Metrics []string `json:"metrics,omitempty"`
+	Score   *string  `json:"score,omitempty"`
+}
+
 //+kubebuilder:object:root=true
+//+kubebuilder:subresource:status
 
 // Scoring is the Schema for the scorings API
 type Scoring struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec ScoringSpec `json:"spec,omitempty"`
+	Spec   ScoringSpec   `json:"spec,omitempty"`
+	Status ScoringStatus `json:"status,omitempty"`
 }
 
 //+kubebuilder:object:root=true
