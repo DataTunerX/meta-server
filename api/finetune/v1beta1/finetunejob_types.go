@@ -87,6 +87,7 @@ type ScoringConfig struct {
 
 type FineTune struct {
 	// +kubebuilder:validation:Optional
+	// +kubebuilder:validation:Pattern='[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*'
 	Name string `json:"name,omitempty"`
 	// +kubebuilder:validation:Required
 	FinetuneSpec FinetuneSpec `json:"finetuneSpec"`

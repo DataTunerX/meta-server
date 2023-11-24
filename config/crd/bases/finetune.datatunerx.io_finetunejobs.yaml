@@ -232,6 +232,7 @@ spec:
                     - llm
                     type: object
                   name:
+                    pattern: '''[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*'''
                     type: string
                 required:
                 - finetuneSpec
