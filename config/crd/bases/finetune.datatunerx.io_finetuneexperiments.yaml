@@ -41,6 +41,7 @@ spec:
                 items:
                   properties:
                     name:
+                      pattern: '''[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*'''
                       type: string
                     spec:
                       description: FinetuneJobSpec defines the desired state of FinetuneJob
@@ -254,6 +255,7 @@ spec:
                               - llm
                               type: object
                             name:
+                              pattern: '''[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*'''
                               type: string
                           required:
                           - finetuneSpec

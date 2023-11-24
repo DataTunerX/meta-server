@@ -44,6 +44,7 @@ type FinetuneExperimentSpec struct {
 
 type FinetuneJobSetting struct {
 	// +kubebuilder:validation:Optional
+	// +kubebuilder:validation:Pattern='[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*'
 	Name string `json:"name"`
 	// +kubebuilder:validation:Required
 	Spec FinetuneJobSpec `json:"spec"`
