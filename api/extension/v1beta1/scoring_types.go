@@ -45,8 +45,8 @@ type ScoringStatus struct {
 	Score   *string  `json:"score,omitempty"`
 }
 
-//+kubebuilder:object:root=true
-
+// +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
 // Scoring is the Schema for the scorings API
 type Scoring struct {
 	metav1.TypeMeta   `json:",inline"`

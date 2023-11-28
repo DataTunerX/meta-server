@@ -78,16 +78,12 @@ spec:
                 type: array
             type: object
           status:
-            description: ScoringPluginStatus defines the observed state of ScoringPlugin
             properties:
               metrics:
                 items:
                   type: string
                 type: array
-              state:
-                enum:
-                - READY
-                - UNREADY
+              score:
                 type: string
             type: object
         type: object
