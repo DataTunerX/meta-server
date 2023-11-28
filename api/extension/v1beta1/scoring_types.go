@@ -46,7 +46,6 @@ type ScoringStatus struct {
 }
 
 //+kubebuilder:object:root=true
-//+kubebuilder:subresource:status
 
 // Scoring is the Schema for the scorings API
 type Scoring struct {
