@@ -52,15 +52,14 @@ type Test struct {
 
 // Validate defines a dataset's subsets' validate-splits file address
 type Validate struct {
-	// +kubebuilder:validation:Required
-	File string `json:"file"`
+	File string `json:"file,omitempty"`
 }
 
 // Splits defines a dataset's train-splits, test-splits, validate-splits address info
 type Splits struct {
-	Train    Train    `json:"train,omitempty"`
-	Test     Test     `json:"test,omitempty"`
-	Validate Validate `json:"validate,omitempty"`
+	Train    *Train    `json:"train,omitempty"`
+	Test     *Test     `json:"test,omitempty"`
+	Validate *Validate `json:"validate,omitempty"`
 }
 
 // Subset defines a dataset‘s subset
