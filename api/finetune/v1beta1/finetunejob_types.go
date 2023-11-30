@@ -49,11 +49,9 @@ type FinetuneJobSpec struct {
 // ResourceLimits represents the resource limits for a task.
 type ResourceLimits struct {
 	// CPU specifies the CPU resource limit.
-	// +kubebuilder:default="2"
 	CPU resource.Quantity `json:"cpu"`
 
 	// Memory specifies the memory resource limit.
-	// +kubebuilder:default="4Gi"
 	Memory resource.Quantity `json:"memory"`
 
 	// GPU specifies the GPU resource limit.

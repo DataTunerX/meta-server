@@ -170,7 +170,6 @@ spec:
                                 anyOf:
                                 - type: integer
                                 - type: string
-                                default: "2"
                                 description: CPU specifies the CPU resource limit.
                                 pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
                                 x-kubernetes-int-or-string: true
@@ -182,7 +181,6 @@ spec:
                                 anyOf:
                                 - type: integer
                                 - type: string
-                                default: 4Gi
                                 description: Memory specifies the memory resource
                                   limit.
                                 pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
@@ -200,7 +198,6 @@ spec:
                                 anyOf:
                                 - type: integer
                                 - type: string
-                                default: "2"
                                 description: CPU specifies the CPU resource limit.
                                 pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
                                 x-kubernetes-int-or-string: true
@@ -212,7 +209,6 @@ spec:
                                 anyOf:
                                 - type: integer
                                 - type: string
-                                default: 4Gi
                                 description: Memory specifies the memory resource
                                   limit.
                                 pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$

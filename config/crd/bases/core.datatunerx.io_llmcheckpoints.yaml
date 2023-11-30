@@ -153,8 +153,6 @@ spec:
                                           properties:
                                             file:
                                               type: string
-                                          required:
-                                          - file
                                           type: object
                                       type: object
                                   type: object
