@@ -67,11 +67,11 @@ type FinetuneJobStatusSetting struct {
 
 // Describe the highest scoring version of an experiment
 type BestVersion struct {
-	Score          string `json:"score"`
-	Image          string `json:"image"`
-	LLM            string `json:"llm"`
-	Hyperparameter string `json:"hyperparameter"`
-	Dataset        string `json:"dataset"`
+	Score          string         `json:"score"`
+	Image          string         `json:"image"`
+	LLM            string         `json:"llm"`
+	Hyperparameter Hyperparameter `json:"hyperparameter"`
+	Dataset        string         `json:"dataset"`
 }
 
 //+kubebuilder:object:root=true
