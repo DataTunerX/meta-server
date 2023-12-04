@@ -131,6 +131,13 @@ type FinetuneStatus struct {
 	State FinetuneState `json:"state"`
 	// LLMCheckpoint describes the llmcheckpoint.
 	LLMCheckpoint *Checkpoint `json:"llmCheckpoint,omitempty"`
+	// RayJobInfo describes the rayjob.
+	RayJobInfo *RayJobInfo `json:"rayJobInfo,omitempty"`
+}
+
+type RayJobInfo struct {
+	RayJobPodName          string `json:"rayJobPodName,omitempty"`
+	RayJobPodContainerName string `json:"rayJobPodContainerName,omitempty"`
 }
 
 type Checkpoint struct {
