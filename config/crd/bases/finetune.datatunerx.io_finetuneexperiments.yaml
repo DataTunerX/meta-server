@@ -601,14 +601,46 @@ spec:
                             - type
                             type: object
                           type: array
-                        finetuneState:
+                        finetuneStatus:
+                          description: FinetuneStatus defines the observed state of
+                            Finetune
                           enum:
                           - INIT
                           - PENDING
                           - RUNNING
                           - FAILED
                           - SUCCESSFUL
-                          type: string
+                          properties:
+                            llmCheckpoint:
+                              description: LLMCheckpoint describes the llmcheckpoint.
+                              properties:
+                                checkpointPath:
+                                  type: string
+                                llmCheckpointRef:
+                                  type: string
+                              required:
+                              - checkpointPath
+                              - llmCheckpointRef
+                              type: object
+                            rayJobInfo:
+                              description: RayJobInfo describes the rayjob.
+                              properties:
+                                rayJobPodContainerName:
+                                  type: string
+                                rayJobPodName:
+                                  type: string
+                              type: object
+                            state:
+                              enum:
+                              - INIT
+                              - PENDING
+                              - RUNNING
+                              - FAILED
+                              - SUCCESSFUL
+                              type: string
+                          required:
+                          - state
+                          type: object
                         result:
                           properties:
                             dashboard:

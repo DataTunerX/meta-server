@@ -341,6 +341,11 @@ func (in *FinetuneJobStatus) DeepCopyInto(out *FinetuneJobStatus) {
 		*out = new(FinetuneJobResult)
 		**out = **in
 	}
+	if in.FinetuneStatus != nil {
+		in, out := &in.FinetuneStatus, &out.FinetuneStatus
+		*out = new(FinetuneStatus)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Conditions != nil {
 		in, out := &in.Conditions, &out.Conditions
 		*out = make([]v1.Condition, len(*in))
