@@ -94,10 +94,9 @@ type FineTune struct {
 type FinetuneJobStatus struct {
 	// +kubebuilder:validation:Enum=INIT;FAILED;SUCCESSFUL;BUILDIMAGE;FINETUNE;SERVE
 	// +kubebuilder:default=INIT
-	State  FinetuneJobState   `json:"state"`
-	Stats  string             `json:"stats,omitempty"`
-	Result *FinetuneJobResult `json:"result,omitempty"`
-	// +kubebuilder:validation:Enum=INIT;PENDING;RUNNING;FAILED;SUCCESSFUL
+	State          FinetuneJobState   `json:"state"`
+	Stats          string             `json:"stats,omitempty"`
+	Result         *FinetuneJobResult `json:"result,omitempty"`
 	FinetuneStatus *FinetuneStatus    `json:"finetuneStatus,omitempty"`
 	Conditions     []metav1.Condition `json:"conditions,omitempty"`
 }

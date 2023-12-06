@@ -604,12 +604,6 @@ spec:
                         finetuneStatus:
                           description: FinetuneStatus defines the observed state of
                             Finetune
-                          enum:
-                          - INIT
-                          - PENDING
-                          - RUNNING
-                          - FAILED
-                          - SUCCESSFUL
                           properties:
                             llmCheckpoint:
                               description: LLMCheckpoint describes the llmcheckpoint.
