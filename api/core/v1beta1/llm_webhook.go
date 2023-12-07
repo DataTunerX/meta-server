@@ -21,6 +21,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
+	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
 )
 
 // log is for logging in this package.
@@ -50,25 +51,25 @@ func (r *LLM) Default() {
 var _ webhook.Validator = &LLM{}
 
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type
-func (r *LLM) ValidateCreate() error {
+func (r *LLM) ValidateCreate() (warnings admission.Warnings, err error) {
 	llmlog.Info("validate create", "name", r.Name)
 
 	// TODO(user): fill in your validation logic upon object creation.
-	return nil
+	return nil, nil
 }
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type
-func (r *LLM) ValidateUpdate(old runtime.Object) error {
+func (r *LLM) ValidateUpdate(old runtime.Object) (warnings admission.Warnings, err error) {
 	llmlog.Info("validate update", "name", r.Name)
 
 	// TODO(user): fill in your validation logic upon object update.
-	return nil
+	return nil, nil
 }
 
 // ValidateDelete implements webhook.Validator so a webhook will be registered for the type
-func (r *LLM) ValidateDelete() error {
+func (r *LLM) ValidateDelete() (warnings admission.Warnings, err error) {
 	llmlog.Info("validate delete", "name", r.Name)
 
 	// TODO(user): fill in your validation logic upon object deletion.
-	return nil
+	return nil, nil
 }
