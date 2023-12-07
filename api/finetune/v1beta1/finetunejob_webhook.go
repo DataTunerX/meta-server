@@ -21,6 +21,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
+	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
 
 	"github.com/DataTunerX/meta-server/logging"
 )
@@ -84,25 +85,25 @@ func (r *FinetuneJob) Default() {
 var _ webhook.Validator = &FinetuneJob{}
 
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type
-func (r *FinetuneJob) ValidateCreate() error {
+func (r *FinetuneJob) ValidateCreate() (warnings admission.Warnings, err error) {
 	finetunejoblog.Info("validate create", "name", r.Name)
 
 	// TODO(user): fill in your validation logic upon object creation.
-	return nil
+	return nil, nil
 }
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type
-func (r *FinetuneJob) ValidateUpdate(old runtime.Object) error {
+func (r *FinetuneJob) ValidateUpdate(old runtime.Object) (warnings admission.Warnings, err error) {
 	finetunejoblog.Info("validate update", "name", r.Name)
 
 	// TODO(user): fill in your validation logic upon object update.
-	return nil
+	return nil, nil
 }
 
 // ValidateDelete implements webhook.Validator so a webhook will be registered for the type
-func (r *FinetuneJob) ValidateDelete() error {
+func (r *FinetuneJob) ValidateDelete() (warnings admission.Warnings, err error) {
 	finetunejoblog.Info("validate delete", "name", r.Name)
 
 	// TODO(user): fill in your validation logic upon object deletion.
-	return nil
+	return nil, nil
 }
