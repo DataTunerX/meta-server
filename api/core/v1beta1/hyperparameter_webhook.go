@@ -21,6 +21,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
+	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
 )
 
 // log is for logging in this package.
@@ -52,25 +53,25 @@ func (r *Hyperparameter) Default() {
 var _ webhook.Validator = &Hyperparameter{}
 
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type
-func (r *Hyperparameter) ValidateCreate() error {
+func (r *Hyperparameter) ValidateCreate() (warnings admission.Warnings, err error) {
 	hyperparameterlog.Info("validate create", "name", r.Name)
 
 	// TODO(user): fill in your validation logic upon object creation.
-	return nil
+	return nil, nil
 }
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type
-func (r *Hyperparameter) ValidateUpdate(old runtime.Object) error {
+func (r *Hyperparameter) ValidateUpdate(old runtime.Object) (warnings admission.Warnings, err error) {
 	hyperparameterlog.Info("validate update", "name", r.Name)
 	// 禁止更新
 	// TODO(user): fill in your validation logic upon object update.
-	return nil
+	return nil, nil
 }
 
 // ValidateDelete implements webhook.Validator so a webhook will be registered for the type
-func (r *Hyperparameter) ValidateDelete() error {
+func (r *Hyperparameter) ValidateDelete() (warnings admission.Warnings, err error) {
 	hyperparameterlog.Info("validate delete", "name", r.Name)
 	// 只要有引用就不能删除
 	// TODO(user): fill in your validation logic upon object deletion.
-	return nil
+	return nil, nil
 }
