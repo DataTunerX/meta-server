@@ -17,15 +17,12 @@ limitations under the License.
 package v1beta1
 
 import (
-	"github.com/DataTunerX/meta-server/logging"
+	"github.com/DataTunerX/utility-server/logging"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
 	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
 )
-
-// log is for logging in this package.
-var llmlog = logging.Logger.WithName("llm-resource")
 
 func (r *LLM) SetupWebhookWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewWebhookManagedBy(mgr).
@@ -41,7 +38,7 @@ var _ webhook.Defaulter = &LLM{}
 
 // Default implements webhook.Defaulter so a webhook will be registered for the type
 func (r *LLM) Default() {
-	llmlog.Info("default", "name", r.Name)
+	logging.ZLogger.Infof("Validate default llm %s/%s", r.Namespace, r.Name)
 
 }
 
@@ -52,7 +49,7 @@ var _ webhook.Validator = &LLM{}
 
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type
 func (r *LLM) ValidateCreate() (warnings admission.Warnings, err error) {
-	llmlog.Info("validate create", "name", r.Name)
+	logging.ZLogger.Infof("Validate create llm %s/%s", r.Namespace, r.Name)
 
 	// TODO(user): fill in your validation logic upon object creation.
 	return nil, nil
@@ -60,7 +57,7 @@ func (r *LLM) ValidateCreate() (warnings admission.Warnings, err error) {
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type
 func (r *LLM) ValidateUpdate(old runtime.Object) (warnings admission.Warnings, err error) {
-	llmlog.Info("validate update", "name", r.Name)
+	logging.ZLogger.Infof("Validate update llm %s/%s", r.Namespace, r.Name)
 
 	// TODO(user): fill in your validation logic upon object update.
 	return nil, nil
@@ -68,7 +65,7 @@ func (r *LLM) ValidateUpdate(old runtime.Object) (warnings admission.Warnings, e
 
 // ValidateDelete implements webhook.Validator so a webhook will be registered for the type
 func (r *LLM) ValidateDelete() (warnings admission.Warnings, err error) {
-	llmlog.Info("validate delete", "name", r.Name)
+	logging.ZLogger.Infof("Validate delete llm %s/%s", r.Namespace, r.Name)
 
 	// TODO(user): fill in your validation logic upon object deletion.
 	return nil, nil

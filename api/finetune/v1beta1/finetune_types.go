@@ -54,6 +54,7 @@ type FinetuneSpec struct {
 	Hyperparameter Hyperparameter `json:"hyperparameter"`
 
 	// Resource specifies the resource configuration for fine-tuning.
+	// +kubebuilder:validation:Optional
 	Resource *Resource `json:"resource,omitempty"`
 	// +kubebuilder:default:1
 	// +kubebuilder:validation:Optional

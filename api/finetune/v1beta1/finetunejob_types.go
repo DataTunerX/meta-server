@@ -43,7 +43,7 @@ type FinetuneJobSpec struct {
 	ScoringConfig *ScoringConfig `json:"scoringConfig,omitempty"`
 	// Serve config.
 	// +kubebuilder:validation:Optional
-	ServeConfig ServeConfig `json:"serveConfig"`
+	ServeConfig *ServeConfig `json:"serveConfig,omitempty"`
 }
 
 // ResourceLimits represents the resource limits for a task.

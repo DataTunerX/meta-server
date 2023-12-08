@@ -17,24 +17,21 @@ limitations under the License.
 package v1beta1
 
 import (
+	"fmt"
+
 	"k8s.io/apimachinery/pkg/api/resource"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
 	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
 
-	"github.com/DataTunerX/meta-server/logging"
+	"github.com/DataTunerX/utility-server/logging"
 )
 
 const (
-	defaultLimitGPU    = "1"
-	defaultRequestGPU  = "1"
-	defaultServerImage = "rayproject/ray:2.7.1-py39-cu121-finetunecode-llm"
-	defaultPath        = "/root/model-data"
+	defaultLimitGPU   = "1"
+	defaultRequestGPU = "1"
 )
-
-// log is for logging in this package.
-var finetunejoblog = logging.Logger.WithName("finetunejob-resource")
 
 func (r *FinetuneJob) SetupWebhookWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewWebhookManagedBy(mgr).
@@ -50,7 +47,7 @@ var _ webhook.Defaulter = &FinetuneJob{}
 
 // Default implements webhook.Defaulter so a webhook will be registered for the type
 func (r *FinetuneJob) Default() {
-	finetunejoblog.Info("default", "name", r.Name)
+	logging.ZLogger.Infof("Validate default finetuneJob %s/%s", r.Namespace, r.Name)
 	if r.Spec.FineTune.FinetuneSpec.Resource == nil {
 		r.Spec.FineTune.FinetuneSpec.Resource = &Resource{
 			Limits:   &ResourceLimits{},
@@ -77,6 +74,19 @@ func (r *FinetuneJob) Default() {
 		defaultGPU := defaultRequestGPU
 		r.Spec.FineTune.FinetuneSpec.Resource.Requests.GPU = &defaultGPU
 	}
+	if r.Spec.ServeConfig == nil {
+		r.Spec.ServeConfig = &ServeConfig{
+			NodeSelector: map[string]string{
+				"nvidia.com/gpu": "present",
+			},
+		}
+	}
+	if r.Spec.FineTune.Name == "" {
+		r.Spec.FineTune.Name = r.Name
+	}
+	if r.Spec.FineTune.FinetuneSpec.Node <= 0 {
+		r.Spec.FineTune.FinetuneSpec.Node = 1
+	}
 }
 
 // TODO(user): change verbs to "verbs=create;update;delete" if you want to enable deletion validation.
@@ -86,24 +96,21 @@ var _ webhook.Validator = &FinetuneJob{}
 
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type
 func (r *FinetuneJob) ValidateCreate() (warnings admission.Warnings, err error) {
-	finetunejoblog.Info("validate create", "name", r.Name)
-
-	// TODO(user): fill in your validation logic upon object creation.
+	logging.ZLogger.Infof("Validate create finetuneJob %s/%s", r.Namespace, r.Name)
 	return nil, nil
 }
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type
 func (r *FinetuneJob) ValidateUpdate(old runtime.Object) (warnings admission.Warnings, err error) {
-	finetunejoblog.Info("validate update", "name", r.Name)
-
-	// TODO(user): fill in your validation logic upon object update.
-	return nil, nil
+	logging.ZLogger.Infof("Validate update finetuneJob %s/%s", r.Namespace, r.Name)
+	return nil, fmt.Errorf("finetuneJob updates are not allowed")
 }
 
 // ValidateDelete implements webhook.Validator so a webhook will be registered for the type
 func (r *FinetuneJob) ValidateDelete() (warnings admission.Warnings, err error) {
-	finetunejoblog.Info("validate delete", "name", r.Name)
-
-	// TODO(user): fill in your validation logic upon object deletion.
+	logging.ZLogger.Infof("Validate delete finetuneJob %s/%s", r.Namespace, r.Name)
+	if r.OwnerReferences != nil {
+		return nil, fmt.Errorf("finetuneJob owner is not empty, please delete owner")
+	}
 	return nil, nil
 }

@@ -37,9 +37,11 @@ type FinetuneExperimentSpec struct {
 	// +kubebuilder:validation:MinItems=1
 	FinetuneJobs []FinetuneJobSetting `json:"finetuneJobs"`
 	// Define the scoring plugin used for this experiment.
-	// +kubebuilder:validation:Required
-	ScoringConfig ScoringConfig `json:"scoringConfig"`
-	Pending       bool          `json:"pending,omitempty"`
+	// +kubebuilder:validation:Optional
+	ScoringConfig *ScoringConfig `json:"scoringConfig,omitempty"`
+	Pending       bool           `json:"pending,omitempty"`
+	// +kubebuilder:validation:Optional
+	ServeConfig *ServeConfig `json:"serveConfig,omitempty"`
 }
 
 type FinetuneJobSetting struct {
