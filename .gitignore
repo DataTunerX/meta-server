@@ -39,6 +39,7 @@ fabric.properties
 go.work
 
 .idea/
+.vscode/
 
 bin/
 

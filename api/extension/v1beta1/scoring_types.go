@@ -41,8 +41,9 @@ type ScoringSpec struct {
 }
 
 type ScoringStatus struct {
-	Metrics []string `json:"metrics,omitempty"`
-	Score   *string  `json:"score,omitempty"`
+	Metrics []string          `json:"metrics,omitempty"`
+	Score   *string           `json:"score,omitempty"`
+	Details map[string]string `json:"details,omitempty"`
 }
 
 // +kubebuilder:object:root=true

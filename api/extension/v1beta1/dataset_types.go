@@ -109,10 +109,9 @@ type DatasetMetadata struct {
 	Languages []string `json:"languages"`
 	// Tags describes a dataset, it's customized.
 	Tags []string `json:"tags,omitempty"`
-	// +kubebuilder:validation:Required
 	// License includes CC BY, CC BY-SA, CC BY-ND, CC BY-NC, CC BY-NC-SA, CC BY-NC-ND, CC0, ODC-PDDL, ODC-BY
 	// ODC-ODbl, CDLA-Permissive-2.0, CDLA-Sharing-1.0
-	License string `json:"license"`
+	License string `json:"license,omitempty"`
 	// +kubebuilder:validation:Required
 	// Size describes dataset's entries number
 	Size string `json:"size"`

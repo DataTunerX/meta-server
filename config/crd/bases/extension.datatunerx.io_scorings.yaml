@@ -79,6 +79,10 @@ spec:
             type: object
           status:
             properties:
+              details:
+                additionalProperties:
+                  type: string
+                type: object
               metrics:
                 items:
                   type: string
