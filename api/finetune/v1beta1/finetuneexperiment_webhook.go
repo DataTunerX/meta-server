@@ -18,6 +18,7 @@ package v1beta1
 
 import (
 	"fmt"
+	"reflect"
 
 	"github.com/DataTunerX/utility-server/logging"
 	"github.com/DataTunerX/utility-server/random"
@@ -86,6 +87,12 @@ func (r *FinetuneExperiment) ValidateUpdate(old runtime.Object) (warnings admiss
 	oldFinetuneExperiment := old.(*FinetuneExperiment)
 	logging.ZLogger.Infof("Validate update finetuneExperiment %s/%s", r.Namespace, r.Name)
 	if oldFinetuneExperiment.Spec.Pending != r.Spec.Pending {
+		return nil, nil
+	}
+	if !reflect.DeepEqual(oldFinetuneExperiment.Finalizers, r.Finalizers) {
+		return nil, nil
+	}
+	if !reflect.DeepEqual(oldFinetuneExperiment.Status, r.Status) {
 		return nil, nil
 	}
 	return nil, fmt.Errorf("finetuneExperiment updates are not allowed")
