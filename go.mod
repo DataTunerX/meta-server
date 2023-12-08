@@ -3,7 +3,7 @@ module github.com/DataTunerX/meta-server
 go 1.19
 
 require (
-	github.com/DataTunerX/utility-server v0.0.0-20231208062127-e7c0d267ba41
+	github.com/DataTunerX/utility-server v0.0.0-20231208092112-6224f8619737
 	github.com/go-logr/logr v1.2.4
 	github.com/onsi/ginkgo/v2 v2.11.0
 	github.com/onsi/gomega v1.27.10
