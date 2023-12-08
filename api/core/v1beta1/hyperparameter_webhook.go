@@ -17,15 +17,12 @@ limitations under the License.
 package v1beta1
 
 import (
-	"github.com/DataTunerX/meta-server/logging"
+	"github.com/DataTunerX/utility-server/logging"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
 	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
 )
-
-// log is for logging in this package.
-var hyperparameterlog = logging.Logger.WithName("hyperparameter-resource")
 
 func (r *Hyperparameter) SetupWebhookWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewWebhookManagedBy(mgr).
@@ -40,7 +37,7 @@ var _ webhook.Defaulter = &Hyperparameter{}
 // Default implements webhook.Defaulter so a webhook will be registered for the type
 func (r *Hyperparameter) Default() {
 	// todo Standardised logs
-	hyperparameterlog.Info("default", "name", r.Name)
+	logging.ZLogger.Infof("Validate default hyperparameter %s/%s", r.Namespace, r.Name)
 
 	//Set the default value to the hyperparameter cr
 
@@ -54,7 +51,7 @@ var _ webhook.Validator = &Hyperparameter{}
 
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type
 func (r *Hyperparameter) ValidateCreate() (warnings admission.Warnings, err error) {
-	hyperparameterlog.Info("validate create", "name", r.Name)
+	logging.ZLogger.Infof("Validate create hyperparameter %s/%s", r.Namespace, r.Name)
 
 	// TODO(user): fill in your validation logic upon object creation.
 	return nil, nil
@@ -62,7 +59,7 @@ func (r *Hyperparameter) ValidateCreate() (warnings admission.Warnings, err erro
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type
 func (r *Hyperparameter) ValidateUpdate(old runtime.Object) (warnings admission.Warnings, err error) {
-	hyperparameterlog.Info("validate update", "name", r.Name)
+	logging.ZLogger.Infof("Validate update hyperparameter %s/%s", r.Namespace, r.Name)
 	// 禁止更新
 	// TODO(user): fill in your validation logic upon object update.
 	return nil, nil
@@ -70,7 +67,7 @@ func (r *Hyperparameter) ValidateUpdate(old runtime.Object) (warnings admission.
 
 // ValidateDelete implements webhook.Validator so a webhook will be registered for the type
 func (r *Hyperparameter) ValidateDelete() (warnings admission.Warnings, err error) {
-	hyperparameterlog.Info("validate delete", "name", r.Name)
+	logging.ZLogger.Infof("Validate delete hyperparameter %s/%s", r.Namespace, r.Name)
 	// 只要有引用就不能删除
 	// TODO(user): fill in your validation logic upon object deletion.
 	return nil, nil

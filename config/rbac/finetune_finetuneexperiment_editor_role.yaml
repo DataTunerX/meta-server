@@ -2,15 +2,84 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  labels:
-    app.kubernetes.io/name: clusterrole
-    app.kubernetes.io/instance: finetuneexperiment-editor-role
-    app.kubernetes.io/component: rbac
-    app.kubernetes.io/created-by: meta-server
-    app.kubernetes.io/part-of: meta-server
-    app.kubernetes.io/managed-by: kustomize
-  name: finetuneexperiment-editor-role
+  name: finetune-experiment-controller-role
 rules:
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ray.io
+  resources:
+  - rayservices
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ray.io
+  resources:
+  - rayservices/status
+  verbs:
+  - get
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - mutatingwebhookconfigurations
+  verbs:
+  - '*'
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - validatingwebhookconfigurations
+  verbs:
+  - '*'
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - create
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - create
+  - get
+  - list
+  - update
+  - delete
+  - watch
 - apiGroups:
   - finetune.datatunerx.io
   resources:
@@ -27,5 +96,133 @@ rules:
   - finetune.datatunerx.io
   resources:
   - finetuneexperiments/status
+  verbs:
+  - get
+  - update
+- apiGroups:
+  - finetune.datatunerx.io
+  resources:
+  - finetunejobs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - finetune.datatunerx.io
+  resources:
+  - finetunejobs/status
+  verbs:
+  - get
+  - update
+- apiGroups:
+  - extension.datatunerx.io
+  resources:
+  - scorings
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - extension.datatunerx.io
+  resources:
+  - scorings/status
+  verbs:
+  - get
+- apiGroups:
+  - core.datatunerx.io
+  resources:
+  - llmcheckpoints
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - core.datatunerx.io
+  resources:
+  - llmcheckpoints/status
+  verbs:
+  - get
+- apiGroups:
+  - core.datatunerx.io
+  resources:
+  - hyperparameters
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - core.datatunerx.io
+  resources:
+  - hyperparameters/status
+  verbs:
+  - get
+- apiGroups:
+  - core.datatunerx.io
+  resources:
+  - llms
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - core.datatunerx.io
+  resources:
+  - llms/status
+  verbs:
+  - get
+- apiGroups:
+  - finetune.datatunerx.io
+  resources:
+  - finetunes
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - finetune.datatunerx.io
+  resources:
+  - finetunes/status
+  verbs:
+  - get
+- apiGroups:
+  - extension.datatunerx.io
+  resources:
+  - datasets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - extension.datatunerx.io
+  resources:
+  - datasets/status
   verbs:
   - get
