@@ -18,6 +18,7 @@ package v1beta1
 
 import (
 	"fmt"
+	"reflect"
 
 	"k8s.io/apimachinery/pkg/api/resource"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -102,7 +103,14 @@ func (r *FinetuneJob) ValidateCreate() (warnings admission.Warnings, err error) 
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type
 func (r *FinetuneJob) ValidateUpdate(old runtime.Object) (warnings admission.Warnings, err error) {
+	oldFinetuneJob := old.(*FinetuneJob)
 	logging.ZLogger.Infof("Validate update finetuneJob %s/%s", r.Namespace, r.Name)
+	if !reflect.DeepEqual(oldFinetuneJob.Finalizers, r.Finalizers) {
+		return nil, nil
+	}
+	if !reflect.DeepEqual(oldFinetuneJob.Status, r.Status) {
+		return nil, nil
+	}
 	return nil, fmt.Errorf("finetuneJob updates are not allowed")
 }
 
