@@ -201,7 +201,6 @@ spec:
                     type: object
                 required:
                 - languages
-                - license
                 - size
                 - task
                 type: object
