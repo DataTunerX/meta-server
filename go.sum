@@ -1,5 +1,9 @@
 github.com/DataTunerX/utility-server v0.0.0-20231208062127-e7c0d267ba41 h1:X0VZUzRbRcoPnq61HLL5N1TNQlWqXxJx1wkQ5c+zBVQ=
 github.com/DataTunerX/utility-server v0.0.0-20231208062127-e7c0d267ba41/go.mod h1:6B12eUOsDcUZe/ayzODOOUG04JCJHgwXQOuXOa75whE=
+github.com/DataTunerX/utility-server v0.0.0-20231208090652-b4fbd6c12f73 h1:JMUwWBu66yK3zAwtM8umVyfVlpYPGXyAN6iR1EwqgX0=
+github.com/DataTunerX/utility-server v0.0.0-20231208090652-b4fbd6c12f73/go.mod h1:6B12eUOsDcUZe/ayzODOOUG04JCJHgwXQOuXOa75whE=
+github.com/DataTunerX/utility-server v0.0.0-20231208092112-6224f8619737 h1:WYARNq3OZABZCWKtvApiKOg8/7CKYJImDynnOy6bfhs=
+github.com/DataTunerX/utility-server v0.0.0-20231208092112-6224f8619737/go.mod h1:6B12eUOsDcUZe/ayzODOOUG04JCJHgwXQOuXOa75whE=
 github.com/benbjohnson/clock v1.1.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
 github.com/beorn7/perks v1.0.1 h1:VlbKKnNfV8bJzeqoa4cOKqO6bYr3WgKZxO8Z16+hsOM=
 github.com/beorn7/perks v1.0.1/go.mod h1:G2ZrVWU2WbWT9wwq4/hrbKbnv/1ERSJQ0ibhJ6rlkpw=
