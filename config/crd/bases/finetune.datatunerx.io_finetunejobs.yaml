@@ -232,7 +232,7 @@ spec:
                 required:
                 - finetuneSpec
                 type: object
-              scoringConfig:
+              scoringPluginConfig:
                 description: Score plugin config.
                 properties:
                   name:

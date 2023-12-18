@@ -40,7 +40,7 @@ type FinetuneJobSpec struct {
 	FineTune FineTune `json:"finetune"`
 	// Score plugin config.
 	// +kubebuilder:validation:Optional
-	ScoringConfig *ScoringConfig `json:"scoringConfig,omitempty"`
+	ScoringPluginConfig *ScoringPluginConfig `json:"scoringPluginConfig,omitempty"`
 	// Serve config.
 	// +kubebuilder:validation:Optional
 	ServeConfig *ServeConfig `json:"serveConfig,omitempty"`
@@ -77,7 +77,7 @@ type ServeConfig struct {
 }
 
 // ScoringConfig represents the configuration for scoring.
-type ScoringConfig struct {
+type ScoringPluginConfig struct {
 	// Name specifies the name of the scoring CR.
 	Name       string `json:"name,omitempty"`
 	Parameters string `json:"parameters,omitempty"`

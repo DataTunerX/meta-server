@@ -254,7 +254,7 @@ spec:
                           required:
                           - finetuneSpec
                           type: object
-                        scoringConfig:
+                        scoringPluginConfig:
                           description: Score plugin config.
                           properties:
                             name:
@@ -329,7 +329,7 @@ spec:
                 type: array
               pending:
                 type: boolean
-              scoringConfig:
+              scoringPluginConfig:
                 description: Define the scoring plugin used for this experiment.
                 properties:
                   name:
