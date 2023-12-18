@@ -57,9 +57,9 @@ func (r *FinetuneExperiment) Default() {
 				r.Spec.FinetuneJobs[i].Spec.FineTune.Name = r.Spec.FinetuneJobs[i].Name
 			}
 		}
-		if r.Spec.ScoringConfig != nil {
+		if r.Spec.ScoringPluginConfig != nil {
 			logging.ZLogger.Debugf("Set scoringConfig for finetuneJob %s/%s", r.Namespace, r.Spec.FinetuneJobs[i].Name)
-			r.Spec.FinetuneJobs[i].Spec.ScoringConfig = r.Spec.ScoringConfig
+			r.Spec.FinetuneJobs[i].Spec.ScoringPluginConfig = r.Spec.ScoringPluginConfig
 		}
 		if r.Spec.ServeConfig != nil {
 			logging.ZLogger.Debugf("Set serveConfig for finetuneJob %s/%s", r.Namespace, r.Spec.FinetuneJobs[i].Name)
