@@ -157,7 +157,8 @@ const (
 // DatasetStatus defines the observed state of Dataset
 type DatasetStatus struct {
 	// +kubebuilder:validation:Enum=READY;UNREADY
-	State DatasetState `json:"state,omitempty"`
+	State                 DatasetState `json:"state,omitempty"`
+	ReferenceFinetuneName []string     `json:"referenceFinetuneName"`
 }
 
 //+kubebuilder:object:root=true

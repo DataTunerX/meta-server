@@ -8,9 +8,8 @@ metadata:
     app.kubernetes.io/component: webhook
     app.kubernetes.io/created-by: meta-server
     app.kubernetes.io/part-of: meta-server
-    app.kubernetes.io/managed-by: kustomize
-  name: webhook-service
-  namespace: system
+  name: finetune-experiment-controller-service
+  namespace: datatunerx-dev
 spec:
   ports:
     - port: 443

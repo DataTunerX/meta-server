@@ -26,7 +26,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
 )
 
-func (r *LLM) SetupWebhookWithManager(mgr ctrl.Manager) error {
+func (r *Dataset) SetupWebhookWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewWebhookManagedBy(mgr).
 		For(r).
 		Complete()
@@ -34,45 +34,48 @@ func (r *LLM) SetupWebhookWithManager(mgr ctrl.Manager) error {
 
 // TODO(user): EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 
-//+kubebuilder:webhook:path=/mutate-core-datatunerx-io-v1beta1-llm,mutating=true,failurePolicy=fail,sideEffects=None,groups=core.datatunerx.io,resources=llms,verbs=create;update,versions=v1beta1,name=mllm.kb.io,admissionReviewVersions=v1
+//+kubebuilder:webhook:path=/mutate-extension-datatunerx-io-v1beta1-dataset,mutating=true,failurePolicy=fail,sideEffects=None,groups=extension.datatunerx.io,resources=datasets,verbs=create;update,versions=v1beta1,name=mdataset.kb.io,admissionReviewVersions=v1
 
-var _ webhook.Defaulter = &LLM{}
+var _ webhook.Defaulter = &Dataset{}
 
 // Default implements webhook.Defaulter so a webhook will be registered for the type
-func (r *LLM) Default() {
-	logging.ZLogger.Infof("Validate default llm %s/%s", r.Namespace, r.Name)
+func (r *Dataset) Default() {
+	logging.ZLogger.Infof("Validate default dataset %s/%s", r.Namespace, r.Name)
 
+	// TODO(user): fill in your defaulting logic.
 }
 
 // TODO(user): change verbs to "verbs=create;update;delete" if you want to enable deletion validation.
-//+kubebuilder:webhook:path=/validate-core-datatunerx-io-v1beta1-llm,mutating=false,failurePolicy=fail,sideEffects=None,groups=core.datatunerx.io,resources=llms,verbs=create;update,versions=v1beta1,name=vllm.kb.io,admissionReviewVersions=v1
+//+kubebuilder:webhook:path=/validate-extension-datatunerx-io-v1beta1-dataset,mutating=false,failurePolicy=fail,sideEffects=None,groups=extension.datatunerx.io,resources=datasets,verbs=create;update,versions=v1beta1,name=vdataset.kb.io,admissionReviewVersions=v1
 
-var _ webhook.Validator = &LLM{}
+var _ webhook.Validator = &Dataset{}
 
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type
-func (r *LLM) ValidateCreate() (warnings admission.Warnings, err error) {
-	logging.ZLogger.Infof("Validate create llm %s/%s", r.Namespace, r.Name)
+func (r *Dataset) ValidateCreate() (warnings admission.Warnings, err error) {
+	logging.ZLogger.Infof("Validate create dataset %s/%s", r.Namespace, r.Name)
 
 	// TODO(user): fill in your validation logic upon object creation.
 	return nil, nil
 }
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type
-func (r *LLM) ValidateUpdate(old runtime.Object) (warnings admission.Warnings, err error) {
-	logging.ZLogger.Infof("Validate update llm %s/%s", r.Namespace, r.Name)
+func (r *Dataset) ValidateUpdate(old runtime.Object) (warnings admission.Warnings, err error) {
+	logging.ZLogger.Infof("Validate update dataset %s/%s", r.Namespace, r.Name)
 	if r.Status.ReferenceFinetuneName != nil {
-		return nil, fmt.Errorf("llm %s/%s is referenced by finetune, not allow update",
+		return nil, fmt.Errorf("dataset %s/%s is referenced by finetune, not allow update",
 			r.Namespace, r.Name)
 	}
+	// TODO(user): fill in your validation logic upon object update.
 	return nil, nil
 }
 
 // ValidateDelete implements webhook.Validator so a webhook will be registered for the type
-func (r *LLM) ValidateDelete() (warnings admission.Warnings, err error) {
-	logging.ZLogger.Infof("Validate delete llm %s/%s", r.Namespace, r.Name)
+func (r *Dataset) ValidateDelete() (warnings admission.Warnings, err error) {
+	logging.ZLogger.Infof("Validate delete dataset %s/%s", r.Namespace, r.Name)
 	if r.Status.ReferenceFinetuneName != nil {
-		return nil, fmt.Errorf("llm %s/%s is referenced by finetune, not allow delete",
+		return nil, fmt.Errorf("dataset %s/%s is referenced by finetune, not allow delete",
 			r.Namespace, r.Name)
 	}
+	// TODO(user): fill in your validation logic upon object deletion.
 	return nil, nil
 }

@@ -171,6 +171,16 @@ spec:
             type: object
           status:
             description: LLMStatus defines the observed state of LLM
+            properties:
+              referenceFinetuneName:
+                description: 'INSERT ADDITIONAL STATUS FIELD - define observed state
+                  of cluster Important: Run "make" to regenerate code after modifying
+                  this file'
+                items:
+                  type: string
+                type: array
+            required:
+            - referenceFinetuneName
             type: object
         type: object
     served: true
