@@ -11,6 +11,26 @@ webhooks:
     service:
       name: webhook-service
       namespace: system
+      path: /mutate-extension-datatunerx-io-v1beta1-dataset
+  failurePolicy: Fail
+  name: mdataset.kb.io
+  rules:
+  - apiGroups:
+    - extension.datatunerx.io
+    apiVersions:
+    - v1beta1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - datasets
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
       path: /mutate-finetune-datatunerx-io-v1beta1-finetuneexperiment
   failurePolicy: Fail
   name: mfinetuneexperiment.kb.io
@@ -92,6 +112,26 @@ metadata:
   creationTimestamp: null
   name: validating-webhook-configuration
 webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-extension-datatunerx-io-v1beta1-dataset
+  failurePolicy: Fail
+  name: vdataset.kb.io
+  rules:
+  - apiGroups:
+    - extension.datatunerx.io
+    apiVersions:
+    - v1beta1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - datasets
+  sideEffects: None
 - admissionReviewVersions:
   - v1
   clientConfig:

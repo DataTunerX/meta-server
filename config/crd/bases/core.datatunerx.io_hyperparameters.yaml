@@ -158,6 +158,11 @@ spec:
             type: object
           status:
             description: HyperparameterStatus defines the observed state of Hyperparameter
+            properties:
+              referenceFinetuneName:
+                items:
+                  type: string
+                type: array
             type: object
         type: object
     served: true

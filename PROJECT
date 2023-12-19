@@ -68,6 +68,10 @@ resources:
   kind: Dataset
   path: github.com/DataTunerX/meta-server/api/extension/v1beta1
   version: v1beta1
+  webhooks:
+    defaulting: true
+    validation: true
+    webhookVersion: v1
 - api:
     crdVersion: v1
     namespaced: true

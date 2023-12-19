@@ -17,6 +17,8 @@ limitations under the License.
 package v1beta1
 
 import (
+	"fmt"
+
 	"github.com/DataTunerX/utility-server/logging"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -52,23 +54,25 @@ var _ webhook.Validator = &Hyperparameter{}
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type
 func (r *Hyperparameter) ValidateCreate() (warnings admission.Warnings, err error) {
 	logging.ZLogger.Infof("Validate create hyperparameter %s/%s", r.Namespace, r.Name)
-
-	// TODO(user): fill in your validation logic upon object creation.
 	return nil, nil
 }
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type
 func (r *Hyperparameter) ValidateUpdate(old runtime.Object) (warnings admission.Warnings, err error) {
 	logging.ZLogger.Infof("Validate update hyperparameter %s/%s", r.Namespace, r.Name)
-	// 禁止更新
-	// TODO(user): fill in your validation logic upon object update.
+	if r.Status.ReferenceFinetuneName != nil {
+		return nil, fmt.Errorf("hyperparameter %s/%s is referenced by finetune, not allow update",
+			r.Namespace, r.Name)
+	}
 	return nil, nil
 }
 
 // ValidateDelete implements webhook.Validator so a webhook will be registered for the type
 func (r *Hyperparameter) ValidateDelete() (warnings admission.Warnings, err error) {
 	logging.ZLogger.Infof("Validate delete hyperparameter %s/%s", r.Namespace, r.Name)
-	// 只要有引用就不能删除
-	// TODO(user): fill in your validation logic upon object deletion.
+	if r.Status.ReferenceFinetuneName != nil {
+		return nil, fmt.Errorf("hyperparameter %s/%s is referenced by finetune, not allow delete",
+			r.Namespace, r.Name)
+	}
 	return nil, nil
 }

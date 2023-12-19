@@ -1,29 +1,10 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  labels:
-    control-plane: controller-manager
-    app.kubernetes.io/name: namespace
-    app.kubernetes.io/instance: system
-    app.kubernetes.io/component: manager
-    app.kubernetes.io/created-by: meta-server
-    app.kubernetes.io/part-of: meta-server
-    app.kubernetes.io/managed-by: kustomize
-  name: system
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: controller-manager
-  namespace: system
+  name: finetune-experiment-controller
+  namespace: datatunerx-dev
   labels:
     control-plane: controller-manager
-    app.kubernetes.io/name: deployment
-    app.kubernetes.io/instance: controller-manager
-    app.kubernetes.io/component: manager
-    app.kubernetes.io/created-by: meta-server
-    app.kubernetes.io/part-of: meta-server
-    app.kubernetes.io/managed-by: kustomize
 spec:
   selector:
     matchLabels:
@@ -36,47 +17,12 @@ spec:
       labels:
         control-plane: controller-manager
     spec:
-      # TODO(user): Uncomment the following code to configure the nodeAffinity expression
-      # according to the platforms which are supported by your solution.
-      # It is considered best practice to support multiple architectures. You can
-      # build your manager image using the makefile target docker-buildx.
-      # affinity:
-      #   nodeAffinity:
-      #     requiredDuringSchedulingIgnoredDuringExecution:
-      #       nodeSelectorTerms:
-      #         - matchExpressions:
-      #           - key: kubernetes.io/arch
-      #             operator: In
-      #             values:
-      #               - amd64
-      #               - arm64
-      #               - ppc64le
-      #               - s390x
-      #           - key: kubernetes.io/os
-      #             operator: In
-      #             values:
-      #               - linux
-      securityContext:
-        runAsNonRoot: true
-        # TODO(user): For common cases that do not require escalating privileges
-        # it is recommended to ensure that all your Pods/Containers are restrictive.
-        # More info: https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted
-        # Please uncomment the following code if your project does NOT have to work on old Kubernetes
-        # versions < 1.19 or on vendors versions which do NOT support this field by default (i.e. Openshift < 4.11 ).
-        # seccompProfile:
-        #   type: RuntimeDefault
       containers:
       - command:
         - /manager
-        args:
-        - --leader-elect
-        image: controller:latest
+        image: 10.33.1.11:9090/datatunerx/finetune-experiment-controller:v0.0.1
+        imagePullPolicy: Always
         name: manager
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-              - "ALL"
         livenessProbe:
           httpGet:
             path: /healthz
@@ -89,8 +35,6 @@ spec:
             port: 8081
           initialDelaySeconds: 5
           periodSeconds: 10
-        # TODO(user): Configure the resources accordingly based on the project requirements.
-        # More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
         resources:
           limits:
             cpu: 500m
@@ -98,5 +42,37 @@ spec:
           requests:
             cpu: 10m
             memory: 64Mi
-      serviceAccountName: controller-manager
+        env:
+        - name: BASE_IMAGE
+          value: "rayproject/ray271-llama2-7b-finetune:20231208"
+        - name: MOUNT_PATH
+          value: "/var/lib/container"
+        - name: PASSWORD
+          value: "dangerous"
+        - name: REGISTRY_URL
+          value: "10.33.1.11:9090"
+        - name: REPOSITORY_NAME
+          value: "datatunerx"
+        - name: S3_ACCESSKEYID
+          value: "aigc"
+        - name: S3_BUCKET
+          value: "datatunerx"
+        - name: S3_ENDPOINT
+          value: "10.29.205.33:7500"
+        - name: S3_SECRETACCESSKEY
+          value: "aigc123456"
+        - name: S3_SECURE
+          value: "false"
+        - name: USERNAME
+          value: "admin"
+        volumeMounts:
+        - mountPath: /tmp/k8s-webhook-server/serving-certs
+          name: cert
+          readOnly: true
+      volumes:
+        - name: cert
+          secret:
+            defaultMode: 420
+            secretName: finetune-experiment-controller-cert
+      serviceAccountName: finetune-experiment-controller
       terminationGracePeriodSeconds: 10

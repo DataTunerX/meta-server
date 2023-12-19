@@ -109,6 +109,7 @@ type Parameters struct {
 
 // HyperparameterStatus defines the observed state of Hyperparameter
 type HyperparameterStatus struct {
+	ReferenceFinetuneName []string `json:"referenceFinetuneName,omitempty"`
 }
 
 //+kubebuilder:object:root=true

@@ -210,12 +210,18 @@ spec:
           status:
             description: DatasetStatus defines the observed state of Dataset
             properties:
+              referenceFinetuneName:
+                items:
+                  type: string
+                type: array
               state:
                 description: DatasetState is an enum type for the State field
                 enum:
                 - READY
                 - UNREADY
                 type: string
+            required:
+            - referenceFinetuneName
             type: object
         type: object
     served: true
