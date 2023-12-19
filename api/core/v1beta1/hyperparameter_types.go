@@ -17,8 +17,9 @@ limitations under the License.
 package v1beta1
 
 import (
-	finetunev1beta1 "github.com/DataTunerX/meta-server/api/finetune/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	finetunev1beta1 "github.com/DataTunerX/meta-server/api/finetune/v1beta1"
 )
 
 type HyperparameterObjectiveType string
@@ -51,12 +52,10 @@ type Objective struct {
 
 type Parameters struct {
 	// Scheduler specifies the learning rate scheduler.
-	// +kubebuilder:default:=Cosine
-	// +kubebuilder:validation:Enum=Cosine;Linear;Constant
+	// +kubebuilder:default:=cosine
 	Scheduler finetunev1beta1.HyperparameterScheduler `json:"scheduler"`
 	// Optimizer specifies the optimization algorithm.
-	// +kubebuilder:default:=Adam
-	// +kubebuilder:validation:Enum=AdamW;Adam;SGD
+	// +kubebuilder:default:=adamw_torch
 	Optimizer finetunev1beta1.HyperparameterOptimizer `json:"optimizer"`
 	// Int4 indicates whether to use 4-bit integer quantization.
 	// +kubebuilder:default:=false

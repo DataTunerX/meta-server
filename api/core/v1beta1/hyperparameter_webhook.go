@@ -18,12 +18,15 @@ package v1beta1
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/DataTunerX/utility-server/logging"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
 	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
+
+	finetunev1beta1 "github.com/DataTunerX/meta-server/api/finetune/v1beta1"
 )
 
 func (r *Hyperparameter) SetupWebhookWithManager(mgr ctrl.Manager) error {
@@ -60,10 +63,20 @@ func (r *Hyperparameter) ValidateCreate() (warnings admission.Warnings, err erro
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type
 func (r *Hyperparameter) ValidateUpdate(old runtime.Object) (warnings admission.Warnings, err error) {
 	logging.ZLogger.Infof("Validate update hyperparameter %s/%s", r.Namespace, r.Name)
-	if r.Status.ReferenceFinetuneName != nil {
+	hyperparameter := old.(*Hyperparameter)
+	if hyperparameter.Status.ReferenceFinetuneName != nil {
 		return nil, fmt.Errorf("hyperparameter %s/%s is referenced by finetune, not allow update",
-			r.Namespace, r.Name)
+			hyperparameter.Namespace, hyperparameter.Name)
 	}
+
+	if err := validateScheduler(hyperparameter.Spec.Parameters.Scheduler); err != nil {
+		return nil, err
+	}
+
+	if err := validateOptimizer(hyperparameter.Spec.Parameters.Optimizer); err != nil {
+		return nil, err
+	}
+
 	return nil, nil
 }
 
@@ -75,4 +88,42 @@ func (r *Hyperparameter) ValidateDelete() (warnings admission.Warnings, err erro
 			r.Namespace, r.Name)
 	}
 	return nil, nil
+}
+
+func validateScheduler(scheduler finetunev1beta1.HyperparameterScheduler) error {
+	validSchedulers := map[finetunev1beta1.HyperparameterScheduler]struct{}{
+		"cosine":   {},
+		"linear":   {},
+		"constant": {},
+	}
+
+	_, ok := validSchedulers[scheduler]
+	if !ok {
+		validKeys := make([]string, 0, len(validSchedulers))
+		for k := range validSchedulers {
+			validKeys = append(validKeys, string(k))
+		}
+		return fmt.Errorf("invalid scheduler: %s, valid schedulers are: %s", scheduler, strings.Join(validKeys, ", "))
+	}
+	return nil
+}
+
+func validateOptimizer(optimizer finetunev1beta1.HyperparameterOptimizer) error {
+	validOptimizers := map[finetunev1beta1.HyperparameterOptimizer]struct{}{
+		"adamw_torch": {},
+		"adamw_hf":    {},
+		"sgd":         {},
+		"adafactor":   {},
+		"adagrad":     {},
+	}
+
+	_, ok := validOptimizers[optimizer]
+	if !ok {
+		validKeys := make([]string, 0, len(validOptimizers))
+		for k := range validOptimizers {
+			validKeys = append(validKeys, string(k))
+		}
+		return fmt.Errorf("invalid optimizer: %s, valid optimizers are: %s", optimizer, strings.Join(validKeys, ", "))
+	}
+	return nil
 }

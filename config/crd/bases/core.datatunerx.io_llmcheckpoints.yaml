@@ -334,20 +334,12 @@ spec:
                               Localized Receptive Attention.
                             type: string
                           optimizer:
-                            default: Adam
+                            default: adamw_torch
                             description: Optimizer specifies the optimization algorithm.
-                            enum:
-                            - AdamW
-                            - Adam
-                            - SGD
                             type: string
                           scheduler:
-                            default: Cosine
+                            default: cosine
                             description: Scheduler specifies the learning rate scheduler.
-                            enum:
-                            - Cosine
-                            - Linear
-                            - Constant
                             type: string
                           trainerType:
                             default: Standard
