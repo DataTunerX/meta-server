@@ -57,6 +57,15 @@ var _ webhook.Validator = &Hyperparameter{}
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type
 func (r *Hyperparameter) ValidateCreate() (warnings admission.Warnings, err error) {
 	logging.ZLogger.Infof("Validate create hyperparameter %s/%s", r.Namespace, r.Name)
+
+	if err := validateScheduler(r.Spec.Parameters.Scheduler); err != nil {
+		return nil, err
+	}
+
+	if err := validateOptimizer(r.Spec.Parameters.Optimizer); err != nil {
+		return nil, err
+	}
+
 	return nil, nil
 }
 
@@ -69,11 +78,11 @@ func (r *Hyperparameter) ValidateUpdate(old runtime.Object) (warnings admission.
 			hyperparameter.Namespace, hyperparameter.Name)
 	}
 
-	if err := validateScheduler(hyperparameter.Spec.Parameters.Scheduler); err != nil {
+	if err := validateScheduler(r.Spec.Parameters.Scheduler); err != nil {
 		return nil, err
 	}
 
-	if err := validateOptimizer(hyperparameter.Spec.Parameters.Optimizer); err != nil {
+	if err := validateOptimizer(r.Spec.Parameters.Optimizer); err != nil {
 		return nil, err
 	}
 
