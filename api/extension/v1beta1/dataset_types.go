@@ -158,7 +158,7 @@ const (
 type DatasetStatus struct {
 	// +kubebuilder:validation:Enum=READY;UNREADY
 	State                 DatasetState `json:"state,omitempty"`
-	ReferenceFinetuneName []string     `json:"referenceFinetuneName"`
+	ReferenceFinetuneName []string     `json:"referenceFinetuneName,omitempty"`
 }
 
 //+kubebuilder:object:root=true
