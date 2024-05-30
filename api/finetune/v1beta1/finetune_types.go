@@ -55,7 +55,7 @@ type FinetuneSpec struct {
 
 	// Resource specifies the resource configuration for fine-tuning.
 	// +kubebuilder:validation:Optional
-	Resource *Resource `json:"resource,omitempty"`
+	Resource *Resource `json:"resources,omitempty"`
 	// +kubebuilder:default:1
 	// +kubebuilder:validation:Optional
 	// +kubebuilder:validation:Minimum=1
